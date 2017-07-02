@@ -6,6 +6,7 @@ public class Cell : MonoBehaviour {
     public Sprite[] SpriteCellArray;
     public CellType Type;
     public Unit LocatedHereUnit;
+    public int indexX, indexY;
     private SpriteRenderer _SpriteRenderer;
     void Start () {
         _SpriteRenderer = GetComponent<SpriteRenderer>();
@@ -16,9 +17,14 @@ public class Cell : MonoBehaviour {
 	void Update () {
 	
 	}
+
     public void SetType(int newType)
     {
-        _SpriteRenderer.sprite = SpriteCellArray[newType];
+        if (newType < 0 || newType > 5)
+            return;
+        if (!_SpriteRenderer)
+            _SpriteRenderer = GetComponent<SpriteRenderer>();
+        _SpriteRenderer.sprite = SpriteCellArray[newType - 1];
         switch (newType)
         {
             case 1:

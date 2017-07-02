@@ -40,6 +40,9 @@ public class Map : MonoBehaviour {
                     newCell.transform.position = transform.position + new Vector3((float)i / 4 * 3, j);
                 newCell.name = "Cell_" + i + "_" + j;
                 CellArray[i][j] = newCell.GetComponent<Cell>();
+                CellArray[i][j].indexX = i;
+                CellArray[i][j].indexY = j;
+                CellArray[i][j].SetType(1);
             }
         }
     }
