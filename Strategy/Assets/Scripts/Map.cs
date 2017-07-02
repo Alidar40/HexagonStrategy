@@ -14,11 +14,24 @@ public class Map : MonoBehaviour {
         Unit TestUnit = Instantiate(UnitPrefabArray[0]).GetComponent<Unit>();
         TestUnit.SetCell(4, 4);
     }
-	
 
-	void Update () {
-	
-	}
+
+    void FixedUpdate()
+    {
+#if UNITY_STANDALONE_WIN
+        int i = 0;
+        if (Input.GetMouseButtonDown(0))
+#endif
+#if UNITY_ANDROID
+            for (int i = 0; i < Input.touchCount; ++i)
+                if (Input.GetTouch(i).phase == TouchPhase.Began)
+#endif
+        {
+            ScreenRay(i);
+        }
+
+    }
+
     private Cell[][] CellArray;
     public void GenerateNewTable()
     {
@@ -51,5 +64,23 @@ public class Map : MonoBehaviour {
         if (X < 0 || Y < 0 || X >= NumberOfCellsOnAxisX || Y >= NumberOfCellsOnAxisY)
             Debug.LogError("Попытка обратьтся к ячейке с неверными координатами!");
         return CellArray[X][Y];
+    }
+
+    public void ScreenRay(int _i)
+    {
+        RaycastHit2D hitInfo = new RaycastHit2D();
+
+#if UNITY_STANDALONE_WIN
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+#endif
+
+#if UNITY_ANDROID
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(_i).position), Vector2.zero);
+#endif
+
+        if (hitInfo.collider)
+        {
+            Debug.Log(hitInfo.transform.gameObject.name);
+        }
     }
 }
