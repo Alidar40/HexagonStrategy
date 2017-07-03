@@ -7,12 +7,15 @@ public class Map : MonoBehaviour {
     public int NumberOfCellsOnAxisY = 10;
     public GameObject CellPrefab;
     public GameObject[] UnitPrefabArray;
+    public Unit[] UnitArray;
 
-    void Start () {
+    void Awake()
+    {
         GenerateNewTable();
 
-        Unit TestUnit = Instantiate(UnitPrefabArray[0]).GetComponent<Unit>();
-        TestUnit.SetCell(4, 4);
+        UnitArray = new Unit[1];
+        UnitArray[0] = Instantiate(UnitPrefabArray[0]).GetComponent<Unit>();
+        UnitArray[0].SetCell(1, 1);
     }
 
 
@@ -62,7 +65,7 @@ public class Map : MonoBehaviour {
     public Cell GetCell(int X, int Y)
     {
         if (X < 0 || Y < 0 || X >= NumberOfCellsOnAxisX || Y >= NumberOfCellsOnAxisY)
-            Debug.LogError("Попытка обратьтся к ячейке с неверными координатами!");
+            return null;
         return CellArray[X][Y];
     }
 
@@ -80,7 +83,11 @@ public class Map : MonoBehaviour {
 
         if (hitInfo.collider)
         {
-            Debug.Log(hitInfo.transform.gameObject.name);
+            UnitArray[0].DestinationCell = hitInfo.transform.gameObject.GetComponent<Cell>();
+            UnitArray[0].SetArrayRoute();
+            UnitArray[0].GetDerections(UnitArray[0].DestinationCell);
+            UnitArray[0].StartTransform();
+
         }
     }
 }

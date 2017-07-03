@@ -18,6 +18,10 @@ public class Cell : MonoBehaviour {
 	
 	}
 
+    public string ToString()
+    {
+        return indexX + " " + indexY;
+    }
     public void SetType(int newType)
     {
         if (newType < 0 || newType > 5)
