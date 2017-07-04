@@ -8,34 +8,68 @@ public class Map : MonoBehaviour {
     public int NumberOfCellsOnAxisY = 10;
     public GameObject CellPrefab;
     public GameObject[] UnitPrefabArray;
-    //public Unit[] UnitArray;
     public List<Unit> UnitList;
+    public float cameraSpeed = 0.1F;
+    public Camera GameCamera;
+    bool movingCamera = false;
+
 
     void Awake()
     {
         GenerateNewTable();
-
-        //UnitArray = new Unit[1];
         Unit.CreateUnit(UnitPrefabArray[0], 1, 1, UnitList);
-        //UnitArray[0] = Instantiate(UnitPrefabArray[0]).GetComponent<Unit>();
-        //UnitArray[0].SetCell(1, 1);
     }
 
-
-    void FixedUpdate()
+    Vector2 touchDeltaPosition;
+    Vector2 newPosition;
+    Vector2 lastPosition;
+    void Update()
     {
 #if UNITY_STANDALONE_WIN
-        int i = 0;
+       
+ 
         if (Input.GetMouseButtonDown(0))
+        {
+            callMenu();
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            newPosition = Input.mousePosition;
+            lastPosition = newPosition;
+        }
+        if (Input.GetMouseButton(1))
+        {
+            newPosition = Input.mousePosition;
+            touchDeltaPosition = newPosition - lastPosition; 
+            GameCamera.transform.Translate(touchDeltaPosition.x * -cameraSpeed, touchDeltaPosition.y * -cameraSpeed, 0);
+            touchDeltaPosition = Input.mousePosition;
+            lastPosition = newPosition;
+        }
 #endif
 #if UNITY_ANDROID
-            for (int i = 0; i < Input.touchCount; ++i)
-                if (Input.GetTouch(i).phase == TouchPhase.Began)
-#endif
+        if (Input.touchCount > 0)
         {
-            ScreenRay(i);
-        }
+            if (Input.GetTouch(0).phase == TouchPhase.Moved)
+            {
+                movingCamera = true;
+                Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+                GameCamera.transform.Translate(touchDeltaPosition.x * -cameraSpeed, touchDeltaPosition.y * -cameraSpeed, 0);
 
+            }
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                if (movingCamera)
+                {
+                    movingCamera = false;
+                }
+                else
+                {
+                    //ScreenRay(0);
+                    callMenu();
+                }
+            }
+        }
+#endif
     }
 
     private Cell[][] CellArray;
@@ -94,8 +128,13 @@ public class Map : MonoBehaviour {
         }
     }
 
-    public List<Unit> returnList()
+    //public List<Unit> returnList()
+    //{
+    //    return UnitList;
+    //}
+
+    public void callMenu()
     {
-        return UnitList;
+        Debug.Log("Вызов меню");
     }
 }

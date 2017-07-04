@@ -12,7 +12,7 @@ public class Click : MonoBehaviour {
 
     void Start()
     {
-        UnitList = m.returnList();
+        UnitList = m.UnitList;
         btn.onClick.AddListener(TaskOnClick);      
     }
 
