@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Map : MonoBehaviour {
     [Header("TableOptions")]
@@ -7,15 +8,17 @@ public class Map : MonoBehaviour {
     public int NumberOfCellsOnAxisY = 10;
     public GameObject CellPrefab;
     public GameObject[] UnitPrefabArray;
-    public Unit[] UnitArray;
+    //public Unit[] UnitArray;
+    public List<Unit> UnitList;
 
     void Awake()
     {
         GenerateNewTable();
 
-        UnitArray = new Unit[1];
-        UnitArray[0] = Instantiate(UnitPrefabArray[0]).GetComponent<Unit>();
-        UnitArray[0].SetCell(1, 1);
+        //UnitArray = new Unit[1];
+        Unit.CreateUnit(UnitPrefabArray[0], 1, 1, UnitList);
+        //UnitArray[0] = Instantiate(UnitPrefabArray[0]).GetComponent<Unit>();
+        //UnitArray[0].SetCell(1, 1);
     }
 
 
@@ -83,11 +86,16 @@ public class Map : MonoBehaviour {
 
         if (hitInfo.collider)
         {
-            UnitArray[0].DestinationCell = hitInfo.transform.gameObject.GetComponent<Cell>();
-            UnitArray[0].SetArrayRoute();
-            UnitArray[0].GetDerections(UnitArray[0].DestinationCell);
-            UnitArray[0].StartTransform();
+            UnitList[0].DestinationCell = hitInfo.transform.gameObject.GetComponent<Cell>();
+            UnitList[0].SetArrayRoute();
+            UnitList[0].GetDerections(UnitList[0].DestinationCell);
+            UnitList[0].StartTransform();
 
         }
+    }
+
+    public List<Unit> returnList()
+    {
+        return UnitList;
     }
 }
