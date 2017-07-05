@@ -14,6 +14,7 @@ public class Map : MonoBehaviour {
     //bool movingCamera = false;
     GameCamera cam;
 
+    public Unit ActiveUnit;
 
     void Awake()
     {
@@ -95,6 +96,55 @@ public class Map : MonoBehaviour {
 
     public void callMenu()
     {
-        Debug.Log("Вызов меню");
+        RaycastHit2D hitInfo = new RaycastHit2D();
+
+#if UNITY_STANDALONE_WIN
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+#endif
+
+#if UNITY_ANDROID
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(_i).position), Vector2.zero);
+#endif
+        if (hitInfo.collider)//проверка на попадание  по колайдеру
+        {
+            Cell currentCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
+
+            if (currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
+            {
+                switch (currentCell.LocatedHereUnit.tag)//выбираем по тегу, какое меню вывести на экран
+                {
+                    case "Swordsman":
+                        {
+                        ActionButtons.actionButtons.ActivateSwordsmanButtonsPanel();
+                        }
+                        break;
+                    case "Archer":
+                        ActionButtons.actionButtons.ActivateArcherButtonsPanel();
+                        break;
+                    case "Mage":
+                        ActionButtons.actionButtons.ActivateMageButtonsPanel();
+                        break;
+                    case "Killer":
+                        ActionButtons.actionButtons.ActivateKillerButtonsPanel();
+                        break;
+                    case "TownHall":
+                        ActionButtons.actionButtons.ActivateTownHallButtonsPanel();
+                        break;
+                    case "Barracks":
+                        ActionButtons.actionButtons.ActivateBarracksButtonsPanel();
+                        break;
+                    case "Pit":
+                        ActionButtons.actionButtons.ActivatePitButtonsPanel();
+                        break;
+                    case "Sawmill":
+                        ActionButtons.actionButtons.ActivateSawmillButtonsPanel();
+                        break;
+                    default:        //по дефолту убирает меню
+                        ActionButtons.actionButtons.HideAll();
+                        break;
+                }
+
+            }
+        }
     }
 }
