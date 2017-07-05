@@ -18,7 +18,7 @@ public class Cell : MonoBehaviour {
 	
 	}
 
-    public string ToString()
+    public string ToString()   //стоит переменовать
     {
         return indexX + " " + indexY;
     }

@@ -9,67 +9,27 @@ public class Map : MonoBehaviour {
     public GameObject CellPrefab;
     public GameObject[] UnitPrefabArray;
     public List<Unit> UnitList;
-    public float cameraSpeed = 0.1F;
-    public Camera GameCamera;
-    bool movingCamera = false;
+    //public float cameraSpeed = 0.1F;
+    //public Camera GameCamera;
+    //bool movingCamera = false;
+    GameCamera cam;
 
 
     void Awake()
     {
         GenerateNewTable();
         Unit.CreateUnit(UnitPrefabArray[0], 1, 1, UnitList);
+        cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
     }
 
-    Vector2 touchDeltaPosition;
-    Vector2 newPosition;
-    Vector2 lastPosition;
+    //Vector2 touchDeltaPosition;
+   // Vector2 newPosition;
+    //Vector2 lastPosition;
     void Update()
     {
-#if UNITY_STANDALONE_WIN
-       
- 
-        if (Input.GetMouseButtonDown(0))
-        {
-            callMenu();
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            newPosition = Input.mousePosition;
-            lastPosition = newPosition;
-        }
-        if (Input.GetMouseButton(1))
-        {
-            newPosition = Input.mousePosition;
-            touchDeltaPosition = newPosition - lastPosition; 
-            GameCamera.transform.Translate(touchDeltaPosition.x * -cameraSpeed, touchDeltaPosition.y * -cameraSpeed, 0);
-            touchDeltaPosition = Input.mousePosition;
-            lastPosition = newPosition;
-        }
-#endif
-#if UNITY_ANDROID
-        if (Input.touchCount > 0)
-        {
-            if (Input.GetTouch(0).phase == TouchPhase.Moved)
-            {
-                movingCamera = true;
-                Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
-                GameCamera.transform.Translate(touchDeltaPosition.x * -cameraSpeed, touchDeltaPosition.y * -cameraSpeed, 0);
+        cam.PointClick();
+        cam.cameraMoving();
 
-            }
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                if (movingCamera)
-                {
-                    movingCamera = false;
-                }
-                else
-                {
-                    //ScreenRay(0);
-                    callMenu();
-                }
-            }
-        }
-#endif
     }
 
     private Cell[][] CellArray;

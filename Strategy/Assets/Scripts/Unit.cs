@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour {
     {
         public int NSteps;
         public Cell PreviousCell, NextCell;
-        public string ToString()
+        public string ToString()   //стоит переименовать
         {
             return NSteps + "";
         }
