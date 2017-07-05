@@ -144,11 +144,38 @@ public class Unit : MonoBehaviour {
     void ToDamage(float _Damage)
     {
         Hitpoints -= _Damage;
-        if (Hitpoints <= 0)
-            Destroy();
+      //  if (Hitpoints <= 0)
+      //      Destroy();
     }
-    void Destroy()
-    {
+    //void Destroy()
+    //{
+    //
+//    }
 
+    public static void CreateUnit(GameObject UnitType, int _x, int _y, List<Unit> UnitList)
+    {
+        Unit NewUnit = Instantiate(UnitType).GetComponent<Unit>();
+        NewUnit.SetCell(_x, _y);
+        UnitList.Add(NewUnit);
+        NewUnit.name = "TestUnit" + _x + "_" + _y;
     }
+
+
+
+    public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)
+    {
+        string UnitToDeleteName = UnitToDelete.name;
+        Destroy(GameObject.Find(UnitToDeleteName));
+        UnitList.Remove(UnitToDelete);
+    }
+
+    public delegate void MethodContainer(List<Unit> UnitList);
+
+    public event MethodContainer LaunchNextTurn;
+
+    public void NextTurn(List<Unit> UnitList)
+    {
+        LaunchNextTurn(UnitList);
+    }
+
 }
