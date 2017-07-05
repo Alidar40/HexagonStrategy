@@ -8,7 +8,6 @@ public class Map : MonoBehaviour {
     public int NumberOfCellsOnAxisY = 10;
     public GameObject CellPrefab;
     public GameObject[] UnitPrefabArray;
-    public Unit[] UnitArray;
     public List<Unit> UnitList;
     public float cameraSpeed = 0.1F;
     public Camera GameCamera;
@@ -18,22 +17,15 @@ public class Map : MonoBehaviour {
     void Awake()
     {
         GenerateNewTable();
-
-        UnitArray = new Unit[1];
-        UnitArray[0] = Instantiate(UnitPrefabArray[0]).GetComponent<Unit>();
-        UnitArray[0].SetCell(1, 1);
         Unit.CreateUnit(UnitPrefabArray[0], 1, 1, UnitList);
     }
 
-
-    void FixedUpdate()
     Vector2 touchDeltaPosition;
     Vector2 newPosition;
     Vector2 lastPosition;
     void Update()
     {
 #if UNITY_STANDALONE_WIN
-        int i = 0;
        
  
         if (Input.GetMouseButtonDown(0))
@@ -55,13 +47,8 @@ public class Map : MonoBehaviour {
         }
 #endif
 #if UNITY_ANDROID
-            for (int i = 0; i < Input.touchCount; ++i)
-                if (Input.GetTouch(i).phase == TouchPhase.Began)
-#endif
         if (Input.touchCount > 0)
         {
-            ScreenRay(i);
-        }
             if (Input.GetTouch(0).phase == TouchPhase.Moved)
             {
                 movingCamera = true;
@@ -133,10 +120,6 @@ public class Map : MonoBehaviour {
 
         if (hitInfo.collider)
         {
-            UnitArray[0].DestinationCell = hitInfo.transform.gameObject.GetComponent<Cell>();
-            UnitArray[0].SetArrayRoute();
-            UnitArray[0].GetDerections(UnitArray[0].DestinationCell);
-            UnitArray[0].StartTransform();
             UnitList[0].DestinationCell = hitInfo.transform.gameObject.GetComponent<Cell>();
             UnitList[0].SetArrayRoute();
             UnitList[0].GetDerections(UnitList[0].DestinationCell);
