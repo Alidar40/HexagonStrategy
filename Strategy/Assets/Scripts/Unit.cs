@@ -24,38 +24,90 @@ public class Unit : MonoBehaviour {
     {
     }
 
-    //Вызывается после каждого пересчета
+    //Вызывается после каждого пересчета, генерирует матрицу перемещений для юнита из данной точки, в конечную
     public void SetArrayRoute()
     {
+        //Генерирут пустую матрицу
         Route = new WayCell[_Map.NumberOfCellsOnAxisX][];
         for (int i = 0; i < _Map.NumberOfCellsOnAxisX; i++)
         {
             Route[i] = new WayCell[_Map.NumberOfCellsOnAxisY];
             for (int j = 0; j < _Map.NumberOfCellsOnAxisY; j++)
-                Route[i][j].NSteps = 100000;
+                Route[i][j].NSteps = 9999;
         }
-            
         Route[CurrentCell.indexX][CurrentCell.indexY].NSteps = 0;
         Route[CurrentCell.indexX][CurrentCell.indexY].PreviousCell = CurrentCell;
-
         
-        A(CurrentCell, _Map.GetCell(CurrentCell.indexX + 1, CurrentCell.indexY + 0));
-        A(CurrentCell, _Map.GetCell(CurrentCell.indexX + 0, CurrentCell.indexY + 1));
-        A(CurrentCell, _Map.GetCell(CurrentCell.indexX - 1, CurrentCell.indexY + 0));
-        A(CurrentCell, _Map.GetCell(CurrentCell.indexX + 0, CurrentCell.indexY - 1));
-        if (CurrentCell.indexX % 2 == 0)
+        int wave = 0;
+        while (Route[DestinationCell.indexX][DestinationCell.indexY].NSteps == 9999)
         {
-            A(CurrentCell, _Map.GetCell(CurrentCell.indexX + 1, CurrentCell.indexY + 1));
-            A(CurrentCell, _Map.GetCell(CurrentCell.indexX - 1, CurrentCell.indexY + 1));
-        }
-        else
-        {
-            A(CurrentCell, _Map.GetCell(CurrentCell.indexX - 1, CurrentCell.indexY - 1));
-            A(CurrentCell, _Map.GetCell(CurrentCell.indexX + 1, CurrentCell.indexY - 1));
-        }
+            for (int i = 0; i < Route.Length; i++)
+                for (int j = 0; j < Route[i].Length; j++)
+                    if (Route[i][j].NSteps == wave)
+                    {
+                        if (CheckIndex(i + 1, j + 0) && Route[i + 1][j + 0].NSteps > wave + 1)
+                        {
+                            Route[i + 1][j + 0].NSteps = wave + 1;
+                            Route[i + 1][j + 0].PreviousCell = _Map.GetCell(i, j);
+                        }
 
-            
+                        if (CheckIndex(i - 1, j + 0) && Route[i - 1][j + 0].NSteps > wave + 1)
+                        {
+                            Route[i - 1][j + 0].NSteps = wave + 1;
+                            Route[i - 1][j + 0].PreviousCell = _Map.GetCell(i, j);
+                        }
+
+                        if (CheckIndex(i + 0, j + 1) && Route[i + 0][j + 1].NSteps > wave + 1)
+                        {
+                            Route[i + 0][j + 1].NSteps = wave + 1;
+                            Route[i + 0][j + 1].PreviousCell = _Map.GetCell(i, j);
+                        }
+
+                        if (CheckIndex(i + 0, j - 1) && Route[i + 0][j - 1].NSteps > wave + 1)
+                        {
+                            Route[i + 0][j - 1].NSteps = wave + 1;
+                            Route[i + 0][j - 1].PreviousCell = _Map.GetCell(i, j);
+                        }
+
+                        if (i % 2 == 0)
+                        {
+                            if (CheckIndex(i + 1, j + 1) && Route[i + 1][j + 1].NSteps > wave + 1)
+                            {
+                                Route[i + 1][j + 1].NSteps = wave + 1;
+                                Route[i + 1][j + 1].PreviousCell = _Map.GetCell(i, j);
+                            }
+                            if (CheckIndex(i - 1, j + 1) && Route[i - 1][j + 1].NSteps > wave + 1)
+                            {
+                                Route[i - 1][j + 1].NSteps = wave + 1;
+                                Route[i - 1][j + 1].PreviousCell = _Map.GetCell(i, j);
+                            }
+                        }
+                        else
+                        {
+                            if (CheckIndex(i + 1, j - 1) && Route[i + 1][j - 1].NSteps > wave + 1)
+                            {
+                                Route[i + 1][j - 1].NSteps = wave + 1;
+                                Route[i + 1][j - 1].PreviousCell = _Map.GetCell(i, j);
+                            }
+                            if (CheckIndex(i - 1, j - 1) && Route[i - 1][j - 1].NSteps > wave + 1)
+                            {
+                                Route[i - 1][j - 1].NSteps = wave + 1;
+                                Route[i - 1][j - 1].PreviousCell = _Map.GetCell(i, j);
+                            }
+                        }
+                    }
+            wave++;
+        }
+        Debug.Log(wave);      
     }
+    bool CheckIndex(int X, int Y)
+    {
+        if (X >= 0 && Y >= 0 && Route.Length > X && Route[X].Length > Y)
+            return true;
+        else
+            return false;
+    }
+
     public void StartTransform()
     {
         StartCoroutine(TransformToNextCell());
@@ -79,32 +131,9 @@ public class Unit : MonoBehaviour {
         yield break;
     }
 
-    void A(Cell Previous, Cell Now)
-    {
-        if (null == Now)
-            return;
-        //Проверка на правильность индекса
-        if (Route[Now.indexX][Now.indexY].NSteps < Route[Previous.indexX][Previous.indexY].NSteps + 1)
-            return;
-        Route[Now.indexX][Now.indexY].NSteps = Route[Previous.indexX][Previous.indexY].NSteps + 1;
-        Route[Now.indexX][Now.indexY].PreviousCell = Previous;
 
-        A(Now, _Map.GetCell(Now.indexX + 1, Now.indexY + 0));
-        A(Now, _Map.GetCell(Now.indexX + 0, Now.indexY + 1));
-        A(Now, _Map.GetCell(Now.indexX - 1, Now.indexY + 0));
-        A(Now, _Map.GetCell(Now.indexX + 0, Now.indexY - 1));
 
-        if (Now.indexX % 2 == 0)
-        {
-            A(Now, _Map.GetCell(Now.indexX + 1, Now.indexY + 1));
-            A(Now, _Map.GetCell(Now.indexX - 1, Now.indexY + 1));
-        }
-        else
-        {
-            A(Now, _Map.GetCell(Now.indexX - 1, Now.indexY - 1));
-            A(Now, _Map.GetCell(Now.indexX + 1, Now.indexY - 1));
-        }
-    }
+    //Переносит юнит в ячейку с координатами X, Y
     public void SetCell(int X, int Y)
     {
         if (!_Map)
