@@ -98,7 +98,6 @@ public class Unit : MonoBehaviour {
                     }
             wave++;
         }
-        Debug.Log(wave);      
     }
     bool CheckIndex(int X, int Y)
     {
@@ -126,7 +125,7 @@ public class Unit : MonoBehaviour {
         {
             Cell Next = Route[CurrentCell.indexX][CurrentCell.indexY].NextCell;
             SetCell(Next.indexX, Next.indexY);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
         }
         yield break;
     }
