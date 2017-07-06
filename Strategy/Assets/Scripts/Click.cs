@@ -17,7 +17,7 @@ public class Click : MonoBehaviour {
     }
 
  
-    void TaskOnClick()
+    public void TaskOnClick()
     {
         u.LaunchNextTurn += NextUnit_LaunchNextTurn;
         u.NextTurn(UnitList);
