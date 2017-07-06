@@ -25,7 +25,7 @@ public class Unit : MonoBehaviour {
     }
     void Start()
     {
-        tag = Type.ToString(); ;
+        tag = Type.ToString();
     }
 
     
