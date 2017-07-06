@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
     public float Hitpoints, Damage;
+    public int CurrentNumberActionPoints, StandardNumberActionPoints;
     public Cell CurrentCell, DestinationCell;
     public enum UnitType { Swordsman = 1, Archer = 2, Mage = 3, Killer = 4, TownHall = 5, Barracks = 6, Pit = 7, Sawmill = 8 };
     public UnitType Type;
@@ -27,8 +28,11 @@ public class Unit : MonoBehaviour {
     {
         tag = Type.ToString();
     }
+    public void UpdateActionPoints()
+    {
+        StandardNumberActionPoints = CurrentNumberActionPoints;
+    }
 
-    
     public void SetArrayRoute()
     {
         //Генерирут пустую матрицу
@@ -170,7 +174,7 @@ public class Unit : MonoBehaviour {
     //void Destroy()
     //{
     //
-//    }
+    //}
 
     public static void CreateUnit(GameObject UnitType, int _x, int _y, List<Unit> UnitList)
     {
