@@ -43,7 +43,7 @@ public class Unit : MonoBehaviour {
         Route[CurrentCell.indexX][CurrentCell.indexY].PreviousCell = CurrentCell;
         
         int wave = 0;
-        while (Route[DestinationCell.indexX][DestinationCell.indexY].NSteps == 9999)
+        while (Route[DestinationCell.indexX][DestinationCell.indexY].NSteps == 9999 && CheckWavePropagation(wave))
         {
             for (int i = 0; i < Route.Length; i++)
                 for (int j = 0; j < Route[i].Length; j++)
@@ -110,6 +110,15 @@ public class Unit : MonoBehaviour {
         else
             return false;
     }
+    bool CheckWavePropagation(int wave)
+    {
+        bool flag = false;
+        for (int i = 0; i < Route.Length; i++)
+            for (int j = 0; j < Route[i].Length; j++)
+                if (Route[i][j].NSteps >= wave && Route[i][j].NSteps != 9999)
+                    flag = true;
+        return flag;
+    }
 
     public void StartTransform()
     {
@@ -120,12 +129,17 @@ public class Unit : MonoBehaviour {
         if (_cell == CurrentCell)
             return;
         WayCell _WayCell = Route[_cell.indexX][_cell.indexY];
+        if (!_WayCell.PreviousCell)
+        {
+            Debug.LogError("Error!!! Невозможно построить маршрут к ячейке " + _cell + " !");
+            return;
+        }
         Route[_WayCell.PreviousCell.indexX][_WayCell.PreviousCell.indexY].NextCell = _cell;
         GetDerections(_WayCell.PreviousCell);
     }
     private IEnumerator TransformToNextCell()
     {
-        while (CurrentCell != DestinationCell)
+        while (CurrentCell != DestinationCell && Route[CurrentCell.indexX][CurrentCell.indexY].NextCell)
         {
             Cell Next = Route[CurrentCell.indexX][CurrentCell.indexY].NextCell;
             SetCell(Next.indexX, Next.indexY);
@@ -141,6 +155,8 @@ public class Unit : MonoBehaviour {
     {
         if (!_Map)
             _Map = GameObject.Find("Map").GetComponent<Map>();
+        if (CurrentCell)
+            CurrentCell.LocatedHereUnit = null;
         CurrentCell = _Map.GetCell(X, Y);
         transform.position = CurrentCell.transform.position;
         CurrentCell.LocatedHereUnit = this;

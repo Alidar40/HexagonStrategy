@@ -50,6 +50,7 @@ public class Buttons : MonoBehaviour {
                 SawmillButtons();
                 break;
         }
+        acb.HideAll();
     }
 
   //далее идут функции вызывающие функции действий юнитов(и строений)
