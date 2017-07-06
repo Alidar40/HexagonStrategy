@@ -15,9 +15,7 @@ public class Buttons : MonoBehaviour {
     }
 
     void TaskOnClick()
-    {
-        Debug.Log("test");//
-        //acb.HideAll();
+    {       
         //собственно, в этом кейсе мы узнаем для какого юнита кнопка была и вызываем нужную функцию
         //тег можно доставать еще и из активного юнита(он совпадает с тегом кнопок действия(если нет багов o_O )
         switch(gameObject.tag)
@@ -48,8 +46,6 @@ public class Buttons : MonoBehaviour {
                 SawmillButtons();
                 break;
         }
-
-
     }
 
   //далее идут функции вызывающие функции действий юнитов(и строений)
@@ -63,11 +59,9 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                //вторая кнопка
                 acb.ActivateArcherButtonsPanel();
                 break;
             case "Action3":
-                // какая кнопка? 
                 acb.ActivatePitButtonsPanel();
                 break;
             case "Action4":
@@ -76,6 +70,7 @@ public class Buttons : MonoBehaviour {
                 break;
         }
     }
+
     void SwordsmanButtons()
     {
         switch (gameObject.name)
@@ -85,11 +80,9 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                //вторая кнопка
                 acb.ActivateArcherButtonsPanel();
                 break;
             case "Action3":
-                // какая кнопка? 
                 acb.ActivatePitButtonsPanel();
                 break;
             case "Action4":
@@ -98,6 +91,7 @@ public class Buttons : MonoBehaviour {
                 break;
         }
     }
+
     void ArcherButtons() 
     {
         switch (gameObject.name)
@@ -107,11 +101,9 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                //вторая кнопка
                 acb.ActivateArcherButtonsPanel();
                 break;
             case "Action3":
-                // какая кнопка? 
                 acb.ActivatePitButtonsPanel();
                 break;
             case "Action4":
@@ -120,6 +112,7 @@ public class Buttons : MonoBehaviour {
                 break;
         }
     }
+
     void KillerButtons()
     {
         switch (gameObject.name)
@@ -129,11 +122,9 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                //вторая кнопка
                 acb.ActivateArcherButtonsPanel();
                 break;
             case "Action3":
-                // какая кнопка? 
                 acb.ActivatePitButtonsPanel();
                 break;
             case "Action4":
@@ -142,6 +133,7 @@ public class Buttons : MonoBehaviour {
                 break;
         }
     }
+
     void TownHallButtons() 
     {
         switch (gameObject.name)
@@ -151,11 +143,9 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                //вторая кнопка
                 acb.ActivateArcherButtonsPanel();
                 break;
             case "Action3":
-                // какая кнопка? 
                 acb.ActivatePitButtonsPanel();
                 break;
             case "Action4":
@@ -164,6 +154,7 @@ public class Buttons : MonoBehaviour {
                 break;
         }
     }
+
     void BarracksButtons() 
     {
         switch (gameObject.name)
@@ -173,12 +164,10 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                //вторая кнопка
                 acb.ActivateArcherButtonsPanel();
                 break;
             case "Action3":
-                // какая кнопка? 
-                acb.ActivatePitButtonsPanel();
+                 acb.ActivatePitButtonsPanel();
                 break;
             case "Action4":
                 //последняя О_о кнопка
@@ -186,6 +175,7 @@ public class Buttons : MonoBehaviour {
                 break;
         }
     }
+
     void PitButtons() 
     {
         switch (gameObject.name)
@@ -194,12 +184,10 @@ public class Buttons : MonoBehaviour {
                 //первая кнопка
                 acb.HideAll();
                 break;
-            case "Action2":
-                //вторая кнопка
+            case "Action2":      
                 acb.ActivateArcherButtonsPanel();
                 break;
-            case "Action3":
-                // какая кнопка? 
+            case "Action3":             
                 acb.ActivatePitButtonsPanel();
                 break;
             case "Action4":
@@ -216,16 +204,14 @@ public class Buttons : MonoBehaviour {
                 //первая кнопка
                 acb.HideAll();
                 break;
-            case "Action2":
-                //вторая кнопка
+            case "Action2":               
                 acb.ActivateArcherButtonsPanel();
                 break;
-            case "Action3":
-                // какая кнопка? 
+            case "Action3":           
                 acb.ActivatePitButtonsPanel();
                 break;
             case "Action4":
-                //последняя О_о кнопка
+                //последняя кнопка
                 acb.ActivateTownHallButtonsPanel();
                 break;
         }
