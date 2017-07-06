@@ -9,9 +9,6 @@ public class Map : MonoBehaviour {
     public GameObject CellPrefab;
     public GameObject[] UnitPrefabArray;
     public List<Unit> UnitList;
-    //public float cameraSpeed = 0.1F;
-    //public Camera GameCamera;
-    //bool movingCamera = false;
     GameCamera cam;
 
     public Unit ActiveUnit;
@@ -20,12 +17,9 @@ public class Map : MonoBehaviour {
     {
         GenerateNewTable();
         Unit.CreateUnit(UnitPrefabArray[0], 1, 1, UnitList);
+        Unit.CreateUnit(UnitPrefabArray[0], 2, 3, UnitList);
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
     }
-
-    //Vector2 touchDeltaPosition;
-   // Vector2 newPosition;
-    //Vector2 lastPosition;
     void Update()
     {
         cam.PointClick();
@@ -81,19 +75,13 @@ public class Map : MonoBehaviour {
 
         if (hitInfo.collider)
         {
-            UnitList[0].DestinationCell = hitInfo.transform.gameObject.GetComponent<Cell>();
-            UnitList[0].SetArrayRoute();
-            UnitList[0].GetDerections(UnitList[0].DestinationCell);
-            UnitList[0].StartTransform();
+            ActiveUnit.DestinationCell = hitInfo.transform.gameObject.GetComponent<Cell>();
+            ActiveUnit.SetArrayRoute();
+            ActiveUnit.GetDerections(ActiveUnit.DestinationCell);
+            ActiveUnit.StartTransform();
 
         }
     }
-
-    //public List<Unit> returnList()
-    //{
-    //    return UnitList;
-    //}
-
     public void callMenu()
     {
         RaycastHit2D hitInfo = new RaycastHit2D();
@@ -111,12 +99,11 @@ public class Map : MonoBehaviour {
 
             if (currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
             {
+                ActiveUnit = currentCell.LocatedHereUnit;
                 switch (currentCell.LocatedHereUnit.tag)//выбираем по тегу, какое меню вывести на экран
                 {
                     case "Swordsman":
-                        {
                         ActionButtons.actionButtons.ActivateSwordsmanButtonsPanel();
-                        }
                         break;
                     case "Archer":
                         ActionButtons.actionButtons.ActivateArcherButtonsPanel();

@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : MonoBehaviour {
-    float Hitpoints, Damage;
+    public float Hitpoints, Damage;
     public Cell CurrentCell, DestinationCell;
+    public enum UnitType { Swordsman = 1, Archer = 2, Mage = 3, Killer = 4, TownHall = 5, Barracks = 6, Pit = 7, Sawmill = 8 };
+    public UnitType Type;
+
     struct WayCell
     {
         public int NSteps;
@@ -22,9 +25,10 @@ public class Unit : MonoBehaviour {
     }
     void Start()
     {
+        tag = Type.ToString(); ;
     }
 
-    //Вызывается после каждого пересчета, генерирует матрицу перемещений для юнита из данной точки, в конечную
+    
     public void SetArrayRoute()
     {
         //Генерирут пустую матрицу
@@ -101,7 +105,7 @@ public class Unit : MonoBehaviour {
     }
     bool CheckIndex(int X, int Y)
     {
-        if (X >= 0 && Y >= 0 && Route.Length > X && Route[X].Length > Y)
+        if (X >= 0 && Y >= 0 && Route.Length > X && Route[X].Length > Y && !_Map.GetCell(X, Y).LocatedHereUnit)
             return true;
         else
             return false;
@@ -139,6 +143,7 @@ public class Unit : MonoBehaviour {
             _Map = GameObject.Find("Map").GetComponent<Map>();
         CurrentCell = _Map.GetCell(X, Y);
         transform.position = CurrentCell.transform.position;
+        CurrentCell.LocatedHereUnit = this;
     }
     void ToDamage(float _Damage)
     {
@@ -158,9 +163,6 @@ public class Unit : MonoBehaviour {
         UnitList.Add(NewUnit);
         NewUnit.name = "TestUnit" + _x + "_" + _y;
     }
-
-
-
     public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)
     {
         string UnitToDeleteName = UnitToDelete.name;

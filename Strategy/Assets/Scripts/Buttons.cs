@@ -7,10 +7,14 @@ public class Buttons : MonoBehaviour {
 
     public ActionButtons acb;
     public Button yourButton;
+    GameCamera gameCamera;
+    Map map;
 
     void Start()
     {
         Button btn = yourButton.GetComponent<Button>();
+        map = GameObject.Find("Map").GetComponent<Map>();
+        gameCamera = GameObject.Find("Main Camera").GetComponent<GameCamera>();
         btn.onClick.AddListener(TaskOnClick);       
     }
 
@@ -49,6 +53,8 @@ public class Buttons : MonoBehaviour {
     }
 
   //далее идут функции вызывающие функции действий юнитов(и строений)
+  //Первая кнопка по умолчанию является кнопкой закрытия меню
+  //Вторая кнопка для юнитов, кнопка перемещения
 
     void MageButtons() // Mage's Buttons типо
     {
@@ -59,14 +65,13 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                acb.ActivateArcherButtonsPanel();
+                
                 break;
             case "Action3":
-                acb.ActivatePitButtonsPanel();
+                
                 break;
             case "Action4":
-                //последняя О_о кнопка
-                acb.ActivateTownHallButtonsPanel();
+                
                 break;
         }
     }
@@ -80,14 +85,13 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                acb.ActivateArcherButtonsPanel();
+                gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                acb.ActivatePitButtonsPanel();
+                
                 break;
             case "Action4":
-                //последняя О_о кнопка
-                acb.ActivateTownHallButtonsPanel();
+                
                 break;
         }
     }
@@ -101,14 +105,13 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                acb.ActivateArcherButtonsPanel();
+                gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                acb.ActivatePitButtonsPanel();
+                
                 break;
             case "Action4":
-                //последняя О_о кнопка
-                acb.ActivateTownHallButtonsPanel();
+                
                 break;
         }
     }
@@ -122,14 +125,13 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                acb.ActivateArcherButtonsPanel();
+                gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                acb.ActivatePitButtonsPanel();
+                
                 break;
             case "Action4":
-                //последняя О_о кнопка
-                acb.ActivateTownHallButtonsPanel();
+                
                 break;
         }
     }
@@ -143,14 +145,14 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                acb.ActivateArcherButtonsPanel();
+                gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                acb.ActivatePitButtonsPanel();
+                
                 break;
             case "Action4":
                 //последняя О_о кнопка
-                acb.ActivateTownHallButtonsPanel();
+                
                 break;
         }
     }
@@ -164,14 +166,13 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                acb.ActivateArcherButtonsPanel();
+                gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                 acb.ActivatePitButtonsPanel();
+                
                 break;
             case "Action4":
-                //последняя О_о кнопка
-                acb.ActivateTownHallButtonsPanel();
+                
                 break;
         }
     }
@@ -184,15 +185,14 @@ public class Buttons : MonoBehaviour {
                 //первая кнопка
                 acb.HideAll();
                 break;
-            case "Action2":      
-                acb.ActivateArcherButtonsPanel();
+            case "Action2":
+                gameCamera.StartMovingUnit();
                 break;
             case "Action3":             
-                acb.ActivatePitButtonsPanel();
+                
                 break;
             case "Action4":
-                //последняя О_о кнопка
-                acb.ActivateTownHallButtonsPanel();
+                
                 break;
         }
     }
@@ -204,15 +204,14 @@ public class Buttons : MonoBehaviour {
                 //первая кнопка
                 acb.HideAll();
                 break;
-            case "Action2":               
-                acb.ActivateArcherButtonsPanel();
+            case "Action2":
+                gameCamera.StartMovingUnit();
                 break;
             case "Action3":           
-                acb.ActivatePitButtonsPanel();
+                
                 break;
             case "Action4":
-                //последняя кнопка
-                acb.ActivateTownHallButtonsPanel();
+                
                 break;
         }
     }

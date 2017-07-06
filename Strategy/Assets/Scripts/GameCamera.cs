@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameCamera : MonoBehaviour {
-
-
     Map m;
     Camera c; 
 
@@ -25,7 +23,7 @@ public class GameCamera : MonoBehaviour {
     Vector2 touchDeltaPosition;
     Vector2 newPosition;
     Vector2 lastPosition;
-    bool moving = false;
+    bool moving = false, MovingUnit = false;
     public float cameraSpeed = 0.1F;
 
     public void cameraMoving()
@@ -59,15 +57,18 @@ public class GameCamera : MonoBehaviour {
         }
 #endif
     }
-
     public void PointClick()
     {
 #if UNITY_STANDALONE_WIN
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (!MovingUnit && Input.GetMouseButtonDown(0))
         {
             m.callMenu();
+        }
+        if (MovingUnit && Input.GetMouseButtonDown(0))
+        {
+            MovingUnit = false;
             m.ScreenRay(0);
         }
 
@@ -93,5 +94,8 @@ public class GameCamera : MonoBehaviour {
         }
 #endif
     }
-
+    public void StartMovingUnit()
+    {
+        MovingUnit = true;
+    }
 }

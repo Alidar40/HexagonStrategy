@@ -20,6 +20,7 @@ public class ActionButtons : MonoBehaviour
     void Start()
     {
         actionButtons = GetComponent<ActionButtons>();
+        HideAll();
     }
 
     public void HideGreen()
@@ -44,44 +45,37 @@ public class ActionButtons : MonoBehaviour
         HideAll();
         SwordsmanButtonsPanel.SetActive(true);
     }
-
     public void ActivateArcherButtonsPanel()
     {
         HideAll();
         ArcherButtonsPanel.SetActive(true);
     }
-
     public void ActivateMageButtonsPanel()
     {
         HideAll();
         MageButtonsPanel.SetActive(true);
     }
-
     public void ActivateKillerButtonsPanel()
     {
         HideAll();
         KillerButtonsPanel.SetActive(true);
 
     }
-
     public void ActivateTownHallButtonsPanel()
     {
         HideAll();
         TownHallButtonsPanel.SetActive(true);
     }
-
     public void ActivateBarracksButtonsPanel()
     {
         HideAll();
         BarracksButtonsPanel.SetActive(true);
     }
-
     public void ActivatePitButtonsPanel()
     {
         HideAll();
         PitButtonsPanel.SetActive(true);
     }
-
     public void ActivateSawmillButtonsPanel()
     {
         HideAll();
