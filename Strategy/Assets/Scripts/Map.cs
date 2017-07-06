@@ -17,8 +17,12 @@ public class Map : MonoBehaviour {
     {
         GenerateNewTable();
         Unit.CreateUnit(UnitPrefabArray[0], 1, 1, UnitList);
+<<<<<<< HEAD
         Unit.CreateUnit(UnitPrefabArray[0], 2, 3, UnitList);
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
+=======
+        cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();    
+>>>>>>> e3d04cf102d5eea20d4b6dafb9e63de37d8e6aac
     }
     void Update()
     {
