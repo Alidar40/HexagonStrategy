@@ -28,10 +28,7 @@ public class Unit : MonoBehaviour {
     {
         tag = Type.ToString();
     }
-    public void UpdateActionPoints()
-    {
-        StandardNumberActionPoints = CurrentNumberActionPoints;
-    }
+    
 
     public void SetArrayRoute()
     {
@@ -197,6 +194,12 @@ public class Unit : MonoBehaviour {
     public void NextTurn(List<Unit> UnitList)
     {
         LaunchNextTurn(UnitList);
+    }
+    public void UpdateActionPoints(List<Unit> UnitList)
+    {
+        StandardNumberActionPoints = CurrentNumberActionPoints;
+        LaunchNextTurn -= UpdateActionPoints;
+
     }
 
 }
