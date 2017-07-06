@@ -20,7 +20,7 @@ public class Map : MonoBehaviour {
     {
         GenerateNewTable();
         Unit.CreateUnit(UnitPrefabArray[0], 1, 1, UnitList);
-        cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
+        cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();    
     }
 
     //Vector2 touchDeltaPosition;
