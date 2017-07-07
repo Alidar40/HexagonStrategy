@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\ActionButtons.cs" />
     <Compile Include="Assets\Scripts\Buttons.cs" />
     <Compile Include="Assets\Scripts\Cell.cs" />
+    <Compile Include="Assets\Scripts\Click.cs" />
     <Compile Include="Assets\Scripts\Construction.cs" />
     <Compile Include="Assets\Scripts\GameCamera.cs" />
     <Compile Include="Assets\Scripts\GameEvents.cs" />
