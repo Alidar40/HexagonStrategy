@@ -167,16 +167,23 @@ public class Unit : MonoBehaviour {
         transform.position = CurrentCell.transform.position;
         CurrentCell.LocatedHereUnit = this;
     }
-    void ToDamage(float _Damage)
+    public void ToDamage(float _Damage)
     {
         Hitpoints -= _Damage;
       //  if (Hitpoints <= 0)
       //      Destroy();
     }
+    public void AttackAnotherUnit(Unit AttackedUnit)
+    {
+        AttackedUnit.ToDamage(Damage);
+    }
     //void Destroy()
     //{
     //
     //}
+
+
+
 
     public static void CreateUnit(GameObject UnitType, int _x, int _y, List<Unit> UnitList)
     {
@@ -185,7 +192,6 @@ public class Unit : MonoBehaviour {
         UnitList.Add(NewUnit);
         NewUnit.name = "TestUnit" + _x + "_" + _y;
     }
-
     public static void CreateUnit(GameObject UnitType, int _x, int _y, List<Unit> UnitList, string UnitName)
     {
         Unit NewUnit = Instantiate(UnitType).GetComponent<Unit>();
@@ -193,7 +199,6 @@ public class Unit : MonoBehaviour {
         UnitList.Add(NewUnit);
         NewUnit.name = UnitName;
     }
-
     public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)
     {
         string UnitToDeleteName = UnitToDelete.name;

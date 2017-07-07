@@ -89,7 +89,7 @@ public class Buttons : MonoBehaviour {
                 gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                
+                gameCamera.StartAttackUnit();
                 break;
             case "Action4":
                 
@@ -109,7 +109,7 @@ public class Buttons : MonoBehaviour {
                 gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                
+                gameCamera.StartAttackUnit();
                 break;
             case "Action4":
                 
@@ -129,7 +129,7 @@ public class Buttons : MonoBehaviour {
                 gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                
+                gameCamera.StartAttackUnit();
                 break;
             case "Action4":
                 

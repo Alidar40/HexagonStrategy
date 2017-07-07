@@ -14,12 +14,15 @@ public class ActionButtons : MonoBehaviour
     public GameObject BarracksButtonsPanel;
     public GameObject PitButtonsPanel;
     public GameObject SawmillButtonsPanel;
+    public GameObject CancelActionButton;
 
-  
+
+
     void Start()
     {
         actionButtons = GetComponent<ActionButtons>();
         HideAll();
+        HideCancelActionButton();
     }
 
     public void HideGreen()
@@ -37,6 +40,10 @@ public class ActionButtons : MonoBehaviour
         BarracksButtonsPanel.SetActive(false);
         PitButtonsPanel.SetActive(false);
         SawmillButtonsPanel.SetActive(false);
+    }
+    public void HideCancelActionButton()
+    {
+        CancelActionButton.SetActive(false);
     }
 
     public void ActivateSwordsmanButtonsPanel()
@@ -80,8 +87,12 @@ public class ActionButtons : MonoBehaviour
         HideAll();
         SawmillButtonsPanel.SetActive(true);
     }
+    public void ActivateCancelActionButton()
+    {
+        HideAll();
+        CancelActionButton.SetActive(true);
+    }
 
-  
     public void Update()
     {
 
