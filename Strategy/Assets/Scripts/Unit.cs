@@ -178,20 +178,44 @@ public class Unit : MonoBehaviour {
     //
     //}
 
-    public static void CreateUnit(GameObject UnitType, int _x, int _y, List<Unit> UnitList)
+    public static void CreateUnit(GameObject UnitPrefab, UnitType type, int _x, int _y, List<Unit> UnitList)
     {
-        Unit NewUnit = Instantiate(UnitType).GetComponent<Unit>();
+        Unit NewUnit = Instantiate(UnitPrefab).GetComponent<Unit>();
         NewUnit.SetCell(_x, _y);
         UnitList.Add(NewUnit);
         NewUnit.name = "TestUnit" + _x + "_" + _y;
+        NewUnit.Type = type;
     }
 
-    public static void CreateUnit(GameObject UnitType, int _x, int _y, List<Unit> UnitList, string UnitName)
+    public static void CreateUnit(GameObject UnitPrefab, UnitType type, int _x, int _y, List<Unit> UnitList, string UnitName)
     {
-        Unit NewUnit = Instantiate(UnitType).GetComponent<Unit>();
+        Unit NewUnit = Instantiate(UnitPrefab).GetComponent<Unit>();
         NewUnit.SetCell(_x, _y);
         UnitList.Add(NewUnit);
         NewUnit.name = UnitName;
+        NewUnit.Type = type;
+    }
+
+    public static void CreateUnitOnClick(GameObject UnitPrefab, UnitType type, List<Unit> UnitList)
+    {
+        RaycastHit2D hitInfo = new RaycastHit2D();
+
+#if UNITY_STANDALONE_WIN
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+#endif
+
+#if UNITY_ANDROID
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+#endif
+        if (hitInfo.collider)//проверка на попадание  по колайдеру
+        {
+            Cell currentCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
+
+            if (!currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
+            {
+                CreateUnit(UnitPrefab, type , currentCell.indexX, currentCell.indexY, UnitList);
+            }
+        }
     }
 
     public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)

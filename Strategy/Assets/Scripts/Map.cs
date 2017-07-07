@@ -12,23 +12,33 @@ public class Map : MonoBehaviour {
     public List<Unit> UnitList;
     
     GameCamera cam;
+    //Construction cons;
 
     public Unit ActiveUnit;
 
     void Awake()
-    {
+    { 
         GenerateNewTable();
-        Unit.CreateUnit(UnitPrefabArray[0], 1, 1, UnitList);
-        Unit.CreateUnit(UnitPrefabArray[0], 2, 3, UnitList);
+        Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 1, 1, UnitList);
+        Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 2, 3, UnitList);
+        Construction.CreateConstruction(UnitPrefabArray[1], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall");
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
-        cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
+
+    }
+
+    void Start()
+    {
+        cam.COSevent += callMenu;  //Теперь при использовании функции PointClick()
+        //мы можем комбинировать различные функции внутрии ее
+        //в самом начале мы подписываем в PointClick() функцию callMenu
     }
     void Update()
-    {
+    {       
         cam.PointClick();
         cam.cameraMoving();
         cam.CameraZoom();
     }
+
 
     private Cell[][] CellArray;
     public void GenerateNewTable()
@@ -64,7 +74,7 @@ public class Map : MonoBehaviour {
         return CellArray[X][Y];
     }
 
-    public void ScreenRay(int _i)
+    public void ScreenRay()
     {
         RaycastHit2D hitInfo = new RaycastHit2D();
 
@@ -73,7 +83,7 @@ public class Map : MonoBehaviour {
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(_i).position), Vector2.zero);
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
 #endif
 
         if (hitInfo.collider)
