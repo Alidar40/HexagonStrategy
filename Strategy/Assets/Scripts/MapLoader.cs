@@ -12,12 +12,12 @@ public class MapLoader : MonoBehaviour
     Unit UnitBufer;
     Cell CellBufer;
     Camera CameraToSave;
-    //GameObject mapPrefab;
+    GameObject mapPrefab;
 
     void Start()
     {
         MapToSave = GameObject.Find("Map").GetComponent<Map>();
-        //mapPrefab = GameObject.Find("Map");
+        mapPrefab = GameObject.Find("Map");
         CameraToSave = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
@@ -38,7 +38,7 @@ public class MapLoader : MonoBehaviour
         {
             for (int j = 0; j < MapToSave.NumberOfCellsOnAxisY; j++)
             {
-                sw.WriteLine(MapToSave.GetCell(i,j).Type);
+                sw.WriteLine(MapToSave.GetCell(i, j).Type);
             }
         }
 
@@ -54,14 +54,16 @@ public class MapLoader : MonoBehaviour
             sw.WriteLine(MapToSave.UnitList[i].Damage);
             sw.WriteLine(MapToSave.UnitList[i].CurrentNumberActionPoints);
             sw.WriteLine(MapToSave.UnitList[i].StandardNumberActionPoints);
-            
+
         }
 
         sw.Close();
     }
 
     public void Load(string saveName)
-    {  if  (File.Exists(saveName + ".txt")) {
+    {
+        if (File.Exists(saveName + ".txt"))
+        {
             while (MapToSave.UnitList.Count > 0)
             {
                 Unit.DeleteUnit(MapToSave.UnitList, MapToSave.UnitList[0]);
@@ -139,13 +141,11 @@ public class MapLoader : MonoBehaviour
                 UnitBufer.StandardNumberActionPoints = Convert.ToInt32(sr.ReadLine());
             }
             sr.Close();
-
         }
         else
         {
             Debug.Log("File doesn't exist");
         }
     }
-        
 }
 

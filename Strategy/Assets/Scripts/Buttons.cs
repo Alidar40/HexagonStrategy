@@ -9,7 +9,6 @@ public class Buttons : MonoBehaviour {
     public Button yourButton;
     GameCamera gameCamera;
     Map map;
-    //public Construction cons;
 
     void Start()
     {
@@ -19,7 +18,7 @@ public class Buttons : MonoBehaviour {
         btn.onClick.AddListener(TaskOnClick);       
     }
 
-    void  TaskOnClick()
+    void TaskOnClick()
     {       
         //собственно, в этом кейсе мы узнаем для какого юнита кнопка была и вызываем нужную функцию
         //тег можно доставать еще и из активного юнита(он совпадает с тегом кнопок действия(если нет багов o_O )
@@ -90,7 +89,7 @@ public class Buttons : MonoBehaviour {
                 gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                
+                gameCamera.StartAttackUnit();
                 break;
             case "Action4":
                 
@@ -110,7 +109,7 @@ public class Buttons : MonoBehaviour {
                 gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                
+                gameCamera.StartAttackUnit();
                 break;
             case "Action4":
                 
@@ -130,7 +129,7 @@ public class Buttons : MonoBehaviour {
                 gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                
+                gameCamera.StartAttackUnit();
                 break;
             case "Action4":
                 
@@ -159,9 +158,6 @@ public class Buttons : MonoBehaviour {
                 break;
         }
     }
-
-
-
 
     void BarracksButtons() 
     {
@@ -221,6 +217,7 @@ public class Buttons : MonoBehaviour {
                 break;
         }
     }
+
     private void Barracks_COSevent()  //Это функцию мы вызываем вместо callMenu в PointClick() при создании бараков
     {
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[1], Construction.ConstructionType.Barracks, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
@@ -241,5 +238,4 @@ public class Buttons : MonoBehaviour {
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= SawMill_COSevent;
     }
-
 }

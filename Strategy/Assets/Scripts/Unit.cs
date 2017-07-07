@@ -167,16 +167,23 @@ public class Unit : MonoBehaviour {
         transform.position = CurrentCell.transform.position;
         CurrentCell.LocatedHereUnit = this;
     }
-    void ToDamage(float _Damage)
+    public void ToDamage(float _Damage)
     {
         Hitpoints -= _Damage;
       //  if (Hitpoints <= 0)
       //      Destroy();
     }
+    public void AttackAnotherUnit(Unit AttackedUnit)
+    {
+        AttackedUnit.ToDamage(Damage);
+    }
     //void Destroy()
     //{
     //
     //}
+
+
+
 
     public static void CreateUnit(GameObject UnitPrefab, UnitType type, int _x, int _y, List<Unit> UnitList)
     {
@@ -195,7 +202,6 @@ public class Unit : MonoBehaviour {
         NewUnit.name = UnitName;
         NewUnit.Type = type;
     }
-
     public static void CreateUnitOnClick(GameObject UnitPrefab, UnitType type, List<Unit> UnitList)
     {
         RaycastHit2D hitInfo = new RaycastHit2D();
@@ -213,11 +219,10 @@ public class Unit : MonoBehaviour {
 
             if (!currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
             {
-                CreateUnit(UnitPrefab, type , currentCell.indexX, currentCell.indexY, UnitList);
+                CreateUnit(UnitPrefab, type, currentCell.indexX, currentCell.indexY, UnitList);
             }
         }
     }
-
     public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)
     {
         string UnitToDeleteName = UnitToDelete.name;

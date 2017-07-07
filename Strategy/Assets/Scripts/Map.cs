@@ -10,20 +10,19 @@ public class Map : MonoBehaviour {
     public GameObject CellPrefab;
     public GameObject[] UnitPrefabArray;
     public List<Unit> UnitList;
-    
+
     GameCamera cam;
-    //Construction cons;
 
     public Unit ActiveUnit;
 
     void Awake()
-    { 
+    {
         GenerateNewTable();
         Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 1, 1, UnitList);
         Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 2, 3, UnitList);
         Construction.CreateConstruction(UnitPrefabArray[1], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall");
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
-
+        //cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
     }
 
     void Start()
@@ -32,13 +31,13 @@ public class Map : MonoBehaviour {
         //мы можем комбинировать различные функции внутрии ее
         //в самом начале мы подписываем в PointClick() функцию callMenu
     }
+
     void Update()
-    {       
+    {
         cam.PointClick();
         cam.cameraMoving();
         cam.CameraZoom();
     }
-
 
     private Cell[][] CellArray;
     public void GenerateNewTable()
@@ -74,7 +73,7 @@ public class Map : MonoBehaviour {
         return CellArray[X][Y];
     }
 
-    public void ScreenRay()
+    public void MovingUnit(int _i)
     {
         RaycastHit2D hitInfo = new RaycastHit2D();
 
@@ -83,7 +82,7 @@ public class Map : MonoBehaviour {
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(_i).position), Vector2.zero);
 #endif
 
         if (hitInfo.collider)
@@ -92,8 +91,40 @@ public class Map : MonoBehaviour {
             ActiveUnit.SetArrayRoute();
             ActiveUnit.GetDerections(ActiveUnit.DestinationCell);
             ActiveUnit.StartTransform();
-
+            ActionButtons.actionButtons.HideCancelActionButton();
         }
+    }
+    public void AttackUnit(int _i)
+    {
+        RaycastHit2D hitInfo = new RaycastHit2D();
+
+#if UNITY_STANDALONE_WIN
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+#endif
+
+#if UNITY_ANDROID
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(_i).position), Vector2.zero);
+#endif
+
+        if (hitInfo.collider)
+        {
+            Cell currentCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
+
+            //проверка на то, что в том месте есть юнит
+            if (ActiveUnit != currentCell.LocatedHereUnit && currentCell.LocatedHereUnit && DistanceToCell(ActiveUnit.CurrentCell, currentCell) <= 1)
+            {
+                ActiveUnit.AttackAnotherUnit(currentCell.LocatedHereUnit);
+                ActionButtons.actionButtons.HideCancelActionButton();
+            }
+            else
+            {
+                cam.StartAttackUnit();
+            }
+        }
+    }
+    public float DistanceToCell(Cell C1, Cell C2)
+    {
+        return (C2.indexX - C1.indexX) * (C2.indexX - C1.indexX) + (C2.indexY - C1.indexY) * (C2.indexY - C1.indexY);
     }
     public void callMenu()
     {
