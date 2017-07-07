@@ -46,7 +46,7 @@ public class GameCamera : MonoBehaviour {
         }
 #endif
 #if UNITY_ANDROID
-        if (Input.touchCount > 0)
+        if (Input.touchCount == 1)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Moved)
             {
@@ -85,8 +85,15 @@ public class GameCamera : MonoBehaviour {
                 }
                 else
                 {
-                    m.callMenu();
-                    m.ScreenRay(0);
+                    if (MovingUnit)
+                    {
+                        MovingUnit = false;
+                        m.ScreenRay(0);
+                    }
+                    else
+                    {
+                        m.callMenu();
+                    }
                 }
                     
 
@@ -94,8 +101,54 @@ public class GameCamera : MonoBehaviour {
         }
 #endif
     }
+
     public void StartMovingUnit()
     {
         MovingUnit = true;
+    }
+
+    float newDistance, lastDistance;
+    public void CameraZoom()
+    {
+
+#if UNITY_STANDALONE_WIN
+
+        if (c.orthographicSize >= 2f && c.orthographicSize <= 5f)
+        {
+            c.orthographicSize -= 10f * Input.GetAxis("Mouse ScrollWheel") * cameraSpeed;
+        }
+        else
+        {
+            if (c.orthographicSize < 2f) c.orthographicSize = 2f;
+            if (c.orthographicSize > 5f) c.orthographicSize = 5f;
+        }
+
+        
+#endif
+
+#if UNITY_ANDROID
+        if (Input.touchCount >= 2)
+        {
+            Vector2 touch0, touch1;
+            touch0 = Input.GetTouch(0).position;
+            touch1 = Input.GetTouch(1).position;
+            newDistance = Vector2.Distance(touch0, touch1);
+            if (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                lastDistance = newDistance;
+            }
+            if (c.orthographicSize >= 2f && c.orthographicSize <= 5f)
+            {
+                c.orthographicSize -= 0.1f * (newDistance - lastDistance) * cameraSpeed;
+            }
+            else
+            {
+                if (c.orthographicSize < 2f) c.orthographicSize = 2f;
+                if (c.orthographicSize > 5f) c.orthographicSize = 5f;
+            }
+            lastDistance = newDistance;
+        }
+#endif
+
     }
 }

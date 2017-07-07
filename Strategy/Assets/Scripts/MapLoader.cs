@@ -4,20 +4,15 @@ using UnityEngine;
 using System.IO;
 using System.Text;
 using System;
-//using System.Runtime.Serialization.Formatters.Binary;
-//using System.Xml.Serialization;
 
 
 public class MapLoader : MonoBehaviour
 {
-
     Map MapToSave;
     Unit UnitBufer;
     Cell CellBufer;
     Camera CameraToSave;
     GameObject mapPrefab;
-
-
 
     void Start()
     {
@@ -26,11 +21,8 @@ public class MapLoader : MonoBehaviour
         CameraToSave = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
-
-
     public void Save(string saveName)
     {
-
         StreamWriter sw = new StreamWriter(saveName + ".txt");
 
         sw.WriteLine("CameraSettings");
@@ -54,69 +46,119 @@ public class MapLoader : MonoBehaviour
         sw.WriteLine(MapToSave.UnitList.Count);
         for (int i = 0; i < MapToSave.UnitList.Count; i++)
         {
+            sw.WriteLine(MapToSave.UnitList[i].name);
             sw.WriteLine(MapToSave.UnitList[i].CurrentCell.indexX);
-            sw.WriteLine(MapToSave.UnitList[i].CurrentCell.indexY);
+            sw.WriteLine(MapToSave.UnitList[i].CurrentCell.indexY);       
+            sw.WriteLine(MapToSave.UnitList[i].Hitpoints);
+            sw.WriteLine(MapToSave.UnitList[i].Damage);
+            sw.WriteLine(MapToSave.UnitList[i].CurrentNumberActionPoints);
+            sw.WriteLine(MapToSave.UnitList[i].StandardNumberActionPoints);
+            sw.WriteLine(MapToSave.UnitList[i].Type);
         }
 
         sw.Close();
     }
 
     public void Load(string saveName)
-    {
-        while (MapToSave.UnitList.Count > 0)
-        {
-            Unit.DeleteUnit(MapToSave.UnitList, MapToSave.UnitList[0]);
-        }
-        StreamReader sr = new StreamReader(saveName + ".txt");
-        string buf;
-        buf = sr.ReadLine();
-        Vector3 newCamPos = new Vector3(Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()));
-        CameraToSave.transform.position = newCamPos;
-        buf = sr.ReadLine();
-        buf = sr.ReadLine();
-        MapToSave.NumberOfCellsOnAxisX = Convert.ToInt32(buf, 10);
-        buf = sr.ReadLine();
-        MapToSave.NumberOfCellsOnAxisY = Convert.ToInt32(buf, 10);
-        MapToSave.GenerateNewTable();
-        for (int i = 0; i < MapToSave.NumberOfCellsOnAxisX; i++)
-        {
-            for (int j = 0; j < MapToSave.NumberOfCellsOnAxisY; j++)
+    {  if  (File.Exists(saveName + ".txt")) {
+            while (MapToSave.UnitList.Count > 0)
             {
-                CellBufer = GameObject.Find("Cell_" + i + "_" + j).GetComponent<Cell>();
-                buf = sr.ReadLine();
-                if (buf == "Grass")
+                Unit.DeleteUnit(MapToSave.UnitList, MapToSave.UnitList[0]);
+            }
+            StreamReader sr = new StreamReader(saveName + ".txt");
+            string buf;
+            buf = sr.ReadLine();
+            Vector3 newCamPos = new Vector3(Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()));
+            CameraToSave.transform.position = newCamPos;
+            buf = sr.ReadLine();
+            buf = sr.ReadLine();
+            MapToSave.NumberOfCellsOnAxisX = Convert.ToInt32(buf, 10);
+            buf = sr.ReadLine();
+            MapToSave.NumberOfCellsOnAxisY = Convert.ToInt32(buf, 10);
+            MapToSave.GenerateNewTable();
+            for (int i = 0; i < MapToSave.NumberOfCellsOnAxisX; i++)
+            {
+                for (int j = 0; j < MapToSave.NumberOfCellsOnAxisY; j++)
                 {
-                    CellBufer.SetType(1);
-                }
-                if (buf == "Forest")
-                {
-                    CellBufer.SetType(2);
-                }
-                if (buf == "Water")
-                {
-                    CellBufer.SetType(3);
-                }
-                if (buf == "Mountain")
-                {
-                    CellBufer.SetType(4);
-                }
-                if (buf == "House")
-                {
-                    CellBufer.SetType(5);
+                    CellBufer = GameObject.Find("Cell_" + i + "_" + j).GetComponent<Cell>();
+                    buf = sr.ReadLine();
+                    if (buf == "Grass")
+                    {
+                        CellBufer.SetType(1);
+                    }
+                    if (buf == "Forest")
+                    {
+                        CellBufer.SetType(2);
+                    }
+                    if (buf == "Water")
+                    {
+                        CellBufer.SetType(3);
+                    }
+                    if (buf == "Mountain")
+                    {
+                        CellBufer.SetType(4);
+                    }
+                    if (buf == "House")
+                    {
+                        CellBufer.SetType(5);
+                    }
                 }
             }
+
+            buf = sr.ReadLine();
+
+            int NUnit = Convert.ToInt32(sr.ReadLine(), 10);
+            for (int _i = 0; _i < NUnit; _i++)
+            {
+                buf = sr.ReadLine();
+                Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf);
+                UnitBufer = GameObject.Find(buf).GetComponent<Unit>();
+                UnitBufer.Hitpoints = Convert.ToSingle(sr.ReadLine());
+                UnitBufer.Damage = Convert.ToSingle(sr.ReadLine());
+                UnitBufer.CurrentNumberActionPoints = Convert.ToInt32(sr.ReadLine());
+                UnitBufer.StandardNumberActionPoints = Convert.ToInt32(sr.ReadLine());
+                buf = sr.ReadLine();
+                if (buf == "Swordsman")
+                {
+                    UnitBufer.Type = Unit.UnitType.Swordsman;
+                }
+                if (buf == "Archer")
+                {
+                    UnitBufer.Type = Unit.UnitType.Archer;
+                }
+                if (buf == "Mage")
+                {
+                    UnitBufer.Type = Unit.UnitType.Mage;
+                }
+                if (buf == "Killer")
+                {
+                    UnitBufer.Type = Unit.UnitType.Killer;
+                }
+                if (buf == "TownHall")
+                {
+                    UnitBufer.Type = Unit.UnitType.TownHall;
+                }
+                if (buf == "Barracks")
+                {
+                    UnitBufer.Type = Unit.UnitType.Barracks;
+                }
+                if (buf == "Pit")
+                {
+                    UnitBufer.Type = Unit.UnitType.Pit; 
+                }
+                if (buf == "Sawmill")
+                {
+                    UnitBufer.Type = Unit.UnitType.Sawmill;
+                }
+            }
+            sr.Close();
+
         }
-
-        buf = sr.ReadLine();
-
-        int NUnit = Convert.ToInt32(sr.ReadLine(), 10);
-        for (int _i = 0; _i < NUnit; _i++)
+        else
         {
-            Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList);
+            Debug.Log("File doesn't exist");
         }
-
-        sr.Close();
-
     }
+        
 }
 

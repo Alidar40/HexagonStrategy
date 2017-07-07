@@ -25,7 +25,7 @@ public class Map : MonoBehaviour {
     {
         cam.PointClick();
         cam.cameraMoving();
-
+        cam.CameraZoom();
     }
 
     private Cell[][] CellArray;
@@ -92,7 +92,7 @@ public class Map : MonoBehaviour {
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(_i).position), Vector2.zero);
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
 #endif
         if (hitInfo.collider)//проверка на попадание  по колайдеру
         {
@@ -135,4 +135,6 @@ public class Map : MonoBehaviour {
             }
         }
     }
+
+
 }

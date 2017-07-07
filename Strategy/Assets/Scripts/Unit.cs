@@ -32,7 +32,7 @@ public class Unit : MonoBehaviour {
 
     public void SetArrayRoute()
     {
-        //Генерирут пустую матрицу
+        //Генерирует пустую матрицу
         Route = new WayCell[_Map.NumberOfCellsOnAxisX][];
         for (int i = 0; i < _Map.NumberOfCellsOnAxisX; i++)
         {
@@ -180,6 +180,15 @@ public class Unit : MonoBehaviour {
         UnitList.Add(NewUnit);
         NewUnit.name = "TestUnit" + _x + "_" + _y;
     }
+
+    public static void CreateUnit(GameObject UnitType, int _x, int _y, List<Unit> UnitList, string UnitName)
+    {
+        Unit NewUnit = Instantiate(UnitType).GetComponent<Unit>();
+        NewUnit.SetCell(_x, _y);
+        UnitList.Add(NewUnit);
+        NewUnit.name = UnitName;
+    }
+
     public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)
     {
         string UnitToDeleteName = UnitToDelete.name;
@@ -196,6 +205,7 @@ public class Unit : MonoBehaviour {
         LaunchNextTurn(UnitList);
     }
     public void UpdateActionPoints(List<Unit> UnitList)
+
     {
         StandardNumberActionPoints = CurrentNumberActionPoints;
         LaunchNextTurn -= UpdateActionPoints;
