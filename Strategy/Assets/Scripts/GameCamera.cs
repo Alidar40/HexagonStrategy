@@ -23,7 +23,7 @@ public class GameCamera : MonoBehaviour {
     Vector2 touchDeltaPosition;
     Vector2 newPosition;
     Vector2 lastPosition;
-    bool moving = false, MovingUnit = false, AttackUnit = false;
+    bool moving = false, MovingUnit = false;
     public float cameraSpeed = 0.1F;
 
     public void cameraMoving()
@@ -57,24 +57,28 @@ public class GameCamera : MonoBehaviour {
         }
 #endif
     }
+
+    public delegate void ClickOnScreen();
+
+    public event ClickOnScreen COSevent;
+
     public void PointClick()
     {
 #if UNITY_STANDALONE_WIN
 
 
-        if (!MovingUnit && !AttackUnit && Input.GetMouseButtonDown(0))
+        if (!MovingUnit && Input.GetMouseButtonDown(0))
         {
-            m.callMenu();
+            COSevent();
+            //Изначально вместо COSevent() запускается callMenu
+            //однако если мы хотим заспавнить юнит
+            //нам необходимо поменять функцию здесь
+            //на функцию создания юнита
         }
         if (MovingUnit && Input.GetMouseButtonDown(0))
         {
             MovingUnit = false;
-            m.MovingUnit(0);
-        }
-        if (AttackUnit && Input.GetMouseButtonDown(0))
-        {
-            AttackUnit = false;
-            m.AttackUnit(0);
+            m.ScreenRay();
         }
 
 #endif
@@ -110,20 +114,6 @@ public class GameCamera : MonoBehaviour {
     public void StartMovingUnit()
     {
         MovingUnit = true;
-        AttackUnit = false;
-        ActionButtons.actionButtons.ActivateCancelActionButton();
-    }
-    public void StartAttackUnit()
-    {
-        MovingUnit = false;
-        AttackUnit = true;
-        ActionButtons.actionButtons.ActivateCancelActionButton();
-    }
-    public void CancelAction()
-    {
-        MovingUnit = false;
-        AttackUnit = false;
-        ActionButtons.actionButtons.HideCancelActionButton();
     }
 
     float newDistance, lastDistance;
