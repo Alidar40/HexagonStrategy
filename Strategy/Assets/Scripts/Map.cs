@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Map : MonoBehaviour {
     [Header("TableOptions")]
@@ -9,6 +10,7 @@ public class Map : MonoBehaviour {
     public GameObject CellPrefab;
     public GameObject[] UnitPrefabArray;
     public List<Unit> UnitList;
+    
     GameCamera cam;
 
     public Unit ActiveUnit;
@@ -19,7 +21,7 @@ public class Map : MonoBehaviour {
         Unit.CreateUnit(UnitPrefabArray[0], 1, 1, UnitList);
         Unit.CreateUnit(UnitPrefabArray[0], 2, 3, UnitList);
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
-        cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();    
+        cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
     }
     void Update()
     {
@@ -101,7 +103,7 @@ public class Map : MonoBehaviour {
             if (currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
             {
                 ActiveUnit = currentCell.LocatedHereUnit;
-                switch (currentCell.LocatedHereUnit.tag)//выбираем по тегу, какое меню вывести на экран
+                switch (currentCell.LocatedHereUnit.Type.ToString())//выбираем по типу юнита, какое меню вывести на экран
                 {
                     case "Swordsman":
                         ActionButtons.actionButtons.ActivateSwordsmanButtonsPanel();
@@ -115,17 +117,23 @@ public class Map : MonoBehaviour {
                     case "Killer":
                         ActionButtons.actionButtons.ActivateKillerButtonsPanel();
                         break;
-                    case "TownHall":
-                        ActionButtons.actionButtons.ActivateTownHallButtonsPanel();
-                        break;
-                    case "Barracks":
-                        ActionButtons.actionButtons.ActivateBarracksButtonsPanel();
-                        break;
-                    case "Pit":
-                        ActionButtons.actionButtons.ActivatePitButtonsPanel();
-                        break;
-                    case "Sawmill":
-                        ActionButtons.actionButtons.ActivateSawmillButtonsPanel();
+                    case "Construction":
+                        switch (((Construction)currentCell.LocatedHereUnit)._ConstructionType.ToString())
+                        {
+
+                            case "TownHall":
+                                ActionButtons.actionButtons.ActivateTownHallButtonsPanel();
+                                break;
+                            case "Barracks":
+                                ActionButtons.actionButtons.ActivateBarracksButtonsPanel();
+                                break;
+                            case "Pit":
+                                ActionButtons.actionButtons.ActivatePitButtonsPanel();
+                                break;
+                            case "Sawmill":
+                                ActionButtons.actionButtons.ActivateSawmillButtonsPanel();
+                                break;
+                        }
                         break;
                     default:        //по дефолту убирает меню
                         ActionButtons.actionButtons.HideAll();
@@ -135,6 +143,5 @@ public class Map : MonoBehaviour {
             }
         }
     }
-
-
+    
 }

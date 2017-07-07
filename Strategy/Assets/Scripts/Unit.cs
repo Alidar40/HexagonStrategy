@@ -6,7 +6,11 @@ public class Unit : MonoBehaviour {
     public float Hitpoints, Damage;
     public int CurrentNumberActionPoints, StandardNumberActionPoints;
     public Cell CurrentCell, DestinationCell;
-    public enum UnitType { Swordsman = 1, Archer = 2, Mage = 3, Killer = 4, TownHall = 5, Barracks = 6, Pit = 7, Sawmill = 8 };
+    public enum UnitType
+    {
+        Swordsman = 1, Archer = 2, Mage = 3, Killer = 4,
+        Construction = 99
+    };
     public UnitType Type;
 
     struct WayCell
@@ -140,11 +144,12 @@ public class Unit : MonoBehaviour {
     }
     private IEnumerator TransformToNextCell()
     {
-        while (CurrentCell != DestinationCell && Route[CurrentCell.indexX][CurrentCell.indexY].NextCell)
+        while (CurrentCell != DestinationCell && Route[CurrentCell.indexX][CurrentCell.indexY].NextCell && CurrentNumberActionPoints > 0)
         {
             Cell Next = Route[CurrentCell.indexX][CurrentCell.indexY].NextCell;
             SetCell(Next.indexX, Next.indexY);
-            yield return new WaitForSeconds(0.3f);
+            CurrentNumberActionPoints--;
+            yield return new WaitForSeconds(0.25f);
         }
         yield break;
     }
@@ -207,7 +212,7 @@ public class Unit : MonoBehaviour {
     public void UpdateActionPoints(List<Unit> UnitList)
 
     {
-        StandardNumberActionPoints = CurrentNumberActionPoints;
+        CurrentNumberActionPoints = StandardNumberActionPoints;
         LaunchNextTurn -= UpdateActionPoints;
 
     }

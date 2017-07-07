@@ -216,9 +216,4 @@ public class Buttons : MonoBehaviour {
                 break;
         }
     }
-
-
-
-
-
 }

@@ -15,7 +15,6 @@ public class ActionButtons : MonoBehaviour
     public GameObject PitButtonsPanel;
     public GameObject SawmillButtonsPanel;
 
-
   
     void Start()
     {

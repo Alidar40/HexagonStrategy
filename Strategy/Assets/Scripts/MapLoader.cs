@@ -134,22 +134,6 @@ public class MapLoader : MonoBehaviour
                 {
                     UnitBufer.Type = Unit.UnitType.Killer;
                 }
-                if (buf == "TownHall")
-                {
-                    UnitBufer.Type = Unit.UnitType.TownHall;
-                }
-                if (buf == "Barracks")
-                {
-                    UnitBufer.Type = Unit.UnitType.Barracks;
-                }
-                if (buf == "Pit")
-                {
-                    UnitBufer.Type = Unit.UnitType.Pit; 
-                }
-                if (buf == "Sawmill")
-                {
-                    UnitBufer.Type = Unit.UnitType.Sawmill;
-                }
             }
             sr.Close();
 
