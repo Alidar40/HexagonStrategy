@@ -57,6 +57,11 @@ public class GameCamera : MonoBehaviour {
         }
 #endif
     }
+
+    public delegate void ClickOnScreen();
+
+    public event ClickOnScreen COSevent;
+
     public void PointClick()
     {
 #if UNITY_STANDALONE_WIN
@@ -64,17 +69,25 @@ public class GameCamera : MonoBehaviour {
 
         if (!MovingUnit && !AttackUnit && Input.GetMouseButtonDown(0))
         {
-            m.callMenu();
+            COSevent();
+            //Изначально вместо COSevent() запускается callMenu
+            //однако если мы хотим заспавнить юнит
+            //нам необходимо поменять функцию здесь
+            //на функцию создания юнита
         }
         if (MovingUnit && Input.GetMouseButtonDown(0))
         {
             MovingUnit = false;
+<<<<<<< HEAD
             m.MovingUnit(0);
         }
         if (AttackUnit && Input.GetMouseButtonDown(0))
         {
             AttackUnit = false;
             m.AttackUnit(0);
+=======
+            m.ScreenRay();
+>>>>>>> 7e996ad835af1cd407dcfdf0aaf5e524a58c20f5
         }
 
 #endif

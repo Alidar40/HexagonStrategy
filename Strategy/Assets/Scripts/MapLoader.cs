@@ -12,12 +12,12 @@ public class MapLoader : MonoBehaviour
     Unit UnitBufer;
     Cell CellBufer;
     Camera CameraToSave;
-    GameObject mapPrefab;
+    //GameObject mapPrefab;
 
     void Start()
     {
         MapToSave = GameObject.Find("Map").GetComponent<Map>();
-        mapPrefab = GameObject.Find("Map");
+        //mapPrefab = GameObject.Find("Map");
         CameraToSave = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
@@ -46,14 +46,15 @@ public class MapLoader : MonoBehaviour
         sw.WriteLine(MapToSave.UnitList.Count);
         for (int i = 0; i < MapToSave.UnitList.Count; i++)
         {
+            sw.WriteLine(MapToSave.UnitList[i].Type);
             sw.WriteLine(MapToSave.UnitList[i].name);
             sw.WriteLine(MapToSave.UnitList[i].CurrentCell.indexX);
-            sw.WriteLine(MapToSave.UnitList[i].CurrentCell.indexY);       
+            sw.WriteLine(MapToSave.UnitList[i].CurrentCell.indexY);
             sw.WriteLine(MapToSave.UnitList[i].Hitpoints);
             sw.WriteLine(MapToSave.UnitList[i].Damage);
             sw.WriteLine(MapToSave.UnitList[i].CurrentNumberActionPoints);
             sw.WriteLine(MapToSave.UnitList[i].StandardNumberActionPoints);
-            sw.WriteLine(MapToSave.UnitList[i].Type);
+            
         }
 
         sw.Close();
@@ -111,29 +112,31 @@ public class MapLoader : MonoBehaviour
             for (int _i = 0; _i < NUnit; _i++)
             {
                 buf = sr.ReadLine();
-                Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf);
+                if (buf == "Swordsman")
+                {
+                    buf = sr.ReadLine();
+                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Swordsman, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf);
+                }
+                if (buf == "Archer")
+                {
+                    buf = sr.ReadLine();
+                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Archer, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf);
+                }
+                if (buf == "Mage")
+                {
+                    buf = sr.ReadLine();
+                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Mage, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf);
+                }
+                if (buf == "Killer")
+                {
+                    buf = sr.ReadLine();
+                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Killer, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf);
+                }
                 UnitBufer = GameObject.Find(buf).GetComponent<Unit>();
                 UnitBufer.Hitpoints = Convert.ToSingle(sr.ReadLine());
                 UnitBufer.Damage = Convert.ToSingle(sr.ReadLine());
                 UnitBufer.CurrentNumberActionPoints = Convert.ToInt32(sr.ReadLine());
                 UnitBufer.StandardNumberActionPoints = Convert.ToInt32(sr.ReadLine());
-                buf = sr.ReadLine();
-                if (buf == "Swordsman")
-                {
-                    UnitBufer.Type = Unit.UnitType.Swordsman;
-                }
-                if (buf == "Archer")
-                {
-                    UnitBufer.Type = Unit.UnitType.Archer;
-                }
-                if (buf == "Mage")
-                {
-                    UnitBufer.Type = Unit.UnitType.Mage;
-                }
-                if (buf == "Killer")
-                {
-                    UnitBufer.Type = Unit.UnitType.Killer;
-                }
             }
             sr.Close();
 
