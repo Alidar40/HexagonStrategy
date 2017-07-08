@@ -220,21 +220,22 @@ public class Buttons : MonoBehaviour {
 
     private void Barracks_COSevent()  //Это функцию мы вызываем вместо callMenu в PointClick() при создании бараков
     {
-        Construction.CreateConstructionOnClick(map.UnitPrefabArray[1], Construction.ConstructionType.Barracks, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
+        Debug.Log("Переход к процедуре");
+        Construction.CreateConstructionOnClick(map.UnitPrefabArray[5], Construction.ConstructionType.Barracks, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;       //Возвращаем все
         gameCamera.COSevent -= Barracks_COSevent;   //на исходные места
     }
 
     private void Pit_COSevent()
     {
-        Construction.CreateConstructionOnClick(map.UnitPrefabArray[1], Construction.ConstructionType.Pit, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
+        Construction.CreateConstructionOnClick(map.UnitPrefabArray[6], Construction.ConstructionType.Pit, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= Pit_COSevent;
     }
 
     private void SawMill_COSevent()
     {
-        Construction.CreateConstructionOnClick(map.UnitPrefabArray[1], Construction.ConstructionType.Sawmill, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
+        Construction.CreateConstructionOnClick(map.UnitPrefabArray[7], Construction.ConstructionType.Sawmill, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= SawMill_COSevent;
     }
