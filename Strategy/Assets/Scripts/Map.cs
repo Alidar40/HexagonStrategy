@@ -124,7 +124,7 @@ public class Map : MonoBehaviour {
     }
     public float DistanceToCell(Cell C1, Cell C2)
     {
-        return (C2.indexX - C1.indexX) * (C2.indexX - C1.indexX) + (C2.indexY - C1.indexY) * (C2.indexY - C1.indexY);
+        return Mathf.Sqrt( Mathf.Abs((C2.indexX - C1.indexX) * (C2.indexX - C1.indexX) + (C2.indexY - C1.indexY) * (C2.indexY - C1.indexY)));
     }
     public void callMenu()
     {

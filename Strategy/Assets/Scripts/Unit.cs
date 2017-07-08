@@ -31,6 +31,7 @@ public class Unit : MonoBehaviour {
     void Start()
     {
         tag = Type.ToString();
+        GenerateFieldOpportunities(TestFieldOpportunities, 2);
     }
     
 
@@ -177,10 +178,7 @@ public class Unit : MonoBehaviour {
     {
         AttackedUnit.ToDamage(Damage);
     }
-    //void Destroy()
-    //{
-    //
-    //}
+
 
 
 
@@ -246,4 +244,25 @@ public class Unit : MonoBehaviour {
 
     }
 
+
+    public GameObject TestFieldOpportunities;
+    private GameObject[] ArrayFieldOpportunities;
+    public void GenerateFieldOpportunities(GameObject FieldOpportunities, int R)
+    {
+        int N = 0;
+        for (int i = CurrentCell.indexX - R; i <= CurrentCell.indexX + R; i++)
+            for (int j = CurrentCell.indexY - R; j <= CurrentCell.indexY + R; j++)
+                if (_Map.GetCell(i, j) && _Map.DistanceToCell(CurrentCell, _Map.GetCell(i, j)) <= R)
+                    N++;
+        ArrayFieldOpportunities = new GameObject[N];
+        for (int i = CurrentCell.indexX - R; i < CurrentCell.indexX + R; i++)
+            for (int j = CurrentCell.indexY - R; j < CurrentCell.indexY + R; j++)
+                if (_Map.GetCell(i, j) && _Map.DistanceToCell(CurrentCell, _Map.GetCell(i, j)) <= R)
+                {
+                    N--;
+                    ArrayFieldOpportunities[N] = Instantiate(FieldOpportunities);
+                    ArrayFieldOpportunities[N].transform.SetParent(transform);
+                    ArrayFieldOpportunities[N].transform.position = _Map.GetCell(i, j).transform.position;
+                }
+    }
 }
