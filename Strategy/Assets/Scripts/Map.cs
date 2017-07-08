@@ -22,7 +22,6 @@ public class Map : MonoBehaviour {
         Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 2, 3, UnitList);
         //Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall");
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
-        //cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
     }
 
     void Start()
@@ -236,4 +235,18 @@ public class Map : MonoBehaviour {
         }
         return Route;
     }
+    public void ColliderTurn(bool OnOff)
+    {
+        for (int i = 0; i < NumberOfCellsOnAxisX; i++)
+        {
+            for (int j = 0; j < NumberOfCellsOnAxisX; j++)
+            {
+                Cell c;
+                c = GetCell(i, j);
+                if (OnOff == true)
+                    c.GetComponent<CircleCollider2D>().enabled = OnOff;
+            }
+        }
+    }
+
 }
