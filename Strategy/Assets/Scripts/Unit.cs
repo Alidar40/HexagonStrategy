@@ -191,7 +191,6 @@ public class Unit : MonoBehaviour {
         NewUnit.name = "TestUnit" + _x + "_" + _y;
         NewUnit.Type = type;
     }
-
     public static void CreateUnit(GameObject UnitPrefab, UnitType type, int _x, int _y, List<Unit> UnitList, string UnitName)
     {
         Unit NewUnit = Instantiate(UnitPrefab).GetComponent<Unit>();
@@ -249,15 +248,16 @@ public class Unit : MonoBehaviour {
     private GameObject[] ArrayFieldOpportunities;
     public void GenerateFieldOpportunities(GameObject FieldOpportunities, int R)
     {
+        int[][] MatrixOfFreeCells = _Map.GetMatrixOfFreeCells(CurrentCell.indexX, CurrentCell.indexY, R);
         int N = 0;
-        for (int i = CurrentCell.indexX - R; i <= CurrentCell.indexX + R; i++)
-            for (int j = CurrentCell.indexY - R; j <= CurrentCell.indexY + R; j++)
-                if (_Map.GetCell(i, j) && _Map.DistanceToCell(CurrentCell, _Map.GetCell(i, j)) <= R)
+        for (int i = 0; i < MatrixOfFreeCells.Length; i++)
+            for (int j = 0; j < MatrixOfFreeCells[i].Length; j++)
+                if (MatrixOfFreeCells[i][j] < 999)
                     N++;
         ArrayFieldOpportunities = new GameObject[N];
-        for (int i = CurrentCell.indexX - R; i < CurrentCell.indexX + R; i++)
-            for (int j = CurrentCell.indexY - R; j < CurrentCell.indexY + R; j++)
-                if (_Map.GetCell(i, j) && _Map.DistanceToCell(CurrentCell, _Map.GetCell(i, j)) <= R)
+        for (int i = 0; i < MatrixOfFreeCells.Length; i++)
+            for (int j = 0; j < MatrixOfFreeCells[i].Length; j++)
+                if (MatrixOfFreeCells[i][j] < 999)
                 {
                     N--;
                     ArrayFieldOpportunities[N] = Instantiate(FieldOpportunities);

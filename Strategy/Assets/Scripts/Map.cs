@@ -20,7 +20,7 @@ public class Map : MonoBehaviour {
         GenerateNewTable();
         Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 1, 1, UnitList);
         Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 2, 3, UnitList);
-        Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall");
+        //Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall");
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
         //cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
     }
@@ -184,5 +184,56 @@ public class Map : MonoBehaviour {
             }
         }
     }
-    
+
+
+    public int[][] GetMatrixOfFreeCells(int X, int Y, int R)
+    {
+        //Генерирует пустую матрицу
+        int[][] Route = new int[NumberOfCellsOnAxisX][];
+        for (int i = 0; i < NumberOfCellsOnAxisX; i++)
+        {
+            Route[i] = new int[NumberOfCellsOnAxisY];
+            for (int j = 0; j < NumberOfCellsOnAxisY; j++)
+                Route[i][j] = 9999;
+        }
+        Route[X][Y] = 0;
+
+        int wave = 0;
+        while (wave < R)
+        {
+            for (int i = 0; i < Route.Length; i++)
+                for (int j = 0; j < Route[i].Length; j++)
+                    if (Route[i][j] == wave)
+                    {
+                        if (GetCell(i + 1, j + 0) && Route[i + 1][j + 0] > wave + 1)
+                            Route[i + 1][j + 0] = wave + 1;
+
+                        if (GetCell(i - 1, j + 0) && Route[i - 1][j + 0] > wave + 1)
+                            Route[i - 1][j + 0] = wave + 1;
+
+                        if (GetCell(i + 0, j + 1) && Route[i + 0][j + 1] > wave + 1)
+                            Route[i + 0][j + 1] = wave + 1;
+
+                        if (GetCell(i + 0, j - 1) && Route[i + 0][j - 1] > wave + 1)
+                            Route[i + 0][j - 1] = wave + 1;
+
+                        if (i % 2 == 0)
+                        {
+                            if (GetCell(i + 1, j + 1) && Route[i + 1][j + 1] > wave + 1)
+                                Route[i + 1][j + 1] = wave + 1;
+                            if (GetCell(i - 1, j + 1) && Route[i - 1][j + 1] > wave + 1)
+                                Route[i - 1][j + 1] = wave + 1;
+                        }
+                        else
+                        {
+                            if (GetCell(i + 1, j - 1) && Route[i + 1][j - 1] > wave + 1)
+                                Route[i + 1][j - 1] = wave + 1;
+                            if (GetCell(i - 1, j - 1) && Route[i - 1][j - 1] > wave + 1)
+                                Route[i - 1][j - 1] = wave + 1;
+                        }
+                    }
+            wave++;
+        }
+        return Route;
+    }
 }
