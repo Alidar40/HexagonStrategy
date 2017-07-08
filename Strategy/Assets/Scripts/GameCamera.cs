@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class GameCamera : MonoBehaviour {
     Map m;
-    Camera c; 
+    Camera c;
+    public GameObject FieldOpportunitiesAttack, FieldOpportunitiesMoving;
 
-    // Use this for initialization
     void Start () {
 
         m = GameObject.Find("Map").GetComponent<Map>();
        c = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-
 
     Vector2 touchDeltaPosition;
     Vector2 newPosition;
@@ -79,11 +72,13 @@ public class GameCamera : MonoBehaviour {
         {
             MovingUnit = false;
             m.MovingUnit(0);
+            m.ActiveUnit.DeleteFieldOpportunities();
         }
         if (AttackUnit && Input.GetMouseButtonDown(0))
         {
             AttackUnit = false;
             m.AttackUnit(0);
+            m.ActiveUnit.DeleteFieldOpportunities();
         }
 
 #endif
@@ -121,18 +116,21 @@ public class GameCamera : MonoBehaviour {
         MovingUnit = true;
         AttackUnit = false;
         ActionButtons.actionButtons.ActivateCancelActionButton();
+        m.ActiveUnit.GenerateFieldOpportunitiesForMoving(FieldOpportunitiesMoving, m.ActiveUnit.CurrentNumberActionPoints);
     }
     public void StartAttackUnit()
     {
         MovingUnit = false;
         AttackUnit = true;
         ActionButtons.actionButtons.ActivateCancelActionButton();
+        m.ActiveUnit.GenerateFieldOpportunities(FieldOpportunitiesAttack, m.ActiveUnit.AttackRadius);
     }
     public void CancelAction()
     {
         MovingUnit = false;
         AttackUnit = false;
         ActionButtons.actionButtons.HideCancelActionButton();
+        m.ActiveUnit.DeleteFieldOpportunities();
     }
 
     float newDistance, lastDistance;

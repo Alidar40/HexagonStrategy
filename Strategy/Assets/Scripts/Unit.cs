@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
     public float Hitpoints, Damage;
+    public int AttackRadius;
     public int CurrentNumberActionPoints, StandardNumberActionPoints;
     public Cell CurrentCell, DestinationCell;
     public enum UnitType
@@ -31,7 +32,6 @@ public class Unit : MonoBehaviour {
     void Start()
     {
         tag = Type.ToString();
-        GenerateFieldOpportunities(TestFieldOpportunities, 2);
     }
     
 
@@ -244,7 +244,7 @@ public class Unit : MonoBehaviour {
     }
 
 
-    public GameObject TestFieldOpportunities;
+    
     private GameObject[] ArrayFieldOpportunities;
     public void GenerateFieldOpportunities(GameObject FieldOpportunities, int R)
     {
@@ -264,5 +264,30 @@ public class Unit : MonoBehaviour {
                     ArrayFieldOpportunities[N].transform.SetParent(transform);
                     ArrayFieldOpportunities[N].transform.position = _Map.GetCell(i, j).transform.position;
                 }
+    }
+    public void GenerateFieldOpportunitiesForMoving(GameObject FieldOpportunities, int R)
+    {
+        int[][] MatrixOfFreeCells = _Map.GetMatrixOfFreeCellsForMoving(CurrentCell.indexX, CurrentCell.indexY, R);
+        int N = 0;
+        for (int i = 0; i < MatrixOfFreeCells.Length; i++)
+            for (int j = 0; j < MatrixOfFreeCells[i].Length; j++)
+                if (MatrixOfFreeCells[i][j] < 999)
+                    N++;
+        ArrayFieldOpportunities = new GameObject[N];
+        for (int i = 0; i < MatrixOfFreeCells.Length; i++)
+            for (int j = 0; j < MatrixOfFreeCells[i].Length; j++)
+                if (MatrixOfFreeCells[i][j] < 999)
+                {
+                    N--;
+                    ArrayFieldOpportunities[N] = Instantiate(FieldOpportunities);
+                    ArrayFieldOpportunities[N].transform.SetParent(transform);
+                    ArrayFieldOpportunities[N].transform.position = _Map.GetCell(i, j).transform.position;
+                }
+    }
+    public void DeleteFieldOpportunities()
+    {
+        for (int i = 0; i < ArrayFieldOpportunities.Length; i++)
+            Destroy(ArrayFieldOpportunities[i]);
+        ArrayFieldOpportunities = new GameObject[0];
     }
 }

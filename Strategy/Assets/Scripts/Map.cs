@@ -110,20 +110,22 @@ public class Map : MonoBehaviour {
             Cell currentCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
 
             //проверка на то, что в том месте есть юнит
-            if (ActiveUnit != currentCell.LocatedHereUnit && currentCell.LocatedHereUnit && DistanceToCell(ActiveUnit.CurrentCell, currentCell) <= 1)
+            if (ActiveUnit != currentCell.LocatedHereUnit && currentCell.LocatedHereUnit && DistanceToCell(ActiveUnit.CurrentCell, currentCell, ActiveUnit.AttackRadius) <= ActiveUnit.AttackRadius)
             {
                 ActiveUnit.AttackAnotherUnit(currentCell.LocatedHereUnit);
                 ActionButtons.actionButtons.HideCancelActionButton();
             }
-            else
-            {
-                cam.StartAttackUnit();
-            }
+            //else
+            //{
+            //    cam.StartAttackUnit();
+            //}
         }
     }
-    public float DistanceToCell(Cell C1, Cell C2)
+
+    //Где R - максимальный радиус поиска
+    public float DistanceToCell(Cell C1, Cell C2, int R)
     {
-        return Mathf.Sqrt( Mathf.Abs((C2.indexX - C1.indexX) * (C2.indexX - C1.indexX) + (C2.indexY - C1.indexY) * (C2.indexY - C1.indexY)));
+        return GetMatrixOfFreeCells(C1.indexX, C1.indexY, R)[C2.indexX][C2.indexY];
     }
     public void callMenu()
     {
@@ -234,6 +236,63 @@ public class Map : MonoBehaviour {
             wave++;
         }
         return Route;
+    }
+    public int[][] GetMatrixOfFreeCellsForMoving(int X, int Y, int R)
+    {
+        //Генерирует пустую матрицу
+        int[][] Route = new int[NumberOfCellsOnAxisX][];
+        for (int i = 0; i < NumberOfCellsOnAxisX; i++)
+        {
+            Route[i] = new int[NumberOfCellsOnAxisY];
+            for (int j = 0; j < NumberOfCellsOnAxisY; j++)
+                Route[i][j] = 9999;
+        }
+        Route[X][Y] = 0;
+
+        int wave = 0;
+        while (wave < R)
+        {
+            for (int i = 0; i < Route.Length; i++)
+                for (int j = 0; j < Route[i].Length; j++)
+                    if (Route[i][j] == wave)
+                    {
+                        if (CheckIndex(i + 1, j + 0) && Route[i + 1][j + 0] > wave + 1)
+                            Route[i + 1][j + 0] = wave + 1;
+
+                        if (CheckIndex(i - 1, j + 0) && Route[i - 1][j + 0] > wave + 1)
+                            Route[i - 1][j + 0] = wave + 1;
+
+                        if (CheckIndex(i + 0, j + 1) && Route[i + 0][j + 1] > wave + 1)
+                            Route[i + 0][j + 1] = wave + 1;
+
+                        if (CheckIndex(i + 0, j - 1) && Route[i + 0][j - 1] > wave + 1)
+                            Route[i + 0][j - 1] = wave + 1;
+
+                        if (i % 2 == 0)
+                        {
+                            if (CheckIndex(i + 1, j + 1) && Route[i + 1][j + 1] > wave + 1)
+                                Route[i + 1][j + 1] = wave + 1;
+                            if (CheckIndex(i - 1, j + 1) && Route[i - 1][j + 1] > wave + 1)
+                                Route[i - 1][j + 1] = wave + 1;
+                        }
+                        else
+                        {
+                            if (CheckIndex(i + 1, j - 1) && Route[i + 1][j - 1] > wave + 1)
+                                Route[i + 1][j - 1] = wave + 1;
+                            if (CheckIndex(i - 1, j - 1) && Route[i - 1][j - 1] > wave + 1)
+                                Route[i - 1][j - 1] = wave + 1;
+                        }
+                    }
+            wave++;
+        }
+        return Route;
+    }
+    bool CheckIndex(int X, int Y)
+    {
+        if (GetCell(X, Y) && !GetCell(X, Y).LocatedHereUnit)
+            return true;
+        else
+            return false;
     }
     public void ColliderTurn(bool OnOff)
     {
