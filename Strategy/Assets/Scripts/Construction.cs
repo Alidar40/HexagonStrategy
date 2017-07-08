@@ -72,6 +72,7 @@ public class Construction : Unit
                 Debug.Log("Impossible");
             }
             map.ActiveUnit.DeleteFieldOpportunities();
+            ActionButtons.actionButtons.HideCancelActionButton();
         }
 
     }
