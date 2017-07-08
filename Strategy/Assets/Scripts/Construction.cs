@@ -47,40 +47,36 @@ public class Construction : Unit
 
     public static void CreateConstructionOnClick(GameObject UnitType, ConstructionType type, List<Unit> UnitList, Cell CurrentCell)
     {
-        if (_CurrentNumberActionPoints == 10)
-        {
-            RaycastHit2D hitInfo = new RaycastHit2D();
+        RaycastHit2D hitInfo = new RaycastHit2D();
 
 #if UNITY_STANDALONE_WIN
-            hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 #endif
 
 #if UNITY_ANDROID
         hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
 #endif
-            if (hitInfo.collider)//проверка на попадание  по колайдеру
+        if (hitInfo.collider)//проверка на попадание  по колайдеру
+        {
+            Cell newUnitCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
+
+
+            if (Mathf.Pow(newUnitCell.indexX - CurrentCell.indexX, 2f) + Mathf.Pow(newUnitCell.indexY - CurrentCell.indexY, 2f) <= 25f)
             {
-                Cell newUnitCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
-
-
-                if (Mathf.Pow(newUnitCell.indexX - CurrentCell.indexX, 2f) + Mathf.Pow(newUnitCell.indexY - CurrentCell.indexY, 2f) <= 25f)
+                if (!newUnitCell.LocatedHereUnit)//проверка на то, что в том месте отсутсвует юнит
                 {
-                    if (!newUnitCell.LocatedHereUnit)//проверка на то, что в том месте отсутсвует юнит
-                    {
-                        CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList);
-                        _CurrentNumberActionPoints -= 10;
-                        Debug.Log("Количество ОД: " + _CurrentNumberActionPoints);
-                    }
-                    else
-                    {
-                        Debug.Log("Клетка занята");
-                    }
+                    CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList);
                 }
                 else
                 {
-                    Debug.Log("Вне радиуса");
+                    Debug.Log("Клетка занята");
                 }
             }
+            else
+            {
+                Debug.Log("Вне радиуса");
+            }
         }
+
     }
 }
