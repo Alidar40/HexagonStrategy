@@ -5,7 +5,8 @@ using UnityEngine;
 public class Construction : Unit
 {
 
-    Cell _currentCell;
+    // Cell _currentCell;
+    private static int _CurrentNumberActionPoints, _StandardNumberActionPoints;
 
     public enum ConstructionType
     {
@@ -15,8 +16,8 @@ public class Construction : Unit
 
     void Start()
     {
-        _currentCell = this.CurrentCell;
-
+        //_currentCell = this.CurrentCell;
+        
     }
     void Update()
     {
@@ -41,40 +42,44 @@ public class Construction : Unit
         UnitList.Add(NewUnit);
         NewUnit.name = UnitName;
         NewUnit._ConstructionType = type;
-
     }
 
 
     public static void CreateConstructionOnClick(GameObject UnitType, ConstructionType type, List<Unit> UnitList, Cell CurrentCell)
     {
-        RaycastHit2D hitInfo = new RaycastHit2D();
+        if (_CurrentNumberActionPoints == 10)
+        {
+            RaycastHit2D hitInfo = new RaycastHit2D();
 
 #if UNITY_STANDALONE_WIN
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 #endif
 
 #if UNITY_ANDROID
         hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
 #endif
-        if (hitInfo.collider)//проверка на попадание  по колайдеру
-        {
-            Cell newUnitCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
-
-
-            if (Mathf.Pow(newUnitCell.indexX - CurrentCell.indexX, 2f) + Mathf.Pow(newUnitCell.indexY - CurrentCell.indexY, 2f) <= 25f)
+            if (hitInfo.collider)//проверка на попадание  по колайдеру
             {
-                if (!newUnitCell.LocatedHereUnit)//проверка на то, что в том месте отсутсвует юнит
+                Cell newUnitCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
+
+
+                if (Mathf.Pow(newUnitCell.indexX - CurrentCell.indexX, 2f) + Mathf.Pow(newUnitCell.indexY - CurrentCell.indexY, 2f) <= 25f)
                 {
-                    CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList);
+                    if (!newUnitCell.LocatedHereUnit)//проверка на то, что в том месте отсутсвует юнит
+                    {
+                        CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList);
+                        _CurrentNumberActionPoints -= 10;
+                        Debug.Log("Количество ОД: " + _CurrentNumberActionPoints);
+                    }
+                    else
+                    {
+                        Debug.Log("Клетка занята");
+                    }
                 }
                 else
                 {
-                    Debug.Log("Клетка занята");
+                    Debug.Log("Вне радиуса");
                 }
-            }
-            else
-            {
-                Debug.Log("Вне радиуса");
             }
         }
     }

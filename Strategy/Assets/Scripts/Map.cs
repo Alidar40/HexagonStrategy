@@ -20,7 +20,7 @@ public class Map : MonoBehaviour {
         GenerateNewTable();
         Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 1, 1, UnitList);
         Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 2, 3, UnitList);
-        Construction.CreateConstruction(UnitPrefabArray[1], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall");
+        Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall");
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
         //cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
     }
