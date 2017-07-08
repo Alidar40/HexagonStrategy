@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
     public float Hitpoints, Damage;
-    public int AttackRadius;
+    public int AttackRadius, BuildingRadius;
     public int CurrentNumberActionPoints, StandardNumberActionPoints;
     public Cell CurrentCell, DestinationCell;
     public enum UnitType
@@ -245,7 +245,7 @@ public class Unit : MonoBehaviour {
 
 
     
-    private GameObject[] ArrayFieldOpportunities;
+    private static GameObject[] ArrayFieldOpportunities;
     public void GenerateFieldOpportunities(GameObject FieldOpportunities, int R)
     {
         int[][] MatrixOfFreeCells = _Map.GetMatrixOfFreeCells(CurrentCell.indexX, CurrentCell.indexY, R);

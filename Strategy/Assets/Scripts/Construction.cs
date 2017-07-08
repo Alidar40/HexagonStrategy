@@ -6,8 +6,9 @@ public class Construction : Unit
 {
 
     // Cell _currentCell;
-    private static int _CurrentNumberActionPoints, _StandardNumberActionPoints;
-
+    //private static int _CurrentNumberActionPoints, _StandardNumberActionPoints;
+    private static Map map;
+    private static Unit unit;
     public enum ConstructionType
     {
         TownHall = 0, Barracks = 1, Pit = 2, Sawmill = 3
@@ -17,6 +18,7 @@ public class Construction : Unit
     void Start()
     {
         //_currentCell = this.CurrentCell;
+        map = GameObject.Find("Map").GetComponent<Map>();
         
     }
     void Update()
@@ -45,6 +47,7 @@ public class Construction : Unit
     }
 
 
+    private static int[][] CellInfoArray;
     public static void CreateConstructionOnClick(GameObject UnitType, ConstructionType type, List<Unit> UnitList, Cell CurrentCell)
     {
         RaycastHit2D hitInfo = new RaycastHit2D();
@@ -59,23 +62,16 @@ public class Construction : Unit
         if (hitInfo.collider)//проверка на попадание  по колайдеру
         {
             Cell newUnitCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
-
-
-            if (Mathf.Pow(newUnitCell.indexX - CurrentCell.indexX, 2f) + Mathf.Pow(newUnitCell.indexY - CurrentCell.indexY, 2f) <= 25f)
+            CellInfoArray = map.GetMatrixOfFreeCells(CurrentCell.indexX, CurrentCell.indexY, 5);
+            if (CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999)
             {
-                if (!newUnitCell.LocatedHereUnit)//проверка на то, что в том месте отсутсвует юнит
-                {
-                    CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList);
-                }
-                else
-                {
-                    Debug.Log("Клетка занята");
-                }
+                CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList);
             }
             else
             {
-                Debug.Log("Вне радиуса");
+                Debug.Log("Impossible");
             }
+            map.ActiveUnit.DeleteFieldOpportunities();
         }
 
     }

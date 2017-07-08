@@ -147,14 +147,20 @@ public class Buttons : MonoBehaviour {
             case "Action2":
                 gameCamera.COSevent -= map.callMenu;
                 gameCamera.COSevent += Barracks_COSevent;
+                ActionButtons.actionButtons.ActivateCancelActionButton();
+                map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
                 break;
             case "Action3":
                 gameCamera.COSevent -= map.callMenu;
                 gameCamera.COSevent += Pit_COSevent;
+                ActionButtons.actionButtons.ActivateCancelActionButton();
+                map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
                 break;
             case "Action4":
                 gameCamera.COSevent -= map.callMenu;
                 gameCamera.COSevent += SawMill_COSevent;
+                ActionButtons.actionButtons.ActivateCancelActionButton();
+                map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
                 break;
         }
     }
@@ -220,7 +226,7 @@ public class Buttons : MonoBehaviour {
 
     private void Barracks_COSevent()  //Это функцию мы вызываем вместо callMenu в PointClick() при создании бараков
     {
-        Debug.Log("Переход к процедуре");
+        // Debug.Log("Переход к процедуре");
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[5], Construction.ConstructionType.Barracks, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;       //Возвращаем все
         gameCamera.COSevent -= Barracks_COSevent;   //на исходные места
