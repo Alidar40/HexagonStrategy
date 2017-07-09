@@ -58,7 +58,7 @@ public class Construction : Unit
         {
             Cell newUnitCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
             CellInfoArray = map.GetMatrixOfFreeCells(CurrentCell.indexX, CurrentCell.indexY, 5);
-            if (CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999)
+            if ((CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999  || CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 0)  && !CurrentCell.LocatedHereUnit)
             {
                 CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList);
             }
