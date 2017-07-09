@@ -18,9 +18,9 @@ public class Map : MonoBehaviour {
     void Awake()
     {
         GenerateNewTable();
-        Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 1, 1, UnitList);
+        Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 1, 1, UnitList, 1);//последняя единица лишь для теста
         //Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 2, 3, UnitList);
-        Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall");
+        Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall", 1);//последняя единица для теста
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
     }
 
@@ -112,8 +112,12 @@ public class Map : MonoBehaviour {
             //проверка на то, что в том месте есть юнит
             if (ActiveUnit != currentCell.LocatedHereUnit && currentCell.LocatedHereUnit && DistanceToCell(ActiveUnit.CurrentCell, currentCell, ActiveUnit.AttackRadius) <= ActiveUnit.AttackRadius)
             {
-                ActiveUnit.AttackAnotherUnit(currentCell.LocatedHereUnit);
-                ActionButtons.actionButtons.HideCancelActionButton();
+                if (ActiveUnit.Fraction != currentCell.LocatedHereUnit.Fraction)//проверка на совпадение цели и активного юнита
+                {
+                    ActiveUnit.AttackAnotherUnit(currentCell.LocatedHereUnit);
+                    ActionButtons.actionButtons.HideCancelActionButton();
+                }
+
             }
             //else
             //{

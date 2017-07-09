@@ -7,6 +7,7 @@ public class Unit : MonoBehaviour {
     public int AttackRadius, BuildingRadius;
     public int CurrentNumberActionPoints, StandardNumberActionPoints;
     public Cell CurrentCell, DestinationCell;
+    public int Fraction;
     public enum UnitType
     {
         Swordsman = 1, Archer = 2, Mage = 3, Killer = 4,
@@ -184,21 +185,23 @@ public class Unit : MonoBehaviour {
 
 
 
-    public static void CreateUnit(GameObject UnitPrefab, UnitType type, int _x, int _y, List<Unit> UnitList)
+    public static void CreateUnit(GameObject UnitPrefab, UnitType type, int _x, int _y, List<Unit> UnitList, int Fraction)
     {
         Unit NewUnit = Instantiate(UnitPrefab).GetComponent<Unit>();
         NewUnit.SetCell(_x, _y);
         UnitList.Add(NewUnit);
         NewUnit.name = "TestUnit" + _x + "_" + _y;
         NewUnit.Type = type;
+        NewUnit.Fraction = Fraction;
     }
-    public static void CreateUnit(GameObject UnitPrefab, UnitType type, int _x, int _y, List<Unit> UnitList, string UnitName)
+    public static void CreateUnit(GameObject UnitPrefab, UnitType type, int _x, int _y, List<Unit> UnitList, string UnitName, int Fraction)
     {
         Unit NewUnit = Instantiate(UnitPrefab).GetComponent<Unit>();
         NewUnit.SetCell(_x, _y);
         UnitList.Add(NewUnit);
         NewUnit.name = UnitName;
         NewUnit.Type = type;
+        NewUnit.Fraction = Fraction;
     }
     public static void CreateUnitOnClick(GameObject UnitPrefab, UnitType type, List<Unit> UnitList)
     {
@@ -217,7 +220,7 @@ public class Unit : MonoBehaviour {
 
             if (!currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
             {
-                CreateUnit(UnitPrefab, type, currentCell.indexX, currentCell.indexY, UnitList);
+                CreateUnit(UnitPrefab, type, currentCell.indexX, currentCell.indexY, UnitList,GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction);
             }
         }
     }

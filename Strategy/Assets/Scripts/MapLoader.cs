@@ -117,22 +117,22 @@ public class MapLoader : MonoBehaviour
                 if (buf == "Swordsman")
                 {
                     buf = sr.ReadLine();
-                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Swordsman, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf);
+                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Swordsman, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf,1);
                 }
                 if (buf == "Archer")
                 {
                     buf = sr.ReadLine();
-                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Archer, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf);
+                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Archer, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf,1);
                 }
                 if (buf == "Mage")
                 {
                     buf = sr.ReadLine();
-                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Mage, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf);
+                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Mage, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf,1);
                 }
                 if (buf == "Killer")
                 {
                     buf = sr.ReadLine();
-                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Killer, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf);
+                    Unit.CreateUnit(MapToSave.UnitPrefabArray[0], Unit.UnitType.Killer, Convert.ToInt32(sr.ReadLine(), 10), Convert.ToInt32(sr.ReadLine(), 10), MapToSave.UnitList, buf,1);
                 }
                 UnitBufer = GameObject.Find(buf).GetComponent<Unit>();
                 UnitBufer.Hitpoints = Convert.ToSingle(sr.ReadLine());

@@ -21,24 +21,26 @@ public class Construction : Unit
 
     }
 
-    public static void CreateConstruction(GameObject UnitType, ConstructionType type, int _x, int _y, List<Unit> UnitList)
+    public static void CreateConstruction(GameObject UnitType, ConstructionType type, int _x, int _y, List<Unit> UnitList, int Fraction)
     {
         Construction NewUnit = Instantiate(UnitType).GetComponent<Construction>();
         NewUnit.SetCell(_x, _y);
         UnitList.Add(NewUnit);
         NewUnit.name = "Construction" + _x + "_" + _y;
         NewUnit._ConstructionType = type;
+        NewUnit.Fraction = Fraction;
     }
 
 
 
-    public static void CreateConstruction(GameObject UnitType, ConstructionType type, int _x, int _y, List<Unit> UnitList, string UnitName)
+    public static void CreateConstruction(GameObject UnitType, ConstructionType type, int _x, int _y, List<Unit> UnitList, string UnitName, int Fraction)
     {
         Construction NewUnit = Instantiate(UnitType).GetComponent<Construction>();
         NewUnit.SetCell(_x, _y);
         UnitList.Add(NewUnit);
         NewUnit.name = UnitName;
         NewUnit._ConstructionType = type;
+        NewUnit.Fraction = Fraction;
     }
 
 
@@ -60,7 +62,7 @@ public class Construction : Unit
             CellInfoArray = map.GetMatrixOfFreeCells(CurrentCell.indexX, CurrentCell.indexY, 5);
             if ((CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999  || CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 0)  && !CurrentCell.LocatedHereUnit)
             {
-                CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList);
+                CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList, GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction);
             }
             else
             {
