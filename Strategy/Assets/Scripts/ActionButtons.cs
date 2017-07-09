@@ -7,7 +7,7 @@ public class ActionButtons : MonoBehaviour
 {
     public static ActionButtons actionButtons;
     public GameObject SwordsmanButtonsPanel;
-    public GameObject ArcherButtonsPanel; 
+    public GameObject ArcherButtonsPanel;
     public GameObject MageButtonsPanel;
     public GameObject KillerButtonsPanel;
     public GameObject TownHallButtonsPanel;
@@ -15,14 +15,30 @@ public class ActionButtons : MonoBehaviour
     public GameObject PitButtonsPanel;
     public GameObject SawmillButtonsPanel;
     public GameObject CancelActionButton;
-
-
+    InfoPanel SwordsmanInfoPanel;
+    InfoPanel ArcherInfoPanel;
+    InfoPanel MageInfoPanel;
+    InfoPanel KillerInfoPanel;
+    InfoPanel TownHallInfoPanel;
+    InfoPanel BarracksInfoPanel;
+    InfoPanel PitInfoPanel;
+    InfoPanel SawmillInfoPanel;
+    InfoPanel CancelInfoPanel;
 
     void Start()
     {
         actionButtons = GetComponent<ActionButtons>();
         HideAll();
         HideCancelActionButton();
+        SwordsmanInfoPanel = SwordsmanButtonsPanel.GetComponentInChildren<InfoPanel>();
+        ArcherInfoPanel = ArcherButtonsPanel.GetComponentInChildren<InfoPanel>();
+        MageInfoPanel = MageButtonsPanel.GetComponentInChildren<InfoPanel>();
+        KillerInfoPanel = KillerButtonsPanel.GetComponentInChildren<InfoPanel>();
+        TownHallInfoPanel = TownHallButtonsPanel.GetComponentInChildren<InfoPanel>();
+        BarracksInfoPanel = BarracksButtonsPanel.GetComponentInChildren<InfoPanel>();
+        PitInfoPanel = PitButtonsPanel.GetComponentInChildren<InfoPanel>();
+        SawmillInfoPanel = SawmillButtonsPanel.GetComponentInChildren<InfoPanel>();
+        CancelInfoPanel = CancelActionButton.GetComponentInChildren<InfoPanel>();
     }
 
     public void HideGreen()
@@ -50,47 +66,55 @@ public class ActionButtons : MonoBehaviour
     {
         HideAll();
         SwordsmanButtonsPanel.SetActive(true);
+        SwordsmanInfoPanel.ShowInfo();
     }
     public void ActivateArcherButtonsPanel()
     {
         HideAll();
         ArcherButtonsPanel.SetActive(true);
+        ArcherInfoPanel.ShowInfo();
     }
     public void ActivateMageButtonsPanel()
-    {
+    { 
         HideAll();
         MageButtonsPanel.SetActive(true);
+        MageInfoPanel.ShowInfo();
     }
     public void ActivateKillerButtonsPanel()
     {
         HideAll();
         KillerButtonsPanel.SetActive(true);
-
+        KillerInfoPanel.ShowInfo();
     }
     public void ActivateTownHallButtonsPanel()
     {
         HideAll();
         TownHallButtonsPanel.SetActive(true);
+        TownHallInfoPanel.ShowInfo(); 
     }
     public void ActivateBarracksButtonsPanel()
     {
         HideAll();
         BarracksButtonsPanel.SetActive(true);
+        BarracksInfoPanel.ShowInfo();
     }
     public void ActivatePitButtonsPanel()
     {
         HideAll();
         PitButtonsPanel.SetActive(true);
+        PitInfoPanel.ShowInfo();
     }
     public void ActivateSawmillButtonsPanel()
     {
         HideAll();
         SawmillButtonsPanel.SetActive(true);
+        SawmillInfoPanel.ShowInfo();
     }
     public void ActivateCancelActionButton()
     {
         HideAll();
         CancelActionButton.SetActive(true);
+        CancelInfoPanel.ShowInfo();
     }
 
     public void Update()

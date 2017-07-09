@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Construction : Unit
 {
-
-    // Cell _currentCell;
-    //private static int _CurrentNumberActionPoints, _StandardNumberActionPoints;
     private static Map map;
     private static Unit unit;
     public enum ConstructionType
@@ -17,9 +14,7 @@ public class Construction : Unit
 
     void Start()
     {
-        //_currentCell = this.CurrentCell;
-        map = GameObject.Find("Map").GetComponent<Map>();
-        
+        map = GameObject.Find("Map").GetComponent<Map>();        
     }
     void Update()
     {
