@@ -177,6 +177,7 @@ public class Unit : MonoBehaviour {
     public void AttackAnotherUnit(Unit AttackedUnit)
     {
         AttackedUnit.ToDamage(Damage);
+        CurrentNumberActionPoints = 0;
     }
 
 

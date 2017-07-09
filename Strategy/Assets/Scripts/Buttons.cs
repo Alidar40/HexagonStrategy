@@ -50,7 +50,8 @@ public class Buttons : MonoBehaviour {
                 SawmillButtons();
                 break;
         }
-        acb.HideAll();
+        if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+            acb.HideAll();
     }
 
   //далее идут функции вызывающие функции действий юнитов(и строений)
@@ -86,10 +87,12 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                gameCamera.StartMovingUnit();
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                    gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                gameCamera.StartAttackUnit();
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                    gameCamera.StartAttackUnit();
                 break;
             case "Action4":
                 
@@ -106,10 +109,12 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                gameCamera.StartMovingUnit();
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                    gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                gameCamera.StartAttackUnit();
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                    gameCamera.StartAttackUnit();
                 break;
             case "Action4":
                 
@@ -126,10 +131,12 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                gameCamera.StartMovingUnit();
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                    gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                gameCamera.StartAttackUnit();
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                    gameCamera.StartAttackUnit();
                 break;
             case "Action4":
                 
@@ -145,22 +152,31 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                gameCamera.COSevent -= map.callMenu;
-                gameCamera.COSevent += Barracks_COSevent;
-                ActionButtons.actionButtons.ActivateCancelActionButton();
-                map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                {
+                    gameCamera.COSevent -= map.callMenu;
+                    gameCamera.COSevent += Barracks_COSevent;
+                    ActionButtons.actionButtons.ActivateCancelActionButton();
+                    map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                }
                 break;
             case "Action3":
-                gameCamera.COSevent -= map.callMenu;
-                gameCamera.COSevent += Pit_COSevent;
-                ActionButtons.actionButtons.ActivateCancelActionButton();
-                map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                {
+                    gameCamera.COSevent -= map.callMenu;
+                    gameCamera.COSevent += Pit_COSevent;
+                    ActionButtons.actionButtons.ActivateCancelActionButton();
+                    map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                }
                 break;
             case "Action4":
-                gameCamera.COSevent -= map.callMenu;
-                gameCamera.COSevent += SawMill_COSevent;
-                ActionButtons.actionButtons.ActivateCancelActionButton();
-                map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                {
+                    gameCamera.COSevent -= map.callMenu;
+                    gameCamera.COSevent += SawMill_COSevent;
+                    ActionButtons.actionButtons.ActivateCancelActionButton();
+                    map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                }
                 break;
         }
     }
@@ -174,7 +190,7 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                gameCamera.StartMovingUnit();
+                
                 break;
             case "Action3":
                 
@@ -194,7 +210,7 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                gameCamera.StartMovingUnit();
+                
                 break;
             case "Action3":             
                 
@@ -213,7 +229,7 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                gameCamera.StartMovingUnit();
+                
                 break;
             case "Action3":           
                 
