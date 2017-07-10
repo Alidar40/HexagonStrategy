@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
     public float MaxHitpoints;
-    public float Hitpoints, Damage;
+    public float Hitpoints, Damage,Armor;
     public int AttackRadius, BuildingRadius;
     public int CurrentNumberActionPoints, StandardNumberActionPoints;
     public Cell CurrentCell, DestinationCell;
@@ -222,6 +222,82 @@ public class Unit : MonoBehaviour {
         NewUnit.name = "TestUnit" + _x + "_" + _y;
         NewUnit.Type = type;
         NewUnit.Fraction = Fraction;
+        switch(_Map.ActiveUnit.Fraction)
+        {
+            case 1:
+                { switch (NewUnit.tag)
+                    {
+                        case "Swordsman":
+                            NewUnit.StandardNumberActionPoints = 5;
+                            NewUnit.Armor = 2;
+                            NewUnit.Damage = 5;
+                            NewUnit.Hitpoints = 20;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                        case "Archer":
+                            NewUnit.StandardNumberActionPoints = 3;
+                            NewUnit.Armor = 1;
+                            NewUnit.Damage = 8;
+                            NewUnit.Hitpoints = 10;
+                            NewUnit.AttackRadius = 10;
+                            break;
+                        case "Mage":
+                            NewUnit.StandardNumberActionPoints = 3;
+                            NewUnit.Armor = 0;
+                            NewUnit.Damage = 0;
+                            NewUnit.Hitpoints = 10;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                        case "Killer":
+                            NewUnit.StandardNumberActionPoints = 8;
+                            NewUnit.Armor = 1;
+                            NewUnit.Damage = 10;
+                            NewUnit.Hitpoints = 20;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                    }
+                   
+                    break;
+                }
+            case 2:
+                {
+                    switch (NewUnit.tag)
+                    {
+                        case "Swordsman":
+                            NewUnit.StandardNumberActionPoints = 5;
+                            NewUnit.Armor = 1;
+                            NewUnit.Damage = 6;
+                            NewUnit.Hitpoints = 15;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                        case "Archer":
+                            NewUnit.StandardNumberActionPoints = 4;
+                            NewUnit.Armor = 1;
+                            NewUnit.Damage = 10;
+                            NewUnit.Hitpoints = 8;
+                            NewUnit.AttackRadius = 9;
+                            break;
+                        case "Mage":
+                            NewUnit.StandardNumberActionPoints = 3;
+                            NewUnit.Armor = 0;
+                            NewUnit.Damage = 0;
+                            NewUnit.Hitpoints = 8;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                        case "Killer":
+                            NewUnit.StandardNumberActionPoints = 10;
+                            NewUnit.Armor = 1;
+                            NewUnit.Damage = 10;
+                            NewUnit.Hitpoints = 15;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                    }
+
+                    break;
+                }
+        
+        }
+
     }
     public static void CreateUnit(GameObject UnitPrefab, UnitType type, int _x, int _y, List<Unit> UnitList, string UnitName, int Fraction)
     {
@@ -231,6 +307,82 @@ public class Unit : MonoBehaviour {
         NewUnit.name = UnitName;
         NewUnit.Type = type;
         NewUnit.Fraction = Fraction;
+        switch (_Map.ActiveUnit.Fraction)
+        {
+            case 1:
+                {
+                    switch (NewUnit.tag)
+                    {
+                        case "Swordsman":
+                            NewUnit.StandardNumberActionPoints = 5;
+                            NewUnit.Armor = 2;
+                            NewUnit.Damage = 5;
+                            NewUnit.Hitpoints = 20;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                        case "Archer":
+                            NewUnit.StandardNumberActionPoints = 3;
+                            NewUnit.Armor = 1;
+                            NewUnit.Damage = 8;
+                            NewUnit.Hitpoints = 10;
+                            NewUnit.AttackRadius = 10;
+                            break;
+                        case "Mage":
+                            NewUnit.StandardNumberActionPoints = 3;
+                            NewUnit.Armor = 0;
+                            NewUnit.Damage = 0;
+                            NewUnit.Hitpoints = 10;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                        case "Killer":
+                            NewUnit.StandardNumberActionPoints = 8;
+                            NewUnit.Armor = 1;
+                            NewUnit.Damage = 10;
+                            NewUnit.Hitpoints = 20;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                    }
+
+                    break;
+                }
+            case 2:
+                {
+                    switch (NewUnit.tag)
+                    {
+                        case "Swordsman":
+                            NewUnit.StandardNumberActionPoints = 5;
+                            NewUnit.Armor = 1;
+                            NewUnit.Damage = 6;
+                            NewUnit.Hitpoints = 15;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                        case "Archer":
+                            NewUnit.StandardNumberActionPoints = 4;
+                            NewUnit.Armor = 1;
+                            NewUnit.Damage = 10;
+                            NewUnit.Hitpoints = 8;
+                            NewUnit.AttackRadius = 9;
+                            break;
+                        case "Mage":
+                            NewUnit.StandardNumberActionPoints = 3;
+                            NewUnit.Armor = 0;
+                            NewUnit.Damage = 0;
+                            NewUnit.Hitpoints = 8;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                        case "Killer":
+                            NewUnit.StandardNumberActionPoints = 10;
+                            NewUnit.Armor = 1;
+                            NewUnit.Damage = 10;
+                            NewUnit.Hitpoints = 15;
+                            NewUnit.AttackRadius = 1;
+                            break;
+                    }
+
+                    break;
+                }
+
+        }
     }
     public static void CreateUnitOnClick(GameObject UnitPrefab, UnitType type, List<Unit> UnitList)
     {
