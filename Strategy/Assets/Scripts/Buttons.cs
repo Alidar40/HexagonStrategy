@@ -147,19 +147,7 @@ public class Buttons : MonoBehaviour {
                 break;
         }
     }
-    private void FB_COSevent()
-    {
-        map.ActiveUnit.ThrowFireball();
-        gameCamera.COSevent += map.callMenu;
-        gameCamera.COSevent -= FB_COSevent;
-    }
 
-    private void Heal_COSevent()
-    {
-        map.ActiveUnit.HealOnClick();
-        gameCamera.COSevent += map.callMenu;
-        gameCamera.COSevent -= Heal_COSevent;
-    }
 
     void SwordsmanButtons()
     {
@@ -342,21 +330,21 @@ public class Buttons : MonoBehaviour {
     private void Barracks_COSevent()  //Это функцию мы вызываем вместо callMenu в PointClick() при создании бараков
     {
         // Debug.Log("Переход к процедуре");
-        Construction.CreateConstructionOnClick(map.UnitPrefabArray[5], Construction.ConstructionType.Barracks, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
+        Construction.CreateConstructionOnClick(map.UnitPrefabArray[5], Construction.ConstructionType.Barracks, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;       //Возвращаем все
         gameCamera.COSevent -= Barracks_COSevent;   //на исходные места
     }
 
     private void Pit_COSevent()
     {
-        Construction.CreateConstructionOnClick(map.UnitPrefabArray[6], Construction.ConstructionType.Pit, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
+        Construction.CreateConstructionOnClick(map.UnitPrefabArray[6], Construction.ConstructionType.Pit, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= Pit_COSevent;
     }
 
     private void SawMill_COSevent()
     {
-        Construction.CreateConstructionOnClick(map.UnitPrefabArray[7], Construction.ConstructionType.Sawmill, map.UnitList, GameObject.Find("TownHall").GetComponent<Construction>().CurrentCell);
+        Construction.CreateConstructionOnClick(map.UnitPrefabArray[7], Construction.ConstructionType.Sawmill, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= SawMill_COSevent;
     }
@@ -387,6 +375,20 @@ public class Buttons : MonoBehaviour {
         Unit.CreateUnitOnClick(map.UnitPrefabArray[0], Unit.UnitType.Swordsman, map.UnitList);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= SwordsmanSpawn_COSevent;
+    }
+
+    private void FB_COSevent()
+    {
+        map.ActiveUnit.ThrowFireball();
+        gameCamera.COSevent += map.callMenu;
+        gameCamera.COSevent -= FB_COSevent;
+    }
+
+    private void Heal_COSevent()
+    {
+        map.ActiveUnit.HealOnClick();
+        gameCamera.COSevent += map.callMenu;
+        gameCamera.COSevent -= Heal_COSevent;
     }
 
 }

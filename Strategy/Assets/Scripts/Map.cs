@@ -148,6 +148,7 @@ public class Map : MonoBehaviour {
 
     public void callMenu()
     {
+        //GameObject.Find("GameUICamera/Canvas/Info").SetActive(true);
         RaycastHit2D hitInfo = new RaycastHit2D();
 
 #if UNITY_STANDALONE_WIN
@@ -203,6 +204,10 @@ public class Map : MonoBehaviour {
                             ActionButtons.actionButtons.HideAll();
                             break;
                     }
+                }
+                else
+                {
+                   // GameObject.Find("GameUICamera/Canvas/Info").SetActive(true);
                 }
 
             }

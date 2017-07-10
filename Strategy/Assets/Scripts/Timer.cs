@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Timer : MonoBehaviour {
 
     public static Timer timObject;
     public float timer;//время таймера
     public bool timerOn;
+    public Text timerText;
 
     public void Start()
     {
@@ -20,6 +23,7 @@ public class Timer : MonoBehaviour {
             if (timer > 0)
             {
                 timer -= Time.deltaTime;
+                ShowTime();
             }
             if (timer < 0)
             {
@@ -42,5 +46,11 @@ public class Timer : MonoBehaviour {
     {
         timer = 30.0f;
         timerOn = true;
+    }
+
+
+    public void ShowTime()
+    {
+        timerText.text = ((int) timer).ToString();
     }
 }

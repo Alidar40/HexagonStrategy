@@ -117,14 +117,4 @@ public class ActionButtons : MonoBehaviour
         CancelInfoPanel.ShowInfo();
     }
 
-    public void Update()
-    {
-
-    }
-
-
-
-
-
-
 }
