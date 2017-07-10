@@ -49,11 +49,16 @@
      <Compile Include="Assets\Scripts\ActionButtons.cs" />
      <Compile Include="Assets\Scripts\Buttons.cs" />
      <Compile Include="Assets\Scripts\Cell.cs" />
-     <Compile Include="Assets\Scripts\Click.cs" />
+     <Compile Include="Assets\Scripts\Construction.cs" />
      <Compile Include="Assets\Scripts\GameCamera.cs" />
+     <Compile Include="Assets\Scripts\GameEvents.cs" />
+     <Compile Include="Assets\Scripts\InfoPanel.cs" />
      <Compile Include="Assets\Scripts\Map.cs" />
      <Compile Include="Assets\Scripts\MapLoader.cs" />
+     <Compile Include="Assets\Scripts\Resources.cs" />
+     <Compile Include="Assets\Scripts\Timer.cs" />
      <Compile Include="Assets\Scripts\Unit.cs" />
+     <None Include="Assets\Fonts\Roboto\LICENSE.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/UnityData/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
