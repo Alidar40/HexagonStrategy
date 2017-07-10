@@ -33,6 +33,7 @@ public class Map : MonoBehaviour {
         //Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 2, 3, UnitList);
         Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall", 1);//последняя единица для теста
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
+        //Resources.ShowResources();
     }
 
     void Start()

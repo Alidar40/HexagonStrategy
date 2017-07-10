@@ -22,24 +22,28 @@ public class Construction : Unit
             case "TownHall":
                 //StandardNumberActionPoints = 5;
                 //Damage = 5;
-                Hitpoints = 200;
+                MaxHitpoints = 200;
+                Hitpoints = MaxHitpoints;
                 BuildingRadius = 5;
                 break;
             case "Barracks":
                 //StandardNumberActionPoints = 3;
                 //Damage = 8;
-                Hitpoints = 50;
+                MaxHitpoints = 50;
+                Hitpoints = MaxHitpoints;
                 BuildingRadius = 3;
                 break;
             case "Pit":
                 //StandardNumberActionPoints = 3;
                 //Damage = 0;
-                Hitpoints = 30;
+                MaxHitpoints = 30;
+                Hitpoints = MaxHitpoints;
                 break;
             case "Sawmill":
                 //StandardNumberActionPoints = 8;
                 //Damage = 10;
-                Hitpoints = 30;
+                MaxHitpoints = 30;
+                Hitpoints = MaxHitpoints;
                 break;
         }
     }

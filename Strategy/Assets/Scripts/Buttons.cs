@@ -9,6 +9,7 @@ public class Buttons : MonoBehaviour {
     public Button yourButton;
     GameCamera gameCamera;
     Map map;
+    Text bufText;
 
     void Start()
     {
@@ -16,6 +17,49 @@ public class Buttons : MonoBehaviour {
         map = GameObject.Find("Map").GetComponent<Map>();
         gameCamera = GameObject.Find("Main Camera").GetComponent<GameCamera>();
         btn.onClick.AddListener(TaskOnClick);       
+    }
+
+    private void Update()
+    {
+        if (map.ActiveUnit.Type == Unit.UnitType.Mage)
+        {
+            bufText = GameObject.Find("MageButtonsPanel/UnitActionWindow/Action3/Text").GetComponent<Text>();
+            switch (map.ActiveUnit.Fraction)
+            {
+                case 1:
+                    bufText.text = "Heal";
+                    break;
+                case 2:
+                    bufText.text = "Fireball";
+                    break;
+            }
+            bufText = GameObject.Find("MageButtonsPanel/UnitActionWindow/Action4/Text").GetComponent<Text>();
+            switch (map.ActiveUnit.Fraction)
+            {
+                case 1:
+                    bufText.text = "Gain Defence";
+                    break;
+                case 2:
+                    bufText.text = "Weaken Defence";
+                    break;
+            }
+        }
+
+        if (map.ActiveUnit.Type == Unit.UnitType.Killer)
+        {
+            bufText = GameObject.Find("KillerButtonsPanel/UnitActionWindow/Action5/Text").GetComponent<Text>();
+            switch (map.ActiveUnit.Fraction)
+            {
+                case 1:
+                    bufText.text = "Ignore Defence";
+                    break;
+                case 2:
+                    bufText.text = "Poison";
+                    break;
+            }
+        }
+
+
     }
 
     void TaskOnClick()
@@ -70,18 +114,51 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                    gameCamera.StartMovingUnit();
                 break;
             case "Action3":
-                
+                switch (map.ActiveUnit.Fraction)
+                {
+                    case 1:
+                        if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                        {
+                            gameCamera.COSevent -= map.callMenu;
+                            gameCamera.COSevent += Heal_COSevent;
+                            ActionButtons.actionButtons.ActivateCancelActionButton();
+                            map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.AttackRadius);
+                        }
+                        break;
+                    case 2:
+                        if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                        {
+                            gameCamera.COSevent -= map.callMenu;
+                            gameCamera.COSevent += FB_COSevent;
+                            ActionButtons.actionButtons.ActivateCancelActionButton();
+                            map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.AttackRadius);
+                        }
+                        break;
+                }
                 break;
             case "Action4":
                 
-                break;
-            case "Action5":
+
 
                 break;
         }
+    }
+    private void FB_COSevent()
+    {
+        map.ActiveUnit.ThrowFireball();
+        gameCamera.COSevent += map.callMenu;
+        gameCamera.COSevent -= FB_COSevent;
+    }
+
+    private void Heal_COSevent()
+    {
+        map.ActiveUnit.HealOnClick();
+        gameCamera.COSevent += map.callMenu;
+        gameCamera.COSevent -= Heal_COSevent;
     }
 
     void SwordsmanButtons()

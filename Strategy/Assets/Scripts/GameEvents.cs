@@ -10,6 +10,7 @@ public class GameEvents : MonoBehaviour {
     Map m;
     Unit u;
     Construction c;
+    Resources r;
 
     void Start()
     {
@@ -51,6 +52,7 @@ public class GameEvents : MonoBehaviour {
             GameObject.Find("Map").GetComponent<Map>().ActivePlayer = false;//активность пропадает при нажатии next turn
             Timer.timObject.StartTimer(); //заново запускает таймер
         }
+        Resources.ShowResources();
 
     }
 

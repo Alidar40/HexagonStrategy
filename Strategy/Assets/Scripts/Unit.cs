@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : MonoBehaviour {
+    public float MaxHitpoints;
     public float Hitpoints, Damage;
     public int AttackRadius, BuildingRadius;
     public int CurrentNumberActionPoints, StandardNumberActionPoints;
@@ -324,5 +325,63 @@ public class Unit : MonoBehaviour {
         for (int i = 0; i < ArrayFieldOpportunities.Length; i++)
             Destroy(ArrayFieldOpportunities[i]);
         ArrayFieldOpportunities = new GameObject[0];
+    }
+    public void HealOnClick()
+    {
+        RaycastHit2D hitInfo = new RaycastHit2D();
+
+#if UNITY_STANDALONE_WIN
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+#endif
+
+#if UNITY_ANDROID
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+#endif
+        if (hitInfo.collider)//проверка на попадание  по колайдеру
+        {
+            Cell currentCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
+            Debug.Log(CurrentCell.LocatedHereUnit.name);
+
+            if (currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
+            {
+                currentCell.LocatedHereUnit.Hitpoints += 5;
+                Debug.Log(CurrentCell.LocatedHereUnit.name);
+            }
+            _Map.ActiveUnit.DeleteFieldOpportunities();
+            ActionButtons.actionButtons.HideCancelActionButton();
+            CurrentNumberActionPoints--;
+
+            if (currentCell.LocatedHereUnit.Hitpoints > currentCell.LocatedHereUnit.MaxHitpoints)
+            {
+                currentCell.LocatedHereUnit.Hitpoints = currentCell.LocatedHereUnit.MaxHitpoints;
+                Debug.Log(CurrentCell.LocatedHereUnit.name);
+            }
+        }
+    }
+
+    public void ThrowFireball()
+    {
+        //требуется система ходов        
+        RaycastHit2D hitInfo = new RaycastHit2D();
+
+#if UNITY_STANDALONE_WIN
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+#endif
+
+#if UNITY_ANDROID
+        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+#endif
+        if (hitInfo.collider)//проверка на попадание  по колайдеру
+        {
+            Cell currentCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
+
+            if (currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
+            {
+                currentCell.LocatedHereUnit.Hitpoints -= 4;
+            }
+            _Map.ActiveUnit.DeleteFieldOpportunities();
+            ActionButtons.actionButtons.HideCancelActionButton();
+            CurrentNumberActionPoints--;
+        }
     }
 }
