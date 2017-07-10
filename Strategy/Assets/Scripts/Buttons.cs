@@ -75,6 +75,9 @@ public class Buttons : MonoBehaviour {
             case "Action4":
                 
                 break;
+            case "Action5":
+
+                break;
         }
     }
 
@@ -93,9 +96,6 @@ public class Buttons : MonoBehaviour {
             case "Action3":
                 if (map.ActiveUnit.CurrentNumberActionPoints > 0)
                     gameCamera.StartAttackUnit();
-                break;
-            case "Action4":
-                
                 break;
         }
     }
