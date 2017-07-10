@@ -252,6 +252,7 @@ public class Unit : MonoBehaviour {
             }
             _Map.ActiveUnit.DeleteFieldOpportunities();
             ActionButtons.actionButtons.HideCancelActionButton();
+            currentCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
         }
     }
     public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)

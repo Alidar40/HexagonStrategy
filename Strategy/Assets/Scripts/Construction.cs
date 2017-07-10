@@ -98,6 +98,7 @@ public class Construction : Unit
             }
             map.ActiveUnit.DeleteFieldOpportunities();
             ActionButtons.actionButtons.HideCancelActionButton();
+            CurrentCell.LocatedHereUnit.GetComponentInChildren<Construction>().CurrentNumberActionPoints = 0;
         }
 
     }
