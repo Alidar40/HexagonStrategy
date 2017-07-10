@@ -25,6 +25,7 @@ public class Construction : Unit
                 MaxHitpoints = 200;
                 Hitpoints = MaxHitpoints;
                 BuildingRadius = 5;
+                Armor = 10;
                 break;
             case "Barracks":
                 //StandardNumberActionPoints = 3;
@@ -32,18 +33,21 @@ public class Construction : Unit
                 MaxHitpoints = 50;
                 Hitpoints = MaxHitpoints;
                 BuildingRadius = 3;
+                Armor = 8;
                 break;
             case "Pit":
                 //StandardNumberActionPoints = 3;
                 //Damage = 0;
                 MaxHitpoints = 30;
                 Hitpoints = MaxHitpoints;
+                Armor = 5;
                 break;
             case "Sawmill":
                 //StandardNumberActionPoints = 8;
                 //Damage = 10;
                 MaxHitpoints = 30;
                 Hitpoints = MaxHitpoints;
+                Armor = 5;
                 break;
         }
     }

@@ -164,10 +164,12 @@ public class Map : MonoBehaviour {
 
             if (currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
             {
-                if (PlayerFraction == currentCell.LocatedHereUnit.Fraction)//меню будет открываться только если тыкаешь по своей фракции
+                
+                ActiveUnit = currentCell.LocatedHereUnit;
+                if (PlayerFraction == ActiveUnit.Fraction)//меню будет открываться только если тыкаешь по своей фракции
                 {
-                    ActiveUnit = currentCell.LocatedHereUnit;
-                    switch (currentCell.LocatedHereUnit.Type.ToString())//выбираем по типу юнита, какое меню вывести на экран
+
+                        switch (currentCell.LocatedHereUnit.Type.ToString())//выбираем по типу юнита, какое меню вывести на экран
                     {
                         case "Swordsman":
                             ActionButtons.actionButtons.ActivateSwordsmanButtonsPanel();
