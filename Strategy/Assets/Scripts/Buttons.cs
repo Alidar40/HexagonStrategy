@@ -19,39 +19,42 @@ public class Buttons : MonoBehaviour {
     }
 
     void TaskOnClick()
-    {       
+    {
         //собственно, в этом кейсе мы узнаем для какого юнита кнопка была и вызываем нужную функцию
         //тег можно доставать еще и из активного юнита(он совпадает с тегом кнопок действия(если нет багов o_O )
-        switch(gameObject.tag)
+        if (GameObject.Find("Map").GetComponent<Map>().ActivePlayer)
         {
-            case "Swordsman":
-                //тег мечника( да, знаю, что это фехтовальщик...гугл не захотел переводить по-другому)
-                SwordsmanButtons();
-                break;
-            case "Archer":
-                ArcherButtons();
-                break;
-            case "Mage":
-                MageButtons();
-                break;
-            case "Killer":
-                KillerButtons();
-                break;
-            case "TownHall":
-                TownHallButtons();
-                break;
-            case "Barracks":
-                BarracksButtons();
-                break;
-            case "Pit":
-                PitButtons();
-                break;
-            case "Sawmill":
-                SawmillButtons();
-                break;
+            switch (gameObject.tag)
+            {
+                case "Swordsman":
+                    //тег мечника( да, знаю, что это фехтовальщик...гугл не захотел переводить по-другому)
+                    SwordsmanButtons();
+                    break;
+                case "Archer":
+                    ArcherButtons();
+                    break;
+                case "Mage":
+                    MageButtons();
+                    break;
+                case "Killer":
+                    KillerButtons();
+                    break;
+                case "TownHall":
+                    TownHallButtons();
+                    break;
+                case "Barracks":
+                    BarracksButtons();
+                    break;
+                case "Pit":
+                    PitButtons();
+                    break;
+                case "Sawmill":
+                    SawmillButtons();
+                    break;
+            }
+            if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                acb.HideAll();
         }
-        if (map.ActiveUnit.CurrentNumberActionPoints > 0)
-            acb.HideAll();
     }
 
   //далее идут функции вызывающие функции действий юнитов(и строений)

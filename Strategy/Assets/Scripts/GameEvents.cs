@@ -22,12 +22,36 @@ public class GameEvents : MonoBehaviour {
  
     public void TaskOnClick()
     {
-        foreach (Unit u in UnitList)
+       
+    }
+
+    public void NextTurn()
+    {
+        if (GameObject.Find("Map").GetComponent<Map>().ActivePlayer) //проверяем активность плейера
         {
-            u.LaunchNextTurn += NextUnit_LaunchNextTurn;
-            u.LaunchNextTurn += u.UpdateActionPoints;
-            u.NextTurn(UnitList);
+            foreach (Unit u in UnitList)
+            {
+                u.LaunchNextTurn += NextUnit_LaunchNextTurn;
+                u.LaunchNextTurn += u.UpdateActionPoints;
+                u.NextTurn(UnitList);
+            }
+            foreach (Unit c in UnitList)
+            {
+                if ((c.tag == "Sawmill") && (c.Fraction == GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction))
+                {
+                    GameObject.Find("Map").GetComponent<Map>().Wood += Map.WOOD;
+                }
+                if ((c.tag == "Pit") && (c.Fraction == GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction))
+                {
+                    GameObject.Find("Map").GetComponent<Map>().Gold += Map.GOLD;
+                    GameObject.Find("Map").GetComponent<Map>().Stone += Map.STONE;
+                }
+            }
+
+            GameObject.Find("Map").GetComponent<Map>().ActivePlayer = false;//активность пропадает при нажатии next turn
+            Timer.timObject.StartTimer(); //заново запускает таймер
         }
+
     }
 
     private void NextUnit_LaunchNextTurn(List<Unit> UnitList)

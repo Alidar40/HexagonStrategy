@@ -12,10 +12,15 @@ public class Map : MonoBehaviour {
     public List<Unit> UnitList;
 
     GameCamera cam;
+    public const int GOLD = 10;//это константы  колличества ресурсов за ход
+    public const int WOOD = 10;//стоило б переименовать по понятнее..
+    public const int STONE = 10;
 
     public Unit ActiveUnit;
     public int Gold=0, Stone=0, Wood=0;
 
+    public bool ActivePlayer;//активен ли игрок
+    public int PlayerFraction;//фракция игрока
 
 
     void Awake()
@@ -32,6 +37,8 @@ public class Map : MonoBehaviour {
 
     void Start()
     {
+        PlayerFraction = 1;//тут назначим ему фракцию
+        ActivePlayer = true;//и пусть он делает первый ход
         cam.COSevent += callMenu;  //Теперь при использовании функции PointClick()
         //мы можем комбинировать различные функции внутрии ее
         //в самом начале мы подписываем в PointClick() функцию callMenu
@@ -137,6 +144,7 @@ public class Map : MonoBehaviour {
     {
         return GetMatrixOfFreeCells(C1.indexX, C1.indexY, R)[C2.indexX][C2.indexY];
     }
+
     public void callMenu()
     {
         RaycastHit2D hitInfo = new RaycastHit2D();
@@ -154,43 +162,46 @@ public class Map : MonoBehaviour {
 
             if (currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
             {
-                ActiveUnit = currentCell.LocatedHereUnit;
-                switch (currentCell.LocatedHereUnit.Type.ToString())//выбираем по типу юнита, какое меню вывести на экран
+                if (PlayerFraction == currentCell.LocatedHereUnit.Fraction)//меню будет открываться только если тыкаешь по своей фракции
                 {
-                    case "Swordsman":
-                        ActionButtons.actionButtons.ActivateSwordsmanButtonsPanel();
-                        break;
-                    case "Archer":
-                        ActionButtons.actionButtons.ActivateArcherButtonsPanel();
-                        break;
-                    case "Mage":
-                        ActionButtons.actionButtons.ActivateMageButtonsPanel();
-                        break;
-                    case "Killer":
-                        ActionButtons.actionButtons.ActivateKillerButtonsPanel();
-                        break;
-                    case "Construction":
-                        switch (((Construction)currentCell.LocatedHereUnit)._ConstructionType.ToString())
-                        {
+                    ActiveUnit = currentCell.LocatedHereUnit;
+                    switch (currentCell.LocatedHereUnit.Type.ToString())//выбираем по типу юнита, какое меню вывести на экран
+                    {
+                        case "Swordsman":
+                            ActionButtons.actionButtons.ActivateSwordsmanButtonsPanel();
+                            break;
+                        case "Archer":
+                            ActionButtons.actionButtons.ActivateArcherButtonsPanel();
+                            break;
+                        case "Mage":
+                            ActionButtons.actionButtons.ActivateMageButtonsPanel();
+                            break;
+                        case "Killer":
+                            ActionButtons.actionButtons.ActivateKillerButtonsPanel();
+                            break;
+                        case "Construction":
+                            switch (((Construction)currentCell.LocatedHereUnit)._ConstructionType.ToString())
+                            {
 
-                            case "TownHall":
-                                ActionButtons.actionButtons.ActivateTownHallButtonsPanel();
-                                //Debug.Log("test");
-                                break;
-                            case "Barracks":
-                                ActionButtons.actionButtons.ActivateBarracksButtonsPanel();
-                                break;
-                            case "Pit":
-                                ActionButtons.actionButtons.ActivatePitButtonsPanel();
-                                break;
-                            case "Sawmill":
-                                ActionButtons.actionButtons.ActivateSawmillButtonsPanel();
-                                break;
-                        }
-                        break;
-                    default:        //по дефолту убирает меню
-                        ActionButtons.actionButtons.HideAll();
-                        break;
+                                case "TownHall":
+                                    ActionButtons.actionButtons.ActivateTownHallButtonsPanel();
+                                    //Debug.Log("test");
+                                    break;
+                                case "Barracks":
+                                    ActionButtons.actionButtons.ActivateBarracksButtonsPanel();
+                                    break;
+                                case "Pit":
+                                    ActionButtons.actionButtons.ActivatePitButtonsPanel();
+                                    break;
+                                case "Sawmill":
+                                    ActionButtons.actionButtons.ActivateSawmillButtonsPanel();
+                                    break;
+                            }
+                            break;
+                        default:        //по дефолту убирает меню
+                            ActionButtons.actionButtons.HideAll();
+                            break;
+                    }
                 }
 
             }
