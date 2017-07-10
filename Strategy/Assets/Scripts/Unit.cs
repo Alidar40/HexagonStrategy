@@ -25,7 +25,7 @@ public class Unit : MonoBehaviour {
         }
     }
     private WayCell[][] Route;
-    Map _Map;
+    static Map _Map;
 
     void Awake() {
         _Map = GameObject.Find("Map").GetComponent<Map>();
@@ -33,6 +33,34 @@ public class Unit : MonoBehaviour {
     void Start()
     {
         tag = Type.ToString();
+        switch (tag)
+        {
+            case "Swordsman":
+                StandardNumberActionPoints = 5;
+                Damage = 5;
+                Hitpoints = 20;
+                AttackRadius = 1;
+                break;
+            case "Archer":
+                StandardNumberActionPoints = 3;
+                Damage = 8;
+                Hitpoints = 10;
+                AttackRadius = 10;
+                break;
+            case "Mage":
+                StandardNumberActionPoints = 3;
+                Damage = 0;
+                Hitpoints = 10;
+                AttackRadius = 1;
+                break;
+            case "Killer":
+                StandardNumberActionPoints = 8;
+                Damage = 10;
+                Hitpoints = 20;
+                AttackRadius = 1;
+                break;
+        }
+        CurrentNumberActionPoints = StandardNumberActionPoints;
     }
     
 
@@ -222,6 +250,8 @@ public class Unit : MonoBehaviour {
             {
                 CreateUnit(UnitPrefab, type, currentCell.indexX, currentCell.indexY, UnitList,GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction);
             }
+            _Map.ActiveUnit.DeleteFieldOpportunities();
+            ActionButtons.actionButtons.HideCancelActionButton();
         }
     }
     public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)

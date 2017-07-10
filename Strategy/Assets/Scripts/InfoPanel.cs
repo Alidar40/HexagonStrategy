@@ -9,6 +9,7 @@ public class InfoPanel : MonoBehaviour {
     public Text textHP;
     public Text textAP;
 
+
     private Unit obj;
     private Construction cons;
 
@@ -41,4 +42,5 @@ public class InfoPanel : MonoBehaviour {
             textAP.text = "AP: " + obj.CurrentNumberActionPoints + "/" + obj.StandardNumberActionPoints;
         }
     }
+
 }

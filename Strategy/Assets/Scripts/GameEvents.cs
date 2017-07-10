@@ -9,6 +9,7 @@ public class GameEvents : MonoBehaviour {
     List<Unit> UnitList;
     Map m;
     Unit u;
+    Construction c;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class GameEvents : MonoBehaviour {
         foreach (Unit u in UnitList)
         {
             u.LaunchNextTurn -= NextUnit_LaunchNextTurn;
+            
         }
     }
 

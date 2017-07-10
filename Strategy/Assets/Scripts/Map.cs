@@ -14,11 +14,17 @@ public class Map : MonoBehaviour {
     GameCamera cam;
 
     public Unit ActiveUnit;
+    public int Gold=0, Stone=0, Wood=0;
+
+
 
     void Awake()
     {
         GenerateNewTable();
         Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 1, 1, UnitList, 1);//последняя единица лишь для теста
+        Unit.CreateUnit(UnitPrefabArray[1], Unit.UnitType.Archer, 2, 1, UnitList, 2);
+        Unit.CreateUnit(UnitPrefabArray[2], Unit.UnitType.Mage, 3, 1, UnitList, 1);
+        Unit.CreateUnit(UnitPrefabArray[3], Unit.UnitType.Killer, 4, 1, UnitList, 2);
         //Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 2, 3, UnitList);
         Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall", 1);//последняя единица для теста
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();

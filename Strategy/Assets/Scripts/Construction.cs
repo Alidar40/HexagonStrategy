@@ -11,10 +11,37 @@ public class Construction : Unit
         TownHall = 0, Barracks = 1, Pit = 2, Sawmill = 3
     };
     public ConstructionType _ConstructionType;
+    string tag;
 
     void Start()
     {
-        map = GameObject.Find("Map").GetComponent<Map>();        
+        map = GameObject.Find("Map").GetComponent<Map>();
+        tag = _ConstructionType.ToString();
+        switch (tag)
+        {
+            case "TownHall":
+                //StandardNumberActionPoints = 5;
+                //Damage = 5;
+                Hitpoints = 200;
+                BuildingRadius = 5;
+                break;
+            case "Barracks":
+                //StandardNumberActionPoints = 3;
+                //Damage = 8;
+                Hitpoints = 50;
+                BuildingRadius = 3;
+                break;
+            case "Pit":
+                //StandardNumberActionPoints = 3;
+                //Damage = 0;
+                Hitpoints = 30;
+                break;
+            case "Sawmill":
+                //StandardNumberActionPoints = 8;
+                //Damage = 10;
+                Hitpoints = 30;
+                break;
+        }
     }
     void Update()
     {
