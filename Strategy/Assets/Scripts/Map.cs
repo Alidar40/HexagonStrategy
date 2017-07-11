@@ -19,14 +19,7 @@ public class Map : MonoBehaviour {
     public Unit ActiveUnit;
     public int Gold=0, Stone=0, Wood=0;
 
-    public Unit.Price Barracks;
-    public Unit.Price Pit;
-    public Unit.Price Sawmill;
 
-    public Unit.Price Swordsman;
-    public Unit.Price Archer;
-    public Unit.Price Mage;
-    public Unit.Price Killer;
 
 
     public bool ActivePlayer;//активен ли игрок
@@ -36,11 +29,6 @@ public class Map : MonoBehaviour {
     void Awake()
     {
         GenerateNewTable();
-        //Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 1, 1, UnitList, 1);//последняя единица лишь для теста
-        //Unit.CreateUnit(UnitPrefabArray[1], Unit.UnitType.Archer, 2, 1, UnitList, 2);
-       // Unit.CreateUnit(UnitPrefabArray[2], Unit.UnitType.Mage, 3, 1, UnitList, 1);
-       // Unit.CreateUnit(UnitPrefabArray[3], Unit.UnitType.Killer, 4, 1, UnitList, 2);
-       // Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 2, 3, UnitList);
         Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall1", 1);//последняя единица для теста
         Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 15, 5, UnitList, "TownHall2s", 2);
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
@@ -66,6 +54,7 @@ public class Map : MonoBehaviour {
         cam.cameraMoving();
         cam.CameraZoom();
         Resources.ShowResources();
+        
     }
 
     private Cell[][] CellArray;
@@ -75,7 +64,9 @@ public class Map : MonoBehaviour {
         for (int i = 0; i < NumberOfCellsOnAxisX; i++)
         {
             CellArray[i] = new Cell[NumberOfCellsOnAxisY];
-            GameObject Line = new GameObject();
+            GameObject Line = GameObject.Find("Line_" + i);
+            if (!Line)
+                Line = new GameObject();
             Line.transform.parent = transform;
             Line.transform.localPosition = Vector3.zero;
             Line.name = "Line_" + i;
@@ -91,7 +82,17 @@ public class Map : MonoBehaviour {
                 CellArray[i][j] = newCell.GetComponent<Cell>();
                 CellArray[i][j].indexX = i;
                 CellArray[i][j].indexY = j;
-                CellArray[i][j].SetType(1);
+                //CellArray[i][j].SetType(1);
+            }
+        }
+    }
+    public void DestroyTable()
+    {
+        for (int i =0; i < CellArray.Length; i++)
+        {
+            for (int j = 0; j < CellArray[i].Length; j++)
+            {
+                Destroy(CellArray[i][j].gameObject);
             }
         }
     }

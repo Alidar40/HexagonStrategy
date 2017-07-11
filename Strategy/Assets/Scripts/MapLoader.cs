@@ -26,22 +26,22 @@ public class MapLoader : MonoBehaviour
     {
         StreamWriter sw = new StreamWriter(saveName + ".txt");
 
-        /*sw.WriteLine("CameraSettings");
+        sw.WriteLine("CameraSettings");
         sw.WriteLine(CameraToSave.transform.position.x);
         sw.WriteLine(CameraToSave.transform.position.y);
         sw.WriteLine(CameraToSave.transform.position.z);
 
         sw.WriteLine("MapSettings");
         sw.WriteLine(MapToSave.NumberOfCellsOnAxisX);
-        sw.WriteLine(MapToSave.NumberOfCellsOnAxisY);*/
+        sw.WriteLine(MapToSave.NumberOfCellsOnAxisY);
 
-        //for (int i = 0; i < MapToSave.NumberOfCellsOnAxisX; i++)
-        //{
-        //    for (int j = 0; j < MapToSave.NumberOfCellsOnAxisY; j++)
-        //    {
-        //        sw.WriteLine(MapToSave.GetCell(i, j).Type);
-        //    }
-        //}
+        for (int i = 0; i < MapToSave.NumberOfCellsOnAxisX; i++)
+        {
+            for (int j = 0; j < MapToSave.NumberOfCellsOnAxisY; j++)
+            {
+                sw.WriteLine(MapToSave.GetCell(i, j).Type);
+            }
+        }
 
         sw.WriteLine("UnitsSettings");
         sw.WriteLine(MapToSave.UnitList.Count);
@@ -92,19 +92,21 @@ public class MapLoader : MonoBehaviour
             StreamReader sr = new StreamReader(saveName + ".txt");
             string buf;
             buf = sr.ReadLine();
-            /*Vector3 newCamPos = new Vector3(Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()));
+            Vector3 newCamPos = new Vector3(Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()));
             CameraToSave.transform.position = newCamPos;
             buf = sr.ReadLine();
             buf = sr.ReadLine();
             MapToSave.NumberOfCellsOnAxisX = Convert.ToInt32(buf, 10);
             buf = sr.ReadLine();
             MapToSave.NumberOfCellsOnAxisY = Convert.ToInt32(buf, 10);
+            MapToSave.DestroyTable();
             MapToSave.GenerateNewTable();
+            
             for (int i = 0; i < MapToSave.NumberOfCellsOnAxisX; i++)
             {
                 for (int j = 0; j < MapToSave.NumberOfCellsOnAxisY; j++)
                 {
-                    CellBufer = GameObject.Find("Cell_" + i + "_" + j).GetComponent<Cell>();
+                    CellBufer = MapToSave.GetCell(i, j);
                     buf = sr.ReadLine();
                     if (buf == "Grass")
                     {
@@ -127,9 +129,9 @@ public class MapLoader : MonoBehaviour
                         CellBufer.SetType(5);
                     }
                 }
-            }*/
+            }
 
-            //buf = sr.ReadLine();
+            buf = sr.ReadLine();
 
             int NUnit = Convert.ToInt32(sr.ReadLine(), 10);
             for (int _i = 0; _i < NUnit; _i++)
