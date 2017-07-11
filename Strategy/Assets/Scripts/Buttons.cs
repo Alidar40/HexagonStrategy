@@ -8,7 +8,7 @@ public class Buttons : MonoBehaviour {
     public ActionButtons acb;
     public Button yourButton;
     GameCamera gameCamera;
-    Map map;
+    static Map map;
     Text bufText;
 
     void Start()
@@ -227,6 +227,7 @@ public class Buttons : MonoBehaviour {
                     gameCamera.COSevent += Barracks_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
                     map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                    RDevent += BarracksResourcesDecrease;
                 }
                 break;
             case "Action3":
@@ -237,6 +238,7 @@ public class Buttons : MonoBehaviour {
                     gameCamera.COSevent += Pit_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
                     map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                    RDevent += PitResourcesDecrease;
                 }
                 break;
             case "Action4":
@@ -247,6 +249,7 @@ public class Buttons : MonoBehaviour {
                     gameCamera.COSevent += SawMill_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
                     map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                    RDevent += SawmillResourcesDecrease;
                 }
                 break;
         }
@@ -267,6 +270,7 @@ public class Buttons : MonoBehaviour {
                     gameCamera.COSevent += SwordsmanSpawn_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
                     map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                    RDevent += SwordsmanResourcesDecrease;
                 }
                 break;
             case "Action3":
@@ -276,6 +280,7 @@ public class Buttons : MonoBehaviour {
                     gameCamera.COSevent += ArcherSpawn_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
                     map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                    RDevent += ArcherResourcesDecrease;
                 }
                 break;
             case "Action4":
@@ -285,6 +290,7 @@ public class Buttons : MonoBehaviour {
                     gameCamera.COSevent += MageSpawn_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
                     map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                    RDevent += MageResourcesDecrease;
                 }
                 break;
             case "Action5":
@@ -294,6 +300,7 @@ public class Buttons : MonoBehaviour {
                     gameCamera.COSevent += KillerSpawn_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
                     map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                    RDevent += BarracksResourcesDecrease;
                 }
                 break;
         }
@@ -344,9 +351,7 @@ public class Buttons : MonoBehaviour {
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[5], Construction.ConstructionType.Barracks, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;       //Возвращаем все
         gameCamera.COSevent -= Barracks_COSevent;   //на исходные места
-        map.Gold -= 30;
-        map.Stone -= 20;
-        map.Wood -= 20;
+
     }
 
     private void Pit_COSevent()
@@ -354,8 +359,6 @@ public class Buttons : MonoBehaviour {
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[6], Construction.ConstructionType.Pit, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= Pit_COSevent;
-        map.Wood -= 30;
-        map.Gold -= 20;
     }
 
     private void SawMill_COSevent()
@@ -363,8 +366,6 @@ public class Buttons : MonoBehaviour {
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[7], Construction.ConstructionType.Sawmill, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= SawMill_COSevent;
-        map.Wood -= 15;
-        map.Gold -= 10;
     }
 
     private void KillerSpawn_COSevent()
@@ -372,7 +373,6 @@ public class Buttons : MonoBehaviour {
         Unit.CreateUnitOnClick(map.UnitPrefabArray[3], Unit.UnitType.Killer, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= KillerSpawn_COSevent;
-        map.Gold -= 10;
     }
 
     private void MageSpawn_COSevent()
@@ -380,7 +380,6 @@ public class Buttons : MonoBehaviour {
         Unit.CreateUnitOnClick(map.UnitPrefabArray[2], Unit.UnitType.Mage, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= MageSpawn_COSevent;
-        map.Gold -= 10;
     }
 
     private void ArcherSpawn_COSevent()
@@ -388,7 +387,6 @@ public class Buttons : MonoBehaviour {
         Unit.CreateUnitOnClick(map.UnitPrefabArray[1], Unit.UnitType.Archer, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= ArcherSpawn_COSevent;
-        map.Gold -= 7;
     }
 
     private void SwordsmanSpawn_COSevent()
@@ -396,7 +394,6 @@ public class Buttons : MonoBehaviour {
         Unit.CreateUnitOnClick(map.UnitPrefabArray[0], Unit.UnitType.Swordsman, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= SwordsmanSpawn_COSevent;
-        map.Gold -= 5;
     }
 
     private void FB_COSevent()
@@ -411,6 +408,65 @@ public class Buttons : MonoBehaviour {
         map.ActiveUnit.HealOnClick();
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= Heal_COSevent;
+    }
+
+    private static void BarracksResourcesDecrease()
+    {
+        map.Gold -= 30;
+        map.Stone -= 20;
+        map.Wood -= 20;
+        RDevent -= BarracksResourcesDecrease;
+    }
+    private static void PitResourcesDecrease()
+    {
+        map.Wood -= 30;
+        map.Gold -= 20;
+        RDevent -= PitResourcesDecrease;
+    }
+    private static void SawmillResourcesDecrease()
+    {
+        map.Wood -= 15;
+        map.Gold -= 10;
+        RDevent -= SawmillResourcesDecrease;
+    }
+    private static void SwordsmanResourcesDecrease()
+    {
+        map.Gold -= 5;
+        RDevent -= SwordsmanResourcesDecrease;
+    }
+    private static void ArcherResourcesDecrease()
+    {
+        map.Gold -= 7;
+        RDevent -= ArcherResourcesDecrease;
+    }
+    private static void MageResourcesDecrease()
+    {
+        map.Gold -= 10;
+        RDevent -= MageResourcesDecrease;
+    }
+    private static void KillerResourcesDecrease()
+    {
+        map.Gold -= 10;
+        RDevent -= KillerResourcesDecrease;
+    }
+
+    public static void UnsubscribeAllDecreases()
+    {
+        RDevent -= BarracksResourcesDecrease;
+        RDevent -= PitResourcesDecrease;
+        RDevent -= SawmillResourcesDecrease;
+        RDevent -= SwordsmanResourcesDecrease;
+        RDevent -= ArcherResourcesDecrease;
+        RDevent -= MageResourcesDecrease;
+        RDevent -= KillerResourcesDecrease;
+
+    }
+    public delegate void ResourcesDecreaseDelegate();
+    public static event ResourcesDecreaseDelegate RDevent;
+
+    public static void ResourcesDecrease()
+    {
+        RDevent();
     }
 
 }

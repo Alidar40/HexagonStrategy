@@ -19,6 +19,16 @@ public class Map : MonoBehaviour {
     public Unit ActiveUnit;
     public int Gold=0, Stone=0, Wood=0;
 
+    public Unit.Price Barracks;
+    public Unit.Price Pit;
+    public Unit.Price Sawmill;
+
+    public Unit.Price Swordsman;
+    public Unit.Price Archer;
+    public Unit.Price Mage;
+    public Unit.Price Killer;
+
+
     public bool ActivePlayer;//активен ли игрок
     public int PlayerFraction;//фракция игрока
 

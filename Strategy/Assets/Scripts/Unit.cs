@@ -421,10 +421,12 @@ public class Unit : MonoBehaviour {
                 CreateUnit(UnitPrefab, type, newUnitCell.indexX, newUnitCell.indexY, UnitList, GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction);
                 CurrentCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
                 newUnitCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
+                Buttons.ResourcesDecrease();
             }
             else
             {
                 Debug.Log("Impossible");
+                Buttons.UnsubscribeAllDecreases();
             }
 
             _Map.ActiveUnit.DeleteFieldOpportunities();
