@@ -26,12 +26,13 @@ public class Map : MonoBehaviour {
     void Awake()
     {
         GenerateNewTable();
-       // Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 1, 1, UnitList, 1);//последняя единица лишь для теста
-       // Unit.CreateUnit(UnitPrefabArray[1], Unit.UnitType.Archer, 2, 1, UnitList, 2);
+        //Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 1, 1, UnitList, 1);//последняя единица лишь для теста
+        //Unit.CreateUnit(UnitPrefabArray[1], Unit.UnitType.Archer, 2, 1, UnitList, 2);
        // Unit.CreateUnit(UnitPrefabArray[2], Unit.UnitType.Mage, 3, 1, UnitList, 1);
        // Unit.CreateUnit(UnitPrefabArray[3], Unit.UnitType.Killer, 4, 1, UnitList, 2);
        // Unit.CreateUnit(UnitPrefabArray[0], Unit.UnitType.Swordsman, 2, 3, UnitList);
-        Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall", 1);//последняя единица для теста
+        Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall1", 1);//последняя единица для теста
+        Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 15, 5, UnitList, "TownHall2s", 2);
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
         //Resources.ShowResources();
     }
@@ -148,7 +149,7 @@ public class Map : MonoBehaviour {
 
     public void callMenu()
     {
-        //GameObject.Find("GameUICamera/Canvas/Info").SetActive(true);
+        GameObject.Find("GameUICamera/Canvas/Info").SetActive(false);
         RaycastHit2D hitInfo = new RaycastHit2D();
 
 #if UNITY_STANDALONE_WIN
@@ -209,7 +210,8 @@ public class Map : MonoBehaviour {
                 }
                 else
                 {
-                   // GameObject.Find("GameUICamera/Canvas/Info").SetActive(true);
+                    ActionButtons.actionButtons.HideAll();
+                    GameObject.Find("GameUICamera/Canvas/Info").SetActive(true);
                 }
 
             }

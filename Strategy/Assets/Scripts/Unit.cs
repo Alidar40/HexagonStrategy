@@ -33,7 +33,7 @@ public class Unit : MonoBehaviour {
     }
     void Start()
     {
-        tag = Type.ToString();
+        /*tag = Type.ToString();
         switch (tag)
         {
             case "Swordsman":
@@ -61,7 +61,7 @@ public class Unit : MonoBehaviour {
                 AttackRadius = 1;
                 break;
         }
-        CurrentNumberActionPoints = StandardNumberActionPoints;
+        CurrentNumberActionPoints = StandardNumberActionPoints;*/
     }
     
 

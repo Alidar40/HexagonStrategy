@@ -66,55 +66,55 @@ public class ActionButtons : MonoBehaviour
     {
         HideAll();
         SwordsmanButtonsPanel.SetActive(true);
-        SwordsmanInfoPanel.ShowInfo();
+        //SwordsmanInfoPanel.ShowInfo();
     }
     public void ActivateArcherButtonsPanel()
     {
         HideAll();
         ArcherButtonsPanel.SetActive(true);
-        ArcherInfoPanel.ShowInfo();
+        //ArcherInfoPanel.ShowInfo();
     }
     public void ActivateMageButtonsPanel()
     { 
         HideAll();
         MageButtonsPanel.SetActive(true);
-        MageInfoPanel.ShowInfo();
+        //MageInfoPanel.ShowInfo();
     }
     public void ActivateKillerButtonsPanel()
     {
         HideAll();
         KillerButtonsPanel.SetActive(true);
-        KillerInfoPanel.ShowInfo();
+        //KillerInfoPanel.ShowInfo();
     }
     public void ActivateTownHallButtonsPanel()
     {
         HideAll();
         TownHallButtonsPanel.SetActive(true);
-        TownHallInfoPanel.ShowInfo(); 
+        //TownHallInfoPanel.ShowInfo(); 
     }
     public void ActivateBarracksButtonsPanel()
     {
         HideAll();
         BarracksButtonsPanel.SetActive(true);
-        BarracksInfoPanel.ShowInfo();
+        //BarracksInfoPanel.ShowInfo();
     }
     public void ActivatePitButtonsPanel()
     {
         HideAll();
         PitButtonsPanel.SetActive(true);
-        PitInfoPanel.ShowInfo();
+        //PitInfoPanel.ShowInfo();
     }
     public void ActivateSawmillButtonsPanel()
     {
         HideAll();
         SawmillButtonsPanel.SetActive(true);
-        SawmillInfoPanel.ShowInfo();
+        //SawmillInfoPanel.ShowInfo();
     }
     public void ActivateCancelActionButton()
     {
         HideAll();
         CancelActionButton.SetActive(true);
-        CancelInfoPanel.ShowInfo();
+        //CancelInfoPanel.ShowInfo();
     }
 
 }

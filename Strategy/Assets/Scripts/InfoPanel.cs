@@ -22,8 +22,8 @@ public class InfoPanel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        ShowInfo();
+    }
 
     public void ShowInfo()
     {
