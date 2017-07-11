@@ -99,6 +99,8 @@ public class Construction : Unit
             if (CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999  && CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 0  && !newUnitCell.LocatedHereUnit)
             {
                 CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList, GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction);
+                CurrentCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
+                newUnitCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
             }
             else
             {
@@ -106,8 +108,7 @@ public class Construction : Unit
             }
             map.ActiveUnit.DeleteFieldOpportunities();
             ActionButtons.actionButtons.HideCancelActionButton();
-            CurrentCell.LocatedHereUnit.GetComponentInChildren<Construction>().CurrentNumberActionPoints = 0;
         }
-
     }
+
 }

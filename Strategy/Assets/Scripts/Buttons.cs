@@ -222,6 +222,7 @@ public class Buttons : MonoBehaviour {
             case "Action2":
                 if (map.ActiveUnit.CurrentNumberActionPoints > 0)
                 {
+
                     gameCamera.COSevent -= map.callMenu;
                     gameCamera.COSevent += Barracks_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
@@ -231,6 +232,7 @@ public class Buttons : MonoBehaviour {
             case "Action3":
                 if (map.ActiveUnit.CurrentNumberActionPoints > 0)
                 {
+
                     gameCamera.COSevent -= map.callMenu;
                     gameCamera.COSevent += Pit_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
@@ -240,6 +242,7 @@ public class Buttons : MonoBehaviour {
             case "Action4":
                 if (map.ActiveUnit.CurrentNumberActionPoints > 0)
                 {
+
                     gameCamera.COSevent -= map.callMenu;
                     gameCamera.COSevent += SawMill_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
@@ -258,32 +261,40 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                //map.Gold -= 5;
-                gameCamera.COSevent -= map.callMenu;
-                gameCamera.COSevent += SwordsmanSpawn_COSevent; 
-                ActionButtons.actionButtons.ActivateCancelActionButton();
-                map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                {
+                    gameCamera.COSevent -= map.callMenu;
+                    gameCamera.COSevent += SwordsmanSpawn_COSevent;
+                    ActionButtons.actionButtons.ActivateCancelActionButton();
+                    map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                }
                 break;
             case "Action3":
-                //map.Gold -= 7;
-                gameCamera.COSevent -= map.callMenu;
-                gameCamera.COSevent += ArcherSpawn_COSevent; 
-                ActionButtons.actionButtons.ActivateCancelActionButton();
-                map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                {
+                    gameCamera.COSevent -= map.callMenu;
+                    gameCamera.COSevent += ArcherSpawn_COSevent;
+                    ActionButtons.actionButtons.ActivateCancelActionButton();
+                    map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                }
                 break;
             case "Action4":
-                //map.Gold -= 10;
-                gameCamera.COSevent -= map.callMenu;
-                gameCamera.COSevent += MageSpawn_COSevent; 
-                ActionButtons.actionButtons.ActivateCancelActionButton();
-                map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                {
+                    gameCamera.COSevent -= map.callMenu;
+                    gameCamera.COSevent += MageSpawn_COSevent;
+                    ActionButtons.actionButtons.ActivateCancelActionButton();
+                    map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                }
                 break;
             case "Action5":
-                //map.Gold -= 10;
-                gameCamera.COSevent -= map.callMenu;
-                gameCamera.COSevent += KillerSpawn_COSevent;
-                ActionButtons.actionButtons.ActivateCancelActionButton();
-                map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                {
+                    gameCamera.COSevent -= map.callMenu;
+                    gameCamera.COSevent += KillerSpawn_COSevent;
+                    ActionButtons.actionButtons.ActivateCancelActionButton();
+                    map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                }
                 break;
         }
     }
@@ -333,6 +344,9 @@ public class Buttons : MonoBehaviour {
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[5], Construction.ConstructionType.Barracks, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;       //Возвращаем все
         gameCamera.COSevent -= Barracks_COSevent;   //на исходные места
+        map.Gold -= 30;
+        map.Stone -= 20;
+        map.Wood -= 20;
     }
 
     private void Pit_COSevent()
@@ -340,6 +354,8 @@ public class Buttons : MonoBehaviour {
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[6], Construction.ConstructionType.Pit, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= Pit_COSevent;
+        map.Wood -= 30;
+        map.Gold -= 20;
     }
 
     private void SawMill_COSevent()
@@ -347,34 +363,40 @@ public class Buttons : MonoBehaviour {
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[7], Construction.ConstructionType.Sawmill, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= SawMill_COSevent;
+        map.Wood -= 15;
+        map.Gold -= 10;
     }
 
     private void KillerSpawn_COSevent()
     {
-        Unit.CreateUnitOnClick(map.UnitPrefabArray[3], Unit.UnitType.Killer, map.UnitList);
+        Unit.CreateUnitOnClick(map.UnitPrefabArray[3], Unit.UnitType.Killer, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= KillerSpawn_COSevent;
+        map.Gold -= 10;
     }
 
     private void MageSpawn_COSevent()
     {
-        Unit.CreateUnitOnClick(map.UnitPrefabArray[2], Unit.UnitType.Mage, map.UnitList);
+        Unit.CreateUnitOnClick(map.UnitPrefabArray[2], Unit.UnitType.Mage, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= MageSpawn_COSevent;
+        map.Gold -= 10;
     }
 
     private void ArcherSpawn_COSevent()
     {
-        Unit.CreateUnitOnClick(map.UnitPrefabArray[1], Unit.UnitType.Archer, map.UnitList);
+        Unit.CreateUnitOnClick(map.UnitPrefabArray[1], Unit.UnitType.Archer, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= ArcherSpawn_COSevent;
+        map.Gold -= 7;
     }
 
     private void SwordsmanSpawn_COSevent()
     {
-        Unit.CreateUnitOnClick(map.UnitPrefabArray[0], Unit.UnitType.Swordsman, map.UnitList);
+        Unit.CreateUnitOnClick(map.UnitPrefabArray[0], Unit.UnitType.Swordsman, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= SwordsmanSpawn_COSevent;
+        map.Gold -= 5;
     }
 
     private void FB_COSevent()

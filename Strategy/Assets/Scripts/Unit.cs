@@ -206,7 +206,7 @@ public class Unit : MonoBehaviour {
     }
     public void AttackAnotherUnit(Unit AttackedUnit)
     {
-        AttackedUnit.ToDamage(Damage);
+        AttackedUnit.ToDamage(Damage-AttackedUnit.Armor);
         CurrentNumberActionPoints = 0;
     }
 
@@ -231,28 +231,31 @@ public class Unit : MonoBehaviour {
                             NewUnit.StandardNumberActionPoints = 5;
                             NewUnit.Armor = 2;
                             NewUnit.Damage = 5;
-                            NewUnit.Hitpoints = 20;
+                            NewUnit.MaxHitpoints = 20;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 1;
                             break;
                         case "Archer":
                             NewUnit.StandardNumberActionPoints = 3;
                             NewUnit.Armor = 1;
                             NewUnit.Damage = 8;
-                            NewUnit.Hitpoints = 10;
+                            NewUnit.MaxHitpoints = 10;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 10;
                             break;
                         case "Mage":
                             NewUnit.StandardNumberActionPoints = 3;
                             NewUnit.Armor = 0;
                             NewUnit.Damage = 0;
-                            NewUnit.Hitpoints = 10;
-                            NewUnit.AttackRadius = 1;
+                            NewUnit.MaxHitpoints = 10;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints; NewUnit.AttackRadius = 1;
                             break;
                         case "Killer":
                             NewUnit.StandardNumberActionPoints = 8;
                             NewUnit.Armor = 1;
                             NewUnit.Damage = 10;
-                            NewUnit.Hitpoints = 20;
+                            NewUnit.MaxHitpoints = 20;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 1;
                             break;
                     }
@@ -267,28 +270,32 @@ public class Unit : MonoBehaviour {
                             NewUnit.StandardNumberActionPoints = 5;
                             NewUnit.Armor = 1;
                             NewUnit.Damage = 6;
-                            NewUnit.Hitpoints = 15;
+                            NewUnit.MaxHitpoints = 15;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 1;
                             break;
                         case "Archer":
                             NewUnit.StandardNumberActionPoints = 4;
                             NewUnit.Armor = 1;
                             NewUnit.Damage = 10;
-                            NewUnit.Hitpoints = 8;
+                            NewUnit.MaxHitpoints = 8;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 9;
                             break;
                         case "Mage":
                             NewUnit.StandardNumberActionPoints = 3;
                             NewUnit.Armor = 0;
                             NewUnit.Damage = 0;
-                            NewUnit.Hitpoints = 8;
+                            NewUnit.MaxHitpoints = 8;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 1;
                             break;
                         case "Killer":
                             NewUnit.StandardNumberActionPoints = 10;
                             NewUnit.Armor = 1;
                             NewUnit.Damage = 10;
-                            NewUnit.Hitpoints = 15;
+                            NewUnit.MaxHitpoints = 15;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 1;
                             break;
                     }
@@ -317,28 +324,31 @@ public class Unit : MonoBehaviour {
                             NewUnit.StandardNumberActionPoints = 5;
                             NewUnit.Armor = 2;
                             NewUnit.Damage = 5;
-                            NewUnit.Hitpoints = 20;
+                            NewUnit.MaxHitpoints = 20;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 1;
                             break;
                         case "Archer":
                             NewUnit.StandardNumberActionPoints = 3;
                             NewUnit.Armor = 1;
                             NewUnit.Damage = 8;
-                            NewUnit.Hitpoints = 10;
+                            NewUnit.MaxHitpoints = 10;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 10;
                             break;
                         case "Mage":
                             NewUnit.StandardNumberActionPoints = 3;
                             NewUnit.Armor = 0;
                             NewUnit.Damage = 0;
-                            NewUnit.Hitpoints = 10;
-                            NewUnit.AttackRadius = 1;
+                            NewUnit.MaxHitpoints = 10;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints; NewUnit.AttackRadius = 1;
                             break;
                         case "Killer":
                             NewUnit.StandardNumberActionPoints = 8;
                             NewUnit.Armor = 1;
                             NewUnit.Damage = 10;
-                            NewUnit.Hitpoints = 20;
+                            NewUnit.MaxHitpoints = 20;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 1;
                             break;
                     }
@@ -353,28 +363,32 @@ public class Unit : MonoBehaviour {
                             NewUnit.StandardNumberActionPoints = 5;
                             NewUnit.Armor = 1;
                             NewUnit.Damage = 6;
-                            NewUnit.Hitpoints = 15;
+                            NewUnit.MaxHitpoints = 15;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 1;
                             break;
                         case "Archer":
                             NewUnit.StandardNumberActionPoints = 4;
                             NewUnit.Armor = 1;
                             NewUnit.Damage = 10;
-                            NewUnit.Hitpoints = 8;
+                            NewUnit.MaxHitpoints = 8;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 9;
                             break;
                         case "Mage":
                             NewUnit.StandardNumberActionPoints = 3;
                             NewUnit.Armor = 0;
                             NewUnit.Damage = 0;
-                            NewUnit.Hitpoints = 8;
+                            NewUnit.MaxHitpoints = 8;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 1;
                             break;
                         case "Killer":
                             NewUnit.StandardNumberActionPoints = 10;
                             NewUnit.Armor = 1;
                             NewUnit.Damage = 10;
-                            NewUnit.Hitpoints = 15;
+                            NewUnit.MaxHitpoints = 15;
+                            NewUnit.Hitpoints = NewUnit.MaxHitpoints;
                             NewUnit.AttackRadius = 1;
                             break;
                     }
@@ -384,7 +398,9 @@ public class Unit : MonoBehaviour {
 
         }
     }
-    public static void CreateUnitOnClick(GameObject UnitPrefab, UnitType type, List<Unit> UnitList)
+
+    private static int[][] CellInfoArray;
+    public static void CreateUnitOnClick(GameObject UnitPrefab, UnitType type, List<Unit> UnitList, Cell CurrentCell)
     {
         RaycastHit2D hitInfo = new RaycastHit2D();
 
@@ -397,15 +413,22 @@ public class Unit : MonoBehaviour {
 #endif
         if (hitInfo.collider)//проверка на попадание  по колайдеру
         {
-            Cell currentCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
+            Cell newUnitCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
+            CellInfoArray = _Map.GetMatrixOfFreeCells(CurrentCell.indexX, CurrentCell.indexY, 3);
 
-            if (!currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
+            if (CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999 && CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 0 && !newUnitCell.LocatedHereUnit)
             {
-                CreateUnit(UnitPrefab, type, currentCell.indexX, currentCell.indexY, UnitList,GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction);
+                CreateUnit(UnitPrefab, type, newUnitCell.indexX, newUnitCell.indexY, UnitList, GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction);
+                CurrentCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
+                newUnitCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
             }
+            else
+            {
+                Debug.Log("Impossible");
+            }
+
             _Map.ActiveUnit.DeleteFieldOpportunities();
             ActionButtons.actionButtons.HideCancelActionButton();
-            currentCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
         }
     }
     public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)

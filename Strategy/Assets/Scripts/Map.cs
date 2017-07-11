@@ -12,9 +12,9 @@ public class Map : MonoBehaviour {
     public List<Unit> UnitList;
 
     GameCamera cam;
-    public const int GOLD = 10;//это константы  колличества ресурсов за ход
-    public const int WOOD = 10;//стоило б переименовать по понятнее..
-    public const int STONE = 10;
+   // public const int GOLD = 10;//это константы  колличества ресурсов за ход
+    //public const int WOOD = 10;//стоило б переименовать по понятнее..
+    //public const int STONE = 10;
 
     public Unit ActiveUnit;
     public int Gold=0, Stone=0, Wood=0;
@@ -44,6 +44,10 @@ public class Map : MonoBehaviour {
         cam.COSevent += callMenu;  //Теперь при использовании функции PointClick()
         //мы можем комбинировать различные функции внутрии ее
         //в самом начале мы подписываем в PointClick() функцию callMenu
+        Gold += 50;
+        Wood += 50;
+        Stone += 50;
+        //Resources.ShowResources();
     }
 
     void Update()
@@ -51,6 +55,7 @@ public class Map : MonoBehaviour {
         cam.PointClick();
         cam.cameraMoving();
         cam.CameraZoom();
+        Resources.ShowResources();
     }
 
     private Cell[][] CellArray;

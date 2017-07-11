@@ -23,6 +23,7 @@ public class InfoPanel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         ShowInfo();
+        //Resources.ShowResources();
     }
 
     public void ShowInfo()
@@ -32,13 +33,13 @@ public class InfoPanel : MonoBehaviour {
         {
             cons = GameObject.Find("Map").GetComponent<Map>().ActiveUnit.GetComponent<Construction>();
             textType.text = "Name: " + cons._ConstructionType;
-            textHP.text = "HP: " + cons.Hitpoints;
+            textHP.text = "HP: " + cons.Hitpoints + "/" + cons.MaxHitpoints;
             textAP.text = "AP: " + cons.CurrentNumberActionPoints + "/" + cons.StandardNumberActionPoints;
         }
         else
         {
             textType.text = "Name: " + obj.Type;
-            textHP.text = "HP: " + obj.Hitpoints;
+            textHP.text = "HP: " + obj.Hitpoints + "/" + obj.MaxHitpoints; 
             textAP.text = "AP: " + obj.CurrentNumberActionPoints + "/" + obj.StandardNumberActionPoints;
         }
     }

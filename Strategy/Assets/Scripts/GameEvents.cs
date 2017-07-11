@@ -17,10 +17,11 @@ public class GameEvents : MonoBehaviour {
         m = GameObject.Find("Map").GetComponent<Map>();
         //u = GameObject.Find("").GetComponent<Map>();
         UnitList = m.UnitList;
+        //Resources.ShowResources();
         //btn.onClick.AddListener(TaskOnClick);      
     }
 
- 
+
     public void TaskOnClick()
     {
        
@@ -28,7 +29,7 @@ public class GameEvents : MonoBehaviour {
 
     public void NextTurn()
     {
-        if (GameObject.Find("Map").GetComponent<Map>().ActivePlayer) //проверяем активность плейера
+        if (m.ActivePlayer) //проверяем активность плейера
         {
             foreach (Unit u in UnitList)
             {
@@ -38,18 +39,24 @@ public class GameEvents : MonoBehaviour {
             }
             foreach (Unit c in UnitList)
             {
-                if ((c.tag == "Sawmill") && (c.Fraction == GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction))
+                if ((c.tag == "TownHall") && (c.Fraction == m.PlayerFraction))
                 {
-                    GameObject.Find("Map").GetComponent<Map>().Wood += Map.WOOD;
+                    m.Wood += 10; //Map.WOOD;
+                    m.Gold += 10;
+                    m.Stone += 10;
                 }
-                if ((c.tag == "Pit") && (c.Fraction == GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction))
+                if ((c.tag == "Sawmill") && (c.Fraction == m.PlayerFraction))
                 {
-                    GameObject.Find("Map").GetComponent<Map>().Gold += Map.GOLD;
-                    GameObject.Find("Map").GetComponent<Map>().Stone += Map.STONE;
+                    m.Wood += 15; //Map.WOOD;
+                }
+                if ((c.tag == "Pit") && (c.Fraction == m.PlayerFraction))
+                {
+                    m.Gold += 5;// Map.GOLD;
+                    m.Stone += 15;// Map.STONE;
                 }
             }
 
-            GameObject.Find("Map").GetComponent<Map>().ActivePlayer = false;//активность пропадает при нажатии next turn
+            m.ActivePlayer = false;//активность пропадает при нажатии next turn
             Timer.timObject.StartTimer(); //заново запускает таймер
         }
         Resources.ShowResources();
@@ -58,7 +65,7 @@ public class GameEvents : MonoBehaviour {
 
     private void NextUnit_LaunchNextTurn(List<Unit> UnitList)
     {
-        Debug.Log("ok");
+        //Debug.Log("ok");
         foreach (Unit u in UnitList)
         {
             u.LaunchNextTurn -= NextUnit_LaunchNextTurn;

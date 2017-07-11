@@ -44,7 +44,7 @@ public class Timer : MonoBehaviour {
 
     public void StartTimer()
     {
-        timer = 30.0f;
+        timer = 60.0f;
         timerOn = true;
     }
 
