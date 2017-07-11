@@ -105,17 +105,17 @@ public class Map : MonoBehaviour {
 
     public void MovingUnit(int _i)
     {
-        RaycastHit2D hitInfo = new RaycastHit2D();
+        RaycastHit hitInfo = new RaycastHit();
 
 #if UNITY_STANDALONE_WIN
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
 #endif
 
 #if UNITY_ANDROID
         hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(_i).position), Vector2.zero);
 #endif
 
-        if (hitInfo.collider)
+        if (hitInfo.collider && hitInfo.transform.gameObject.GetComponent<Cell>())
         {
             ActiveUnit.DestinationCell = hitInfo.transform.gameObject.GetComponent<Cell>();
             ActiveUnit.SetArrayRoute();
@@ -126,10 +126,11 @@ public class Map : MonoBehaviour {
     }
     public void AttackUnit(int _i)
     {
-        RaycastHit2D hitInfo = new RaycastHit2D();
+        RaycastHit hitInfo = new RaycastHit();
 
 #if UNITY_STANDALONE_WIN
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo); 
 #endif
 
 #if UNITY_ANDROID
@@ -141,7 +142,7 @@ public class Map : MonoBehaviour {
             Cell currentCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
 
             //проверка на то, что в том месте есть юнит
-            if (ActiveUnit != currentCell.LocatedHereUnit && currentCell.LocatedHereUnit && DistanceToCell(ActiveUnit.CurrentCell, currentCell, ActiveUnit.AttackRadius) <= ActiveUnit.AttackRadius)
+            if (currentCell && ActiveUnit != currentCell.LocatedHereUnit && currentCell.LocatedHereUnit && DistanceToCell(ActiveUnit.CurrentCell, currentCell, ActiveUnit.AttackRadius) <= ActiveUnit.AttackRadius)
             {
                 if (ActiveUnit.Fraction != currentCell.LocatedHereUnit.Fraction)//проверка на совпадение цели и активного юнита
                 {
@@ -166,10 +167,10 @@ public class Map : MonoBehaviour {
     public void callMenu()
     {
         GameObject.Find("GameUICamera/Canvas/Info").SetActive(false);
-        RaycastHit2D hitInfo = new RaycastHit2D();
+        RaycastHit hitInfo = new RaycastHit();
 
 #if UNITY_STANDALONE_WIN
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
 #endif
 
 #if UNITY_ANDROID
@@ -179,7 +180,7 @@ public class Map : MonoBehaviour {
         {
             Cell currentCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
 
-            if (currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
+            if (currentCell && currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
             {
                 
                 ActiveUnit = currentCell.LocatedHereUnit;

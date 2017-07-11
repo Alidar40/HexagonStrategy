@@ -1,6 +1,6 @@
 CameraSettings
-2.799999
-4.5
+6.399998
+6.100002
 -10
 MapSettings
 20
@@ -206,7 +206,7 @@ Grass
 Grass
 Grass
 UnitsSettings
-4
+5
 Construction
 TownHall
 TownHall1
@@ -245,5 +245,15 @@ Construction7_5
 1
 50
 0
+0
 10
-10
+Unit
+Swordsman
+TestUnit8_5
+8
+5
+1
+20
+5
+0
+5
