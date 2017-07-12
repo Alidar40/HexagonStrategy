@@ -31,6 +31,7 @@ public class Timer : MonoBehaviour {
                 if (GameObject.Find("Map").GetComponent<Map>().ActivePlayer)
                 {
                     GameObject.Find("GameEvents").GetComponent<GameEvents>().NextTurn();
+                    GameObject.Find("Map").GetComponent<ArtificialIntelligence>().BasicAlgorithm();
                     StartTimer();
                 }
                 else

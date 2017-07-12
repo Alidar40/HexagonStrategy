@@ -89,7 +89,12 @@ public class MapLoader : MonoBehaviour
             {
                 Unit.DeleteUnit(MapToSave.UnitList, MapToSave.UnitList[0]);
             }
+//#if UNITY_STANDALONE_WIN
             StreamReader sr = new StreamReader(saveName + ".txt");
+//#endif
+//#if UNITY_ANDROID
+//           StreamReader sr = new StreamReader("jar:file://" + Application.dataPath + saveName + ".txt");
+//#endif
             string buf;
             buf = sr.ReadLine();
             Vector3 newCamPos = new Vector3(Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()));

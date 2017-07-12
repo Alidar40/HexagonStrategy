@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameCamera : MonoBehaviour {
     Map m;
-    Camera c;
+    public Camera c;
     public GameObject gc;
     public GameObject FieldOpportunitiesAttack, FieldOpportunitiesMoving;
     void Start () {
@@ -17,106 +17,72 @@ public class GameCamera : MonoBehaviour {
 
     private void Update()
     {
-        gc.gameObject.transform.localScale = new Vector3(c.orthographicSize * 0.2f, c.orthographicSize * 0.2f, 1);
+        //gc.gameObject.transform.localScale = new Vector3(c.orthographicSize * 0.2f, c.orthographicSize * 0.2f, 1);
         gc.GetComponent<Camera>().orthographicSize = c.orthographicSize;
     }
 
 
-    
+
 
     Vector2 touchDeltaPosition;
     Vector2 newPosition;
     Vector2 lastPosition;
     bool moving = false, MovingUnit = false, AttackUnit = false;
-    public float cameraSpeed = 0.1F;
+    public float cameraSpeed = 1F;
 
     public void cameraMoving()
     {
 #if UNITY_STANDALONE_WIN
 
+        Vector3 LLCell, URCell;
+        URCell = m.GetCell(m.NumberOfCellsOnAxisX - 1, m.NumberOfCellsOnAxisY - 1).gameObject.transform.position;
+        LLCell = m.GetCell(0, 0).gameObject.transform.position;
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            newPosition = Input.mousePosition;
-            lastPosition = newPosition;
-        }
 
         if (Input.GetMouseButton(1))
         {
             newPosition = Input.mousePosition;
-            touchDeltaPosition = newPosition - lastPosition;
-            if ((c.transform.position.x + touchDeltaPosition.x * (-cameraSpeed) > 3f + (5f / 3f) * (c.orthographicSize - 2f)) && (c.transform.position.x + touchDeltaPosition.x * (-cameraSpeed) < 15f - (5f / 3f) * (c.orthographicSize - 2f)) && (c.transform.position.y + touchDeltaPosition.y * (-cameraSpeed) > 0f + (2f / 3f) * (c.orthographicSize - 2f)) && (c.transform.position.y + touchDeltaPosition.y * (-cameraSpeed) < 8f - (2f / 3f) * (c.orthographicSize - 2f)))
-            {
-                c.transform.Translate(touchDeltaPosition.x * -cameraSpeed, touchDeltaPosition.y * -cameraSpeed, 0);
-            }
-            else
-            {
-                Vector3 v = new Vector3();
-                v = c.transform.position;
-                if (c.transform.position.x <= 3f + (5f/3f)*(c.orthographicSize - 2f))
-                {
-                    v.x = 3f + (5f / 3f) * (c.orthographicSize - 2f) + 000001f; 
-                    c.transform.position = v;
-                }
-                if (c.transform.position.x >= 15f - (5f / 3f) * (c.orthographicSize - 2f))  
-                {
-                    v.x = 15f - (5f / 3f) * (c.orthographicSize - 2f) - 000001f;            
-                    c.transform.position = v;
-                }
-                if (c.transform.position.y <= 0f + (2f / 3f) * (c.orthographicSize - 2f))    
-                {
-                    v.y = 0f + (2f / 3f) * (c.orthographicSize - 2f) + 000001f;  
-                    c.transform.position = v;
-                }
-                if (c.transform.position.y >= 8f - (2f / 3f) * (c.orthographicSize - 2f))   
-                {
-                    v.y = 8f - (2f / 3f) * (c.orthographicSize - 2f) - 000001f;
-                    c.transform.position = v;
-                }
-            }
-            
-            touchDeltaPosition = Input.mousePosition;
+            touchDeltaPosition = (lastPosition - newPosition) * cameraSpeed;
+
+            if ((c.transform.position.x + touchDeltaPosition.x <= URCell.x || touchDeltaPosition.x < 0) &&
+                (c.transform.position.x + touchDeltaPosition.x >= LLCell.x || touchDeltaPosition.x > 0))
+                c.transform.position += new Vector3(touchDeltaPosition.x, 0);
+
+            if ((c.transform.position.y + touchDeltaPosition.y <= URCell.y || touchDeltaPosition.y < 0) &&
+                (c.transform.position.y + touchDeltaPosition.y >= LLCell.y || touchDeltaPosition.y > 0))
+                c.transform.position += new Vector3(0, touchDeltaPosition.y);
+
             lastPosition = newPosition;
         }
+        else
+            lastPosition = Input.mousePosition;
 #endif
 #if UNITY_ANDROID
+        Vector3 LLCell, URCell;
+        URCell = m.GetCell(m.NumberOfCellsOnAxisX - 1, m.NumberOfCellsOnAxisY - 1).gameObject.transform.position;
+        LLCell = m.GetCell(0, 0).gameObject.transform.position;
+
         if (Input.touchCount == 1)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Moved)
             {
-                moving = true;
-                Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
-                if ((c.transform.position.x + touchDeltaPosition.x * (-cameraSpeed) > 3f + (5f / 3f) * (c.orthographicSize - 2f)) && (c.transform.position.x + touchDeltaPosition.x * (-cameraSpeed) < 15f - (5f / 3f) * (c.orthographicSize - 2f)) && (c.transform.position.y + touchDeltaPosition.y * (-cameraSpeed) > 0f + (2f / 3f) * (c.orthographicSize - 2f)) && (c.transform.position.y + touchDeltaPosition.y * (-cameraSpeed) < 8f - (2f / 3f) * (c.orthographicSize - 2f)))
-                {
-                    c.transform.Translate(touchDeltaPosition.x * -cameraSpeed, touchDeltaPosition.y * -cameraSpeed, 0);
-                }
-                else
-                {
-                    Vector3 v = new Vector3();
-                    v = c.transform.position;
-                    if (c.transform.position.x <= 3f + (5f / 3f) * (c.orthographicSize - 2f))
-                    {
-                        v.x = 3f + (5f / 3f) * (c.orthographicSize - 2f) + 000001f; 
-                        c.transform.position = v;
-                    }
-                    if (c.transform.position.x >= 15f - (5f / 3f) * (c.orthographicSize - 2f))  
-                    {
-                        v.x = 15f - (5f / 3f) * (c.orthographicSize - 2f) - 000001f;               
-                        c.transform.position = v;
-                    }
-                    if (c.transform.position.y <= 0f + (2f / 3f) * (c.orthographicSize - 2f))    
-                    {
-                        v.y = 0f + (2f / 3f) * (c.orthographicSize - 2f) + 000001f;  
-                        c.transform.position = v;
-                    }
-                    if (c.transform.position.y >= 8f - (2f / 3f) * (c.orthographicSize - 2f))     
-                    {
-                        v.y = 8f - (2f / 3f) * (c.orthographicSize - 2f) - 000001f; 
-                        c.transform.position = v;
-                    }
-                }
+                newPosition = (Input.GetTouch(0).position);
+                touchDeltaPosition = (lastPosition - newPosition) * cameraSpeed;
+
+                if ((c.transform.position.x + touchDeltaPosition.x <= URCell.x || touchDeltaPosition.x < 0) &&
+                    (c.transform.position.x + touchDeltaPosition.x >= LLCell.x || touchDeltaPosition.x > 0))
+                    c.transform.position += new Vector3(touchDeltaPosition.x, 0);
+
+                if ((c.transform.position.y + touchDeltaPosition.y <= URCell.y || touchDeltaPosition.y < 0) &&
+                    (c.transform.position.y + touchDeltaPosition.y >= LLCell.y || touchDeltaPosition.y > 0))
+                    c.transform.position += new Vector3(0, touchDeltaPosition.y);
+
+                lastPosition = newPosition;
+
             }
-        }
+            else
+                lastPosition = Input.GetTouch(0).position;
+        }        
 #endif
     }
 
@@ -151,7 +117,7 @@ public class GameCamera : MonoBehaviour {
         if (Input.touchCount > 0)
         {
 
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 if (moving)
                 {

@@ -239,7 +239,7 @@ public class Unit : MonoBehaviour {
         NewUnit.name = "TestUnit" + _x + "_" + _y;
         NewUnit.Type = type;
         NewUnit.Fraction = Fraction;
-        switch(_Map.ActiveUnit.Fraction)
+        switch(Fraction)
         {
             case 1:
                 { switch (NewUnit.tag)
@@ -331,7 +331,7 @@ public class Unit : MonoBehaviour {
         NewUnit.name = UnitName;
         NewUnit.Type = type;
         NewUnit.Fraction = Fraction;
-        switch (_Map.PlayerFraction)
+        switch (Fraction)
         {
             case 1:
                 {
@@ -433,7 +433,8 @@ public class Unit : MonoBehaviour {
             Cell newUnitCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
             CellInfoArray = _Map.GetMatrixOfFreeCells(CurrentCell.indexX, CurrentCell.indexY, 3);
 
-            if (CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999 && CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 0 && !newUnitCell.LocatedHereUnit)
+            if (CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999 && CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 0 
+                && !newUnitCell.LocatedHereUnit)
             {
                 CreateUnit(UnitPrefab, type, newUnitCell.indexX, newUnitCell.indexY, UnitList, GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction);
                 CurrentCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
@@ -448,6 +449,16 @@ public class Unit : MonoBehaviour {
         }
         _Map.ActiveUnit.DeleteFieldOpportunities();
         ActionButtons.actionButtons.HideCancelActionButton();
+    }
+    public static bool CheckPossibilityOfBuildingConstruction(Construction.ConstructionType TypeConstruction, Cell.CellType TypeCell)
+    {
+        if (TypeConstruction.ToString() == "Sawmill" && TypeCell.ToString() != "Forest")
+            return false;
+        if (TypeConstruction.ToString() == "Pit" && TypeCell.ToString() != "Mountain")
+            return false;
+        if (TypeConstruction.ToString() == "Barracks" && TypeCell.ToString() != "Grass")
+            return false;
+        return true;
     }
     public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)
     {

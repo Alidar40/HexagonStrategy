@@ -5,7 +5,7 @@ using UnityEngine;
 public class Construction : Unit
 {
     private static Map map;
-    private static Unit unit;
+    public static Unit unit;
     public enum ConstructionType
     {
         TownHall = 0, Barracks = 1, Pit = 2, Sawmill = 3
@@ -48,34 +48,44 @@ public class Construction : Unit
 
     }
 
-    public static void CreateConstruction(GameObject UnitType, ConstructionType type, int _x, int _y, List<Unit> UnitList, int Fraction)
+    public static bool CreateConstruction(GameObject UnitType, ConstructionType type, int _x, int _y, List<Unit> UnitList, int Fraction)
     {
+        if (!map)
+            map = GameObject.Find("Map").GetComponent<Map>();
+        if (!CheckPossibilityOfBuildingConstruction(type, map.GetCell(_x, _y).Type))
+            return false;
         Construction NewUnit = Instantiate(UnitType).GetComponent<Construction>();
         NewUnit.SetCell(_x, _y);
         UnitList.Add(NewUnit);
         NewUnit.name = "Construction" + _x + "_" + _y;
         NewUnit._ConstructionType = type;
         NewUnit.Fraction = Fraction;
+        return true;
     }
 
 
 
-    public static void CreateConstruction(GameObject UnitType, ConstructionType type, int _x, int _y, List<Unit> UnitList, string UnitName, int Fraction)
+    public static bool CreateConstruction(GameObject UnitType, ConstructionType type, int _x, int _y, List<Unit> UnitList, string UnitName, int Fraction)
     {
+        if (!map)
+            map = GameObject.Find("Map").GetComponent<Map>();
+        if (!CheckPossibilityOfBuildingConstruction(type, map.GetCell(_x, _y).Type))
+            return false;
         Construction NewUnit = Instantiate(UnitType).GetComponent<Construction>();
         NewUnit.SetCell(_x, _y);
         UnitList.Add(NewUnit);
         NewUnit.name = UnitName;
         NewUnit._ConstructionType = type;
         NewUnit.Fraction = Fraction;
+        return true;
     }
 
 
     private static int[][] CellInfoArray;
-    public static void CreateConstructionOnClick(GameObject UnitType, ConstructionType type, List<Unit> UnitList, Cell CurrentCell)
+    public static bool CreateConstructionOnClick(GameObject UnitType, ConstructionType type, List<Unit> UnitList, Cell CurrentCell)
     {
         RaycastHit hitInfo = new RaycastHit();
-
+        bool f = false;
 #if UNITY_STANDALONE_WIN
         Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
 #endif
@@ -88,21 +98,25 @@ public class Construction : Unit
             Cell newUnitCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
             CellInfoArray = map.GetMatrixOfFreeCells(CurrentCell.indexX, CurrentCell.indexY, 5);
 
-            if (CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999  && CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 0  && !newUnitCell.LocatedHereUnit)
+            if (CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999  && CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 0  
+                && !newUnitCell.LocatedHereUnit && CheckPossibilityOfBuildingConstruction(type, newUnitCell.Type))
             {
                 CreateConstruction(UnitType, type, newUnitCell.indexX, newUnitCell.indexY, UnitList, GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction);
                 CurrentCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
                 newUnitCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
                 Buttons.ResourcesDecrease();
+                f = true;
             }
             else
             {
                 Debug.Log("Impossible");
                 Buttons.UnsubscribeAllDecreases();
+                f = false;
             }
         }
         map.ActiveUnit.DeleteFieldOpportunities();
         ActionButtons.actionButtons.HideCancelActionButton();
+        return f;
     }
 
 }

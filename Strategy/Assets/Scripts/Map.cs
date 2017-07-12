@@ -29,8 +29,8 @@ public class Map : MonoBehaviour {
     void Awake()
     {
         GenerateNewTable();
-        Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall1", 1);//последняя единица для теста
-        Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 15, 5, UnitList, "TownHall2s", 2);
+        //Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall1", 1);//последняя единица для теста
+        //Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 15, 5, UnitList, "TownHall2s", 2);
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
     }
 
@@ -112,7 +112,7 @@ public class Map : MonoBehaviour {
 #if UNITY_ANDROID
         Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
 #endif
-
+        
         if (hitInfo.collider && hitInfo.transform.gameObject.GetComponent<Cell>())
         {
             ActiveUnit.DestinationCell = hitInfo.transform.gameObject.GetComponent<Cell>();
@@ -334,7 +334,7 @@ public class Map : MonoBehaviour {
         }
         return Route;
     }
-    bool CheckIndex(int X, int Y)
+    public bool CheckIndex(int X, int Y)
     {
         if (GetCell(X, Y) && !GetCell(X, Y).LocatedHereUnit)
             return true;
