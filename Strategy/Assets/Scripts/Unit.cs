@@ -239,7 +239,7 @@ public class Unit : MonoBehaviour {
         NewUnit.name = "TestUnit" + _x + "_" + _y;
         NewUnit.Type = type;
         NewUnit.Fraction = Fraction;
-        switch(_Map.ActiveUnit.Fraction)
+        switch(Fraction)
         {
             case 1:
                 { switch (NewUnit.tag)
@@ -331,7 +331,7 @@ public class Unit : MonoBehaviour {
         NewUnit.name = UnitName;
         NewUnit.Type = type;
         NewUnit.Fraction = Fraction;
-        switch (_Map.PlayerFraction)
+        switch (Fraction)
         {
             case 1:
                 {

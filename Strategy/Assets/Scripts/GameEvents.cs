@@ -56,6 +56,8 @@ public class GameEvents : MonoBehaviour {
             }
 
             m.ActivePlayer = false;//активность пропадает при нажатии next turn
+            GameObject.Find("Map").GetComponent<ArtificialIntelligence>().BasicAlgorithm();//запускаем ИИ
+            
             //Timer.timObject.StartTimer(); //заново запускает таймер
         }
         Resources.ShowResources();

@@ -334,7 +334,7 @@ public class Map : MonoBehaviour {
         }
         return Route;
     }
-    bool CheckIndex(int X, int Y)
+    public bool CheckIndex(int X, int Y)
     {
         if (GetCell(X, Y) && !GetCell(X, Y).LocatedHereUnit)
             return true;
