@@ -223,7 +223,7 @@ public class Unit : MonoBehaviour {
     }
     public void AttackAnotherUnit(Unit AttackedUnit)
     {
-        AttackedUnit.ToDamage(Damage-AttackedUnit.Armor);
+        AttackedUnit.ToDamage(Damage);
         CurrentNumberActionPoints = 0;
     }
 

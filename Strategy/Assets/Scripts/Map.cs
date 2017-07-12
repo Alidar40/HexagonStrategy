@@ -127,7 +127,6 @@ public class Map : MonoBehaviour {
         RaycastHit hitInfo = new RaycastHit();
 
 #if UNITY_STANDALONE_WIN
-        
         Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo); 
 #endif
 
