@@ -20,31 +20,23 @@ public class Construction : Unit
         switch (tag)
         {
             case "TownHall":
-                //StandardNumberActionPoints = 5;
-                //Damage = 5;
                 MaxHitpoints = 200;
                 Hitpoints = MaxHitpoints;
                 BuildingRadius = 5;
                 Armor = 10;
                 break;
             case "Barracks":
-                //StandardNumberActionPoints = 3;
-                //Damage = 8;
                 MaxHitpoints = 50;
                 Hitpoints = MaxHitpoints;
                 BuildingRadius = 3;
                 Armor = 8;
                 break;
             case "Pit":
-                //StandardNumberActionPoints = 3;
-                //Damage = 0;
                 MaxHitpoints = 30;
                 Hitpoints = MaxHitpoints;
                 Armor = 5;
                 break;
             case "Sawmill":
-                //StandardNumberActionPoints = 8;
-                //Damage = 10;
                 MaxHitpoints = 30;
                 Hitpoints = MaxHitpoints;
                 Armor = 5;
@@ -82,14 +74,14 @@ public class Construction : Unit
     private static int[][] CellInfoArray;
     public static void CreateConstructionOnClick(GameObject UnitType, ConstructionType type, List<Unit> UnitList, Cell CurrentCell)
     {
-        RaycastHit2D hitInfo = new RaycastHit2D();
+        RaycastHit hitInfo = new RaycastHit();
 
 #if UNITY_STANDALONE_WIN
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
 #endif
         if (hitInfo.collider)//проверка на попадание  по колайдеру
         {
@@ -108,9 +100,9 @@ public class Construction : Unit
                 Debug.Log("Impossible");
                 Buttons.UnsubscribeAllDecreases();
             }
-            map.ActiveUnit.DeleteFieldOpportunities();
-            ActionButtons.actionButtons.HideCancelActionButton();
         }
+        map.ActiveUnit.DeleteFieldOpportunities();
+        ActionButtons.actionButtons.HideCancelActionButton();
     }
 
 }

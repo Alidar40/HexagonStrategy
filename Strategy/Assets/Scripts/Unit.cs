@@ -67,6 +67,23 @@ public class Unit : MonoBehaviour {
 
     public void SetArrayRoute()
     {
+        if (!DestinationCell)
+            Debug.LogError("DestinationCell не установленна!!!");
+        //Проверка на то, что в ячеке нет юнита
+        if (DestinationCell.LocatedHereUnit)
+        {
+            int[][] Matrix = _Map.GetMatrixOfFreeCells(DestinationCell.indexX, DestinationCell.indexY, 5);
+            int w = 0;
+            while (DestinationCell.LocatedHereUnit && w < 5)
+            {
+                w++;
+                for (int i = 0; i < Matrix.Length; i++)
+                    for (int j = 0; j < Matrix[i].Length; j++)
+                        if (Matrix[i][j] == w && !_Map.GetCell(i, j).LocatedHereUnit)
+                            DestinationCell = _Map.GetCell(i, j);
+            }
+        }
+
         //Генерирует пустую матрицу
         Route = new WayCell[_Map.NumberOfCellsOnAxisX][];
         for (int i = 0; i < _Map.NumberOfCellsOnAxisX; i++)
@@ -314,7 +331,7 @@ public class Unit : MonoBehaviour {
         NewUnit.name = UnitName;
         NewUnit.Type = type;
         NewUnit.Fraction = Fraction;
-        switch (_Map.ActiveUnit.Fraction)
+        switch (_Map.PlayerFraction)
         {
             case 1:
                 {
@@ -402,14 +419,14 @@ public class Unit : MonoBehaviour {
     private static int[][] CellInfoArray;
     public static void CreateUnitOnClick(GameObject UnitPrefab, UnitType type, List<Unit> UnitList, Cell CurrentCell)
     {
-        RaycastHit2D hitInfo = new RaycastHit2D();
+        RaycastHit hitInfo = new RaycastHit();
 
 #if UNITY_STANDALONE_WIN
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
 #endif
         if (hitInfo.collider)//проверка на попадание  по колайдеру
         {
@@ -428,10 +445,9 @@ public class Unit : MonoBehaviour {
                 Debug.Log("Impossible");
                 Buttons.UnsubscribeAllDecreases();
             }
-
-            _Map.ActiveUnit.DeleteFieldOpportunities();
-            ActionButtons.actionButtons.HideCancelActionButton();
         }
+        _Map.ActiveUnit.DeleteFieldOpportunities();
+        ActionButtons.actionButtons.HideCancelActionButton();
     }
     public static void DeleteUnit(List<Unit> UnitList, Unit UnitToDelete)
     {
@@ -505,48 +521,47 @@ public class Unit : MonoBehaviour {
     }
     public void HealOnClick()
     {
-        RaycastHit2D hitInfo = new RaycastHit2D();
+        RaycastHit hitInfo = new RaycastHit();
 
 #if UNITY_STANDALONE_WIN
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
 #endif
         if (hitInfo.collider)//проверка на попадание  по колайдеру
         {
             Cell currentCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
-            Debug.Log(CurrentCell.LocatedHereUnit.name);
 
             if (currentCell.LocatedHereUnit)//проверка на то, что в том месте есть юнит
             {
                 currentCell.LocatedHereUnit.Hitpoints += 5;
-                Debug.Log(CurrentCell.LocatedHereUnit.name);
             }
-            _Map.ActiveUnit.DeleteFieldOpportunities();
-            ActionButtons.actionButtons.HideCancelActionButton();
-            CurrentNumberActionPoints--;
-
             if (currentCell.LocatedHereUnit.Hitpoints > currentCell.LocatedHereUnit.MaxHitpoints)
             {
                 currentCell.LocatedHereUnit.Hitpoints = currentCell.LocatedHereUnit.MaxHitpoints;
-                Debug.Log(CurrentCell.LocatedHereUnit.name);
             }
+            CurrentNumberActionPoints--;
         }
+        _Map.ActiveUnit.DeleteFieldOpportunities();
+        ActionButtons.actionButtons.HideCancelActionButton();
     }
 
     public void ThrowFireball()
     {
         //требуется система ходов        
-        RaycastHit2D hitInfo = new RaycastHit2D();
+        RaycastHit hitInfo = new RaycastHit();
+
 
 #if UNITY_STANDALONE_WIN
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
+
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
+
 #endif
         if (hitInfo.collider)//проверка на попадание  по колайдеру
         {
@@ -556,9 +571,9 @@ public class Unit : MonoBehaviour {
             {
                 currentCell.LocatedHereUnit.Hitpoints -= 4;
             }
-            _Map.ActiveUnit.DeleteFieldOpportunities();
-            ActionButtons.actionButtons.HideCancelActionButton();
             CurrentNumberActionPoints--;
         }
+        _Map.ActiveUnit.DeleteFieldOpportunities();
+        ActionButtons.actionButtons.HideCancelActionButton();
     }
 }

@@ -14,16 +14,8 @@ public class InfoPanel : MonoBehaviour {
     private Construction cons;
 
 
-    // Use this for initialization
-    void Start () {
-
-        
-    }
-	
-	// Update is called once per frame
 	void Update () {
         ShowInfo();
-        //Resources.ShowResources();
     }
 
     public void ShowInfo()
@@ -43,6 +35,5 @@ public class InfoPanel : MonoBehaviour {
             textAP.text = "AP: " + obj.CurrentNumberActionPoints + "/" + obj.StandardNumberActionPoints;
         }
     }
-
 
 }

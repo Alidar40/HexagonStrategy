@@ -314,15 +314,6 @@ public class Buttons : MonoBehaviour {
                 //первая кнопка
                 acb.HideAll();
                 break;
-            case "Action2":
-                
-                break;
-            case "Action3":             
-                
-                break;
-            case "Action4":
-                
-                break;
         }
     }
     void SawmillButtons() 
@@ -333,25 +324,15 @@ public class Buttons : MonoBehaviour {
                 //первая кнопка
                 acb.HideAll();
                 break;
-            case "Action2":
-                
-                break;
-            case "Action3":           
-                
-                break;
-            case "Action4":
-                
-                break;
         }
     }
 
     private void Barracks_COSevent()  //Это функцию мы вызываем вместо callMenu в PointClick() при создании бараков
     {
-        // Debug.Log("Переход к процедуре");
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[5], Construction.ConstructionType.Barracks, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;       //Возвращаем все
         gameCamera.COSevent -= Barracks_COSevent;   //на исходные места
-
+        RDevent -= BarracksResourcesDecrease;
     }
 
     private void Pit_COSevent()
@@ -359,6 +340,7 @@ public class Buttons : MonoBehaviour {
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[6], Construction.ConstructionType.Pit, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= Pit_COSevent;
+        RDevent -= PitResourcesDecrease;
     }
 
     private void SawMill_COSevent()
@@ -366,6 +348,7 @@ public class Buttons : MonoBehaviour {
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[7], Construction.ConstructionType.Sawmill, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= SawMill_COSevent;
+        RDevent -= SawmillResourcesDecrease;
     }
 
     private void KillerSpawn_COSevent()
@@ -373,6 +356,7 @@ public class Buttons : MonoBehaviour {
         Unit.CreateUnitOnClick(map.UnitPrefabArray[3], Unit.UnitType.Killer, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= KillerSpawn_COSevent;
+        RDevent -= KillerResourcesDecrease;
     }
 
     private void MageSpawn_COSevent()
@@ -380,6 +364,7 @@ public class Buttons : MonoBehaviour {
         Unit.CreateUnitOnClick(map.UnitPrefabArray[2], Unit.UnitType.Mage, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= MageSpawn_COSevent;
+        RDevent -= MageResourcesDecrease;
     }
 
     private void ArcherSpawn_COSevent()
@@ -387,6 +372,7 @@ public class Buttons : MonoBehaviour {
         Unit.CreateUnitOnClick(map.UnitPrefabArray[1], Unit.UnitType.Archer, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= ArcherSpawn_COSevent;
+        RDevent -= ArcherResourcesDecrease;
     }
 
     private void SwordsmanSpawn_COSevent()
@@ -394,6 +380,7 @@ public class Buttons : MonoBehaviour {
         Unit.CreateUnitOnClick(map.UnitPrefabArray[0], Unit.UnitType.Swordsman, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
         gameCamera.COSevent += map.callMenu;
         gameCamera.COSevent -= SwordsmanSpawn_COSevent;
+        RDevent -= SwordsmanResourcesDecrease;
     }
 
     private void FB_COSevent()
@@ -415,7 +402,6 @@ public class Buttons : MonoBehaviour {
         map.Gold -= 30;
         map.Stone -= 20;
         map.Wood -= 20;
-        RDevent -= BarracksResourcesDecrease;
     }
     private static void PitResourcesDecrease()
     {

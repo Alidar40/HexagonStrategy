@@ -1,6 +1,6 @@
 CameraSettings
-6.399998
-6.100002
+8.099998
+3.200001
 -10
 MapSettings
 20
@@ -245,7 +245,7 @@ Construction7_5
 1
 50
 0
-0
+10
 10
 Unit
 Swordsman
@@ -255,5 +255,5 @@ TestUnit8_5
 1
 20
 5
-0
+5
 5
