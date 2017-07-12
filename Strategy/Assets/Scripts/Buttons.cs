@@ -96,8 +96,8 @@ public class Buttons : MonoBehaviour {
                     SawmillButtons();
                     break;
             }
-            if (map.ActiveUnit.CurrentNumberActionPoints > 0)
-                acb.HideAll();
+            //if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+            //    acb.HideAll();
         }
     }
 

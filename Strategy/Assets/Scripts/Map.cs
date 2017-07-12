@@ -112,7 +112,7 @@ public class Map : MonoBehaviour {
 #if UNITY_ANDROID
         Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
 #endif
-
+        
         if (hitInfo.collider && hitInfo.transform.gameObject.GetComponent<Cell>())
         {
             ActiveUnit.DestinationCell = hitInfo.transform.gameObject.GetComponent<Cell>();
@@ -334,7 +334,7 @@ public class Map : MonoBehaviour {
         }
         return Route;
     }
-    public bool CheckIndex(int X, int Y)
+    bool CheckIndex(int X, int Y)
     {
         if (GetCell(X, Y) && !GetCell(X, Y).LocatedHereUnit)
             return true;
