@@ -9,6 +9,6 @@ public class Menu : MonoBehaviour
 
     public void Singleplayer()
     {
-        SceneManager.LoadScene("TestScen", LoadSceneMode.Single);
+        Application.LoadLevel("TestScen");
     }
 }

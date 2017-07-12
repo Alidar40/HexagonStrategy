@@ -24,7 +24,14 @@ public class MapLoader : MonoBehaviour
 
     public void Save(string saveName)
     {
+
+#if UNITY_STANDALONE_WIN
         StreamWriter sw = new StreamWriter(saveName + ".txt");
+#endif
+
+#if UNITY_ANDROID
+        StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/" + saveName + ".txt");
+#endif
 
         sw.WriteLine("CameraSettings");
         sw.WriteLine(CameraToSave.transform.position.x);
@@ -83,18 +90,24 @@ public class MapLoader : MonoBehaviour
 
     public void Load(string saveName)
     {
+#if UNITY_STANDALONE_WIN
         if (File.Exists(saveName + ".txt"))
         {
+#endif
+#if UNITY_ANDROID
+        if (File.Exists(Application.persistentDataPath + "/" + saveName + ".txt"))
+        {
+#endif
             while (MapToSave.UnitList.Count > 0)
             {
                 Unit.DeleteUnit(MapToSave.UnitList, MapToSave.UnitList[0]);
             }
-//#if UNITY_STANDALONE_WIN
+#if UNITY_STANDALONE_WIN
             StreamReader sr = new StreamReader(saveName + ".txt");
-//#endif
-//#if UNITY_ANDROID
-//           StreamReader sr = new StreamReader("jar:file://" + Application.dataPath + saveName + ".txt");
-//#endif
+#endif
+#if UNITY_ANDROID
+           StreamReader sr = new StreamReader(Application.persistentDataPath + "/" + saveName + ".txt");
+#endif
             string buf;
             buf = sr.ReadLine();
             Vector3 newCamPos = new Vector3(Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()));
