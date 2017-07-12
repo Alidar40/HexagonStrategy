@@ -13,7 +13,6 @@ public class GameCamera : MonoBehaviour {
 
         m = GameObject.Find("Map").GetComponent<Map>();
         c = GameObject.Find("Main Camera").GetComponent<Camera>();
-        //gc = GameObject.Find("Main Camera/GameUICamera");
     }
 
     private void Update()
@@ -54,24 +53,24 @@ public class GameCamera : MonoBehaviour {
             {
                 Vector3 v = new Vector3();
                 v = c.transform.position;
-                if (c.transform.position.x <= 3f + (5f/3f)*(c.orthographicSize - 2f))//3
+                if (c.transform.position.x <= 3f + (5f/3f)*(c.orthographicSize - 2f))
                 {
-                    v.x = 3f + (5f / 3f) * (c.orthographicSize - 2f) + 000001f; //8.000001f;
+                    v.x = 3f + (5f / 3f) * (c.orthographicSize - 2f) + 000001f; 
                     c.transform.position = v;
                 }
-                if (c.transform.position.x >= 15f - (5f / 3f) * (c.orthographicSize - 2f))  //13  (c.transform.position.x <= 3f + (5f/3f)*(c.orthographicSize - 2f))
+                if (c.transform.position.x >= 15f - (5f / 3f) * (c.orthographicSize - 2f))  
                 {
-                    v.x = 15f - (5f / 3f) * (c.orthographicSize - 2f) - 000001f;                //9.999999f;
+                    v.x = 15f - (5f / 3f) * (c.orthographicSize - 2f) - 000001f;            
                     c.transform.position = v;
                 }
-                if (c.transform.position.y <= 0f + (2f / 3f) * (c.orthographicSize - 2f))    //0
+                if (c.transform.position.y <= 0f + (2f / 3f) * (c.orthographicSize - 2f))    
                 {
-                    v.y = 0f + (2f / 3f) * (c.orthographicSize - 2f) + 000001f;  //2.000001f;
+                    v.y = 0f + (2f / 3f) * (c.orthographicSize - 2f) + 000001f;  
                     c.transform.position = v;
                 }
-                if (c.transform.position.y >= 8f - (2f / 3f) * (c.orthographicSize - 2f))     //8  
+                if (c.transform.position.y >= 8f - (2f / 3f) * (c.orthographicSize - 2f))   
                 {
-                    v.y = 8f - (2f / 3f) * (c.orthographicSize - 2f) - 000001f; //5.999999f;
+                    v.y = 8f - (2f / 3f) * (c.orthographicSize - 2f) - 000001f;
                     c.transform.position = v;
                 }
             }
@@ -95,24 +94,24 @@ public class GameCamera : MonoBehaviour {
                 {
                     Vector3 v = new Vector3();
                     v = c.transform.position;
-                    if (c.transform.position.x <= 3f + (5f / 3f) * (c.orthographicSize - 2f))//3
+                    if (c.transform.position.x <= 3f + (5f / 3f) * (c.orthographicSize - 2f))
                     {
-                        v.x = 3f + (5f / 3f) * (c.orthographicSize - 2f) + 000001f; //8.000001f;
+                        v.x = 3f + (5f / 3f) * (c.orthographicSize - 2f) + 000001f; 
                         c.transform.position = v;
                     }
-                    if (c.transform.position.x >= 15f - (5f / 3f) * (c.orthographicSize - 2f))  //13  (c.transform.position.x <= 3f + (5f/3f)*(c.orthographicSize - 2f))
+                    if (c.transform.position.x >= 15f - (5f / 3f) * (c.orthographicSize - 2f))  
                     {
-                        v.x = 15f - (5f / 3f) * (c.orthographicSize - 2f) - 000001f;                //9.999999f;
+                        v.x = 15f - (5f / 3f) * (c.orthographicSize - 2f) - 000001f;               
                         c.transform.position = v;
                     }
-                    if (c.transform.position.y <= 0f + (2f / 3f) * (c.orthographicSize - 2f))    //0
+                    if (c.transform.position.y <= 0f + (2f / 3f) * (c.orthographicSize - 2f))    
                     {
-                        v.y = 0f + (2f / 3f) * (c.orthographicSize - 2f) + 000001f;  //2.000001f;
+                        v.y = 0f + (2f / 3f) * (c.orthographicSize - 2f) + 000001f;  
                         c.transform.position = v;
                     }
-                    if (c.transform.position.y >= 8f - (2f / 3f) * (c.orthographicSize - 2f))     //8  
+                    if (c.transform.position.y >= 8f - (2f / 3f) * (c.orthographicSize - 2f))     
                     {
-                        v.y = 8f - (2f / 3f) * (c.orthographicSize - 2f) - 000001f; //5.999999f;
+                        v.y = 8f - (2f / 3f) * (c.orthographicSize - 2f) - 000001f; 
                         c.transform.position = v;
                     }
                 }
@@ -133,10 +132,6 @@ public class GameCamera : MonoBehaviour {
         if (!MovingUnit && !AttackUnit && Input.GetMouseButtonDown(0))
         {
             COSevent();
-            //Изначально вместо COSevent() запускается callMenu
-            //однако если мы хотим заспавнить юнит
-            //нам необходимо поменять функцию здесь
-            //на функцию создания юнита
         }
         if (MovingUnit && Input.GetMouseButtonDown(0))
         {
@@ -167,10 +162,6 @@ public class GameCamera : MonoBehaviour {
                     if (!MovingUnit && !AttackUnit)
                     {
                         COSevent();
-                        //Изначально вместо COSevent() запускается callMenu
-                        //однако если мы хотим заспавнить юнит
-                        //нам необходимо поменять функцию здесь
-                        //на функцию создания юнита
                     }
                     if (MovingUnit)
                     {

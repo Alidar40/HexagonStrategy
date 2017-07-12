@@ -67,6 +67,23 @@ public class Unit : MonoBehaviour {
 
     public void SetArrayRoute()
     {
+        if (!DestinationCell)
+            Debug.LogError("DestinationCell не установленна!!!");
+        //Проверка на то, что в ячеке нет юнита
+        if (DestinationCell.LocatedHereUnit)
+        {
+            int[][] Matrix = _Map.GetMatrixOfFreeCells(DestinationCell.indexX, DestinationCell.indexY, 5);
+            int w = 0;
+            while (DestinationCell.LocatedHereUnit && w < 5)
+            {
+                w++;
+                for (int i = 0; i < Matrix.Length; i++)
+                    for (int j = 0; j < Matrix[i].Length; j++)
+                        if (Matrix[i][j] == w && !_Map.GetCell(i, j).LocatedHereUnit)
+                            DestinationCell = _Map.GetCell(i, j);
+            }
+        }
+
         //Генерирует пустую матрицу
         Route = new WayCell[_Map.NumberOfCellsOnAxisX][];
         for (int i = 0; i < _Map.NumberOfCellsOnAxisX; i++)

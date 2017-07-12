@@ -32,7 +32,6 @@ public class Map : MonoBehaviour {
         Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 5, 5, UnitList, "TownHall1", 1);//последняя единица для теста
         Construction.CreateConstruction(UnitPrefabArray[4], Construction.ConstructionType.TownHall, 15, 5, UnitList, "TownHall2s", 2);
         cam = GameObject.Find("Main Camera").GetComponent<GameCamera>();
-        //Resources.ShowResources();
     }
 
     void Start()
@@ -45,7 +44,6 @@ public class Map : MonoBehaviour {
         Gold += 50;
         Wood += 50;
         Stone += 50;
-        //Resources.ShowResources();
     }
 
     void Update()

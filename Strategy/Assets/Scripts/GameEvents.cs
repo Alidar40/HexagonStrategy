@@ -5,20 +5,18 @@ using UnityEngine.UI ;
 
 public class GameEvents : MonoBehaviour {
 
-    //public Button btn;
     List<Unit> UnitList;
     Map m;
     Unit u;
     Construction c;
     Resources r;
+    ActionButtons acb;
 
     void Start()
     {
         m = GameObject.Find("Map").GetComponent<Map>();
-        //u = GameObject.Find("").GetComponent<Map>();
-        UnitList = m.UnitList;
-        //Resources.ShowResources();
-        //btn.onClick.AddListener(TaskOnClick);      
+        acb = GameObject.Find("Main Camera").GetComponent<ActionButtons>();
+        UnitList = m.UnitList;      
     }
 
 
@@ -29,6 +27,7 @@ public class GameEvents : MonoBehaviour {
 
     public void NextTurn()
     {
+        acb.HideAll();
         if (m.ActivePlayer) //проверяем активность плейера
         {
             foreach (Unit u in UnitList)
