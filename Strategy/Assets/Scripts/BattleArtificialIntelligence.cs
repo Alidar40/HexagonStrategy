@@ -4,21 +4,12 @@ using UnityEngine;
 
 public class BattleArtificialIntelligence : MonoBehaviour
 {
-
-
     public static BattleArtificialIntelligence battleArtificialIntelligence;
-
-    GameCamera gameCamera;
-    public bool enemy = false;
 
     Cell cell;
     List<Unit> UnitList;
     Map m;
     Unit u;
-
-
-    int indexX = 2;
-    int indexY = 2;
 
     public bool Attack = false;
     public bool Deff = false;
@@ -29,20 +20,16 @@ public class BattleArtificialIntelligence : MonoBehaviour
     
     void Start()
     {
-
-      
-        gameCamera = GameObject.Find("Main Camera").GetComponent<GameCamera>();
         m = GameObject.Find("Map").GetComponent<Map>();
         UnitList = m.UnitList;
         battleArtificialIntelligence = GetComponent<BattleArtificialIntelligence>();
         xTown = GameObject.Find("Map").GetComponent<ArtificialIntelligence>().xTown;
         yTown = GameObject.Find("Map").GetComponent<ArtificialIntelligence>().yTown;
 
-        // f = GameObject.Find("Unit").GetComponent<Unit>();
-        //----
+      
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
 

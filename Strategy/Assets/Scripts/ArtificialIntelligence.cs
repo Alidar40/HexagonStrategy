@@ -21,8 +21,8 @@ public class ArtificialIntelligence : MonoBehaviour {
     Construction c;
 
 
-   public int xTown = 15;
-   public int yTown = 5;
+   public int xTown = 0;
+   public int yTown = 0;
     int xBarracks;
     int yBarracks;
 
@@ -34,8 +34,16 @@ public class ArtificialIntelligence : MonoBehaviour {
         m = GameObject.Find("Map").GetComponent<Map>();
         UnitList = m.UnitList;
         Gold = 50; Stone = 50; Wood = 50;
-      
-        
+
+
+        foreach (Unit c in UnitList)
+        {
+           if ((c.tag == "TownHall") && (c.Fraction == 2))
+            {
+                xTown = c.CurrentCell.indexX;
+                yTown = c.CurrentCell.indexY;
+            }
+        }
     }
 
 
@@ -46,7 +54,7 @@ public class ArtificialIntelligence : MonoBehaviour {
             BuildSawmill();
         }
 
-        if (FindEfficientBuild("Pit") == 0)
+        if (FindEfficientBuild("Pit") <3)
         {
             BuildPit();
         }
@@ -55,7 +63,7 @@ public class ArtificialIntelligence : MonoBehaviour {
         {
             BuildBarracks();
         }
-        else
+        else if (FindOutHowManySoldiers() <20)
         {
             //заказываем юнитов
             if ((Gold >= 50))
@@ -73,8 +81,6 @@ public class ArtificialIntelligence : MonoBehaviour {
             AttackOn();
            }
             
-          if ((Gold >= 20) && (Wood >= 30)) BuildPit();
-
 
          foreach (Unit c in UnitList)
         {
@@ -84,7 +90,7 @@ public class ArtificialIntelligence : MonoBehaviour {
             }
             if ((c.tag == "Pit") && (c.Fraction == 2))
             {
-                Gold += 15;
+                Gold += 5;
                 Stone += 15;
             }
             if ((c.tag == "TownHall") && (c.Fraction == 2))
