@@ -21,7 +21,11 @@ public class ArtificialIntelligence : MonoBehaviour {
     Construction c;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Unit Town;
+=======
+
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
 =======
 
 >>>>>>> 8593971f645290b69287c573c1f99d66934134a8
@@ -41,6 +45,7 @@ public class ArtificialIntelligence : MonoBehaviour {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     }
     void Update()
@@ -58,6 +63,8 @@ public class ArtificialIntelligence : MonoBehaviour {
     }
 
 =======
+=======
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
         foreach (Unit c in UnitList)
         {
            if ((c.tag == "TownHall") && (c.Fraction == 2))
@@ -69,6 +76,9 @@ public class ArtificialIntelligence : MonoBehaviour {
     }
 
 
+<<<<<<< HEAD
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
+=======
 >>>>>>> 8593971f645290b69287c573c1f99d66934134a8
     public void BasicAlgorithm()
     {
@@ -129,7 +139,11 @@ public class ArtificialIntelligence : MonoBehaviour {
         //делаем поейера активным и запускаем таймер
         GameObject.Find("Map").GetComponent<Map>().ActivePlayer = true;
 <<<<<<< HEAD
+<<<<<<< HEAD
         //Timer.timObject.StartTimer();
+=======
+        Timer.timObject.StartTimer();
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
 =======
         Timer.timObject.StartTimer();
 >>>>>>> 8593971f645290b69287c573c1f99d66934134a8
@@ -182,6 +196,7 @@ public class ArtificialIntelligence : MonoBehaviour {
     public void BuildSawmill()//внутри должна быть функция,которая ищет ячейку рядом с лесом и ближе всего к базе
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (Town.CurrentNumberActionPoints <= 0)
             return;
         if ((Gold < 10) || (Wood < 15))
@@ -204,6 +219,8 @@ public class ArtificialIntelligence : MonoBehaviour {
         }
 
 =======
+=======
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
         
 
         if ((Gold >= 10) && (Wood >= 15))
@@ -251,12 +268,16 @@ public class ArtificialIntelligence : MonoBehaviour {
 
 
      
+<<<<<<< HEAD
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
+=======
 >>>>>>> 8593971f645290b69287c573c1f99d66934134a8
        
     }
 
     public void BuildPit()//внутри должна быть функция,которая ищет ячейку рядом с рудой и ближе всего к базе
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
         if (Town.CurrentNumberActionPoints <= 0)
             return;
@@ -283,6 +304,8 @@ public class ArtificialIntelligence : MonoBehaviour {
 
 
 =======
+=======
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
         
         if ((Gold>=20)&&(Wood>=30))
         for (int k = 1; k < m.NumberOfCellsOnAxisX; k++)
@@ -327,11 +350,15 @@ public class ArtificialIntelligence : MonoBehaviour {
         
       
         
+<<<<<<< HEAD
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
+=======
 >>>>>>> 8593971f645290b69287c573c1f99d66934134a8
     }
 
     public void BuildBarracks()// найти ячейку рядом с базой и построить в этой ячейке казарму
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
         if (Town.CurrentNumberActionPoints <= 0)
             return;
@@ -400,6 +427,8 @@ public class ArtificialIntelligence : MonoBehaviour {
         //    }
         //}
 =======
+=======
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
         
         if ((Gold >= 30) && (Wood >= 20)&&(Stone>=20))
             for (int k = 1; k < m.NumberOfCellsOnAxisX; k++)
@@ -446,6 +475,9 @@ public class ArtificialIntelligence : MonoBehaviour {
                 }
             }
         }
+<<<<<<< HEAD
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
+=======
 >>>>>>> 8593971f645290b69287c573c1f99d66934134a8
        
        
@@ -454,6 +486,7 @@ public class ArtificialIntelligence : MonoBehaviour {
    
     public void OrderUnit(string tag, int prefabNumber, Unit.UnitType uType, int Value) //заказ юнита
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
         int w = 1;
         int[][] M = m.GetMatrixOfFreeCells(xTown, yTown, 5);
@@ -470,6 +503,8 @@ public class ArtificialIntelligence : MonoBehaviour {
             w++;
         }
 =======
+=======
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
        
 
             for (int k = 3; k < m.NumberOfCellsOnAxisX; k++)
@@ -515,6 +550,9 @@ public class ArtificialIntelligence : MonoBehaviour {
 
        
 
+<<<<<<< HEAD
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
+=======
 >>>>>>> 8593971f645290b69287c573c1f99d66934134a8
     }
 
