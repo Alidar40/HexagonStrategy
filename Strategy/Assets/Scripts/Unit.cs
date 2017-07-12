@@ -314,7 +314,7 @@ public class Unit : MonoBehaviour {
         NewUnit.name = UnitName;
         NewUnit.Type = type;
         NewUnit.Fraction = Fraction;
-        switch (_Map.ActiveUnit.Fraction)
+        switch (_Map.PlayerFraction)
         {
             case 1:
                 {
@@ -402,10 +402,10 @@ public class Unit : MonoBehaviour {
     private static int[][] CellInfoArray;
     public static void CreateUnitOnClick(GameObject UnitPrefab, UnitType type, List<Unit> UnitList, Cell CurrentCell)
     {
-        RaycastHit2D hitInfo = new RaycastHit2D();
+        RaycastHit hitInfo = new RaycastHit();
 
 #if UNITY_STANDALONE_WIN
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
 #endif
 
 #if UNITY_ANDROID

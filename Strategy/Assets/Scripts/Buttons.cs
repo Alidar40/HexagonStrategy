@@ -224,9 +224,13 @@ public class Buttons : MonoBehaviour {
                 {
 
                     gameCamera.COSevent -= map.callMenu;
+                    Debug.Log("Отписка колменю");
                     gameCamera.COSevent += Barracks_COSevent;
+                    Debug.Log("подписка на создание бараков");
                     ActionButtons.actionButtons.ActivateCancelActionButton();
+                    Debug.Log("активация кнопки отмены");
                     map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
+                    Debug.Log("генерация свободных клеток");
                     RDevent += BarracksResourcesDecrease;
                 }
                 break;
@@ -347,10 +351,13 @@ public class Buttons : MonoBehaviour {
 
     private void Barracks_COSevent()  //Это функцию мы вызываем вместо callMenu в PointClick() при создании бараков
     {
-        // Debug.Log("Переход к процедуре");
+        Debug.Log("Переход к процедуре создания барраков");
         Construction.CreateConstructionOnClick(map.UnitPrefabArray[5], Construction.ConstructionType.Barracks, map.UnitList, map.ActiveUnit.GetComponent<Construction>().CurrentCell);
+        Debug.Log("Создан объект");
         gameCamera.COSevent += map.callMenu;       //Возвращаем все
+        Debug.Log("Подписка колменю");
         gameCamera.COSevent -= Barracks_COSevent;   //на исходные места
+        Debug.Log("Отписка от создания бараков");
 
     }
 
