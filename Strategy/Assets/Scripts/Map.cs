@@ -112,7 +112,7 @@ public class Map : MonoBehaviour {
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(_i).position), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
 #endif
 
         if (hitInfo.collider && hitInfo.transform.gameObject.GetComponent<Cell>())
@@ -134,7 +134,7 @@ public class Map : MonoBehaviour {
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(_i).position), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
 #endif
 
         if (hitInfo.collider)
@@ -174,7 +174,7 @@ public class Map : MonoBehaviour {
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
 #endif
         if (hitInfo.collider)//проверка на попадание  по колайдеру
         {
@@ -343,18 +343,4 @@ public class Map : MonoBehaviour {
         else
             return false;
     }
-    public void ColliderTurn(bool OnOff)
-    {
-        for (int i = 0; i < NumberOfCellsOnAxisX; i++)
-        {
-            for (int j = 0; j < NumberOfCellsOnAxisX; j++)
-            {
-                Cell c;
-                c = GetCell(i, j);
-                if (OnOff == true)
-                    c.GetComponent<CircleCollider2D>().enabled = OnOff;
-            }
-        }
-    }
-
 }

@@ -82,23 +82,17 @@ public class Construction : Unit
     private static int[][] CellInfoArray;
     public static void CreateConstructionOnClick(GameObject UnitType, ConstructionType type, List<Unit> UnitList, Cell CurrentCell)
     {
-        Debug.Log("Начинаем работу");
-        //RaycastHit2D hitInfo = new RaycastHit2D();
         RaycastHit hitInfo = new RaycastHit();
-        Debug.Log("Луч создан");
 
 #if UNITY_STANDALONE_WIN
-        //hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
-        Debug.Log("Луч ебнул");
 #endif
 
 #if UNITY_ANDROID
-        hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), Vector2.zero);
+        Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
 #endif
         if (hitInfo.collider)//проверка на попадание  по колайдеру
         {
-            Debug.Log("попал по коллайдеру");
             Cell newUnitCell = hitInfo.transform.gameObject.GetComponent(typeof(Cell)) as Cell;
             CellInfoArray = map.GetMatrixOfFreeCells(CurrentCell.indexX, CurrentCell.indexY, 5);
 
@@ -108,7 +102,6 @@ public class Construction : Unit
                 CurrentCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
                 newUnitCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
                 Buttons.ResourcesDecrease();
-                Debug.Log("клетка подходит");
             }
             else
             {

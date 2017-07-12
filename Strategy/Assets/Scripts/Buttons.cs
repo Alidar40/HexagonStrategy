@@ -357,6 +357,7 @@ public class Buttons : MonoBehaviour {
         gameCamera.COSevent += map.callMenu;       //Возвращаем все
         Debug.Log("Подписка колменю");
         gameCamera.COSevent -= Barracks_COSevent;   //на исходные места
+        RDevent -= BarracksResourcesDecrease;
         Debug.Log("Отписка от создания бараков");
 
     }
@@ -422,7 +423,6 @@ public class Buttons : MonoBehaviour {
         map.Gold -= 30;
         map.Stone -= 20;
         map.Wood -= 20;
-        RDevent -= BarracksResourcesDecrease;
     }
     private static void PitResourcesDecrease()
     {
