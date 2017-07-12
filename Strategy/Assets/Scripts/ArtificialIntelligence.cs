@@ -20,7 +20,11 @@ public class ArtificialIntelligence : MonoBehaviour {
     Unit u;
     Construction c;
 
+<<<<<<< HEAD
     public Unit Town;
+=======
+
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
    public int xTown = 0;
    public int yTown = 0;
     int xBarracks;
@@ -36,6 +40,7 @@ public class ArtificialIntelligence : MonoBehaviour {
         Gold = 50; Stone = 50; Wood = 50;
 
 
+<<<<<<< HEAD
 
     }
     void Update()
@@ -52,6 +57,19 @@ public class ArtificialIntelligence : MonoBehaviour {
             }
     }
 
+=======
+        foreach (Unit c in UnitList)
+        {
+           if ((c.tag == "TownHall") && (c.Fraction == 2))
+            {
+                xTown = c.CurrentCell.indexX;
+                yTown = c.CurrentCell.indexY;
+            }
+        }
+    }
+
+
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
     public void BasicAlgorithm()
     {
      if (FindEfficientBuild("Sawmill") < 2)
@@ -110,7 +128,11 @@ public class ArtificialIntelligence : MonoBehaviour {
         GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().BasicAlgorithm();
         //делаем поейера активным и запускаем таймер
         GameObject.Find("Map").GetComponent<Map>().ActivePlayer = true;
+<<<<<<< HEAD
         //Timer.timObject.StartTimer();
+=======
+        Timer.timObject.StartTimer();
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
 
     }
 
@@ -159,6 +181,7 @@ public class ArtificialIntelligence : MonoBehaviour {
 
     public void BuildSawmill()//внутри должна быть функция,которая ищет ячейку рядом с лесом и ближе всего к базе
     {
+<<<<<<< HEAD
         if (Town.CurrentNumberActionPoints <= 0)
             return;
         if ((Gold < 10) || (Wood < 15))
@@ -180,11 +203,61 @@ public class ArtificialIntelligence : MonoBehaviour {
             w++;
         }
 
+=======
+        
+
+        if ((Gold >= 10) && (Wood >= 15))
+            for (int k = 1;k< m.NumberOfCellsOnAxisX;k++)
+        {
+            for (int i = xTown - k + 1; i <= xTown + k; i++)
+            {
+                if (m.CheckIndex(i, yTown+k))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[7], Construction.ConstructionType.Sawmill, i, yTown+k, m.UnitList, 2);
+                    Wood -= 15; Gold -= 10;
+                   return;
+                }
+            }
+            for (int j = yTown + k ; j >= yTown - k; j--)
+            {
+                if (m.CheckIndex(xTown + k, j))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[7], Construction.ConstructionType.Sawmill, xTown + k, j , m.UnitList, 2);
+                    Wood -= 15; Gold -= 10;
+                    return;
+                }
+            }
+            for (int i = xTown + k - 1; i >= xTown -k; i--)
+            {
+                if (m.CheckIndex(i, yTown - k))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[7], Construction.ConstructionType.Sawmill, i, yTown - k, m.UnitList, 2);
+                    Wood -= 15; Gold -= 10;
+                    return;
+                }
+            }
+            for (int j = yTown - k + 1; j <= yTown + k; j++)
+            {
+                if (m.CheckIndex(xTown - k, j))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[7], Construction.ConstructionType.Sawmill, xTown - k, j, m.UnitList, 2);
+                    Wood -= 15; Gold -= 10;
+                    return;
+                }
+            }
+        }
+      
+
+
+
+     
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
        
     }
 
     public void BuildPit()//внутри должна быть функция,которая ищет ячейку рядом с рудой и ближе всего к базе
     {
+<<<<<<< HEAD
         if (Town.CurrentNumberActionPoints <= 0)
             return;
         if ((Gold < 20) || (Wood < 30))
@@ -209,10 +282,57 @@ public class ArtificialIntelligence : MonoBehaviour {
 
 
 
+=======
+        
+        if ((Gold>=20)&&(Wood>=30))
+        for (int k = 1; k < m.NumberOfCellsOnAxisX; k++)
+        {
+            for (int i = xTown - k + 1; i <= xTown + k; i++)
+            {
+                if (m.CheckIndex(i, yTown + k))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[6], Construction.ConstructionType.Pit, i, yTown + k, m.UnitList, 2);
+                    Wood -= 30; Gold -= 20;
+                    return;
+                }
+            }
+            for (int j = yTown + k - 1; j >= yTown - k; j--)
+            {
+                if (m.CheckIndex(xTown + k, j))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[6], Construction.ConstructionType.Pit, xTown + k, j, m.UnitList, 2);
+                    Wood -= 30; Gold -= 20;
+                    return;
+                }
+            }
+            for (int i = xTown + k - 1; i >= xTown - k; i--)
+            {
+                if (m.CheckIndex(i, yTown - k))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[6], Construction.ConstructionType.Pit, i, yTown - k, m.UnitList, 2);
+                    Wood -= 30; Gold -= 20;
+                    return;
+                }
+            }
+            for (int j = yTown - k + 1; j <= yTown + k; j++)
+            {
+                if (m.CheckIndex(xTown - k, j))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[6], Construction.ConstructionType.Pit, xTown - k, j, m.UnitList, 2);
+                    Wood -= 30; Gold -= 20;
+                    return;
+                }
+            }
+        }
+        
+      
+        
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
     }
 
     public void BuildBarracks()// найти ячейку рядом с базой и построить в этой ячейке казарму
     {
+<<<<<<< HEAD
         if (Town.CurrentNumberActionPoints <= 0)
             return;
         if ((Gold < 30) || (Wood < 20) || (Stone < 20))
@@ -279,6 +399,54 @@ public class ArtificialIntelligence : MonoBehaviour {
         //        }
         //    }
         //}
+=======
+        
+        if ((Gold >= 30) && (Wood >= 20)&&(Stone>=20))
+            for (int k = 1; k < m.NumberOfCellsOnAxisX; k++)
+        {
+            for (int i = xTown - k + 1; i <= xTown + k; i++)
+            {
+                if (m.CheckIndex(i, yTown + k))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[5], Construction.ConstructionType.Barracks, i, yTown + k, m.UnitList, 2);
+                    xBarracks = i; yBarracks = yTown + k;
+                        Gold -= 30;Wood -= 20;Stone -= 20;
+                        return;
+
+                }
+            }
+            for (int j = yTown + k - 1; j >= yTown - k; j--)
+            {
+                if (m.CheckIndex(xTown + k, j))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[5], Construction.ConstructionType.Barracks, xTown + k, j, m.UnitList, 2);
+                    xBarracks = xTown + k; yBarracks = j;
+                        Gold -= 30; Wood -= 20; Stone -= 20;
+                        return;
+                }
+            }
+            for (int i = xTown + k - 1; i >= xTown - k; i--)
+            {
+                if (m.CheckIndex(i, yTown - k))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[5], Construction.ConstructionType.Barracks, i, yTown - k, m.UnitList, 2);
+                    xBarracks = i; yBarracks = yTown - k;
+                        Gold -= 30; Wood -= 20; Stone -= 20;
+                        return;
+                }
+            }
+            for (int j = yTown - k + 1; j <= yTown + k; j++)
+            {
+                if (m.CheckIndex(xTown - k, j))
+                {
+                    Construction.CreateConstruction(m.UnitPrefabArray[5], Construction.ConstructionType.Barracks, xTown - k, j, m.UnitList, 2);
+                    xBarracks = xTown - k; yBarracks = j;
+                        Gold -= 30; Wood -= 20; Stone -= 20;
+                        return;
+                }
+            }
+        }
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
        
        
     }
@@ -286,6 +454,7 @@ public class ArtificialIntelligence : MonoBehaviour {
    
     public void OrderUnit(string tag, int prefabNumber, Unit.UnitType uType, int Value) //заказ юнита
     {
+<<<<<<< HEAD
         int w = 1;
         int[][] M = m.GetMatrixOfFreeCells(xTown, yTown, 5);
         while (w < 5)
@@ -300,6 +469,53 @@ public class ArtificialIntelligence : MonoBehaviour {
                     }
             w++;
         }
+=======
+       
+
+            for (int k = 3; k < m.NumberOfCellsOnAxisX; k++)
+            {
+                for (int i = xTown - k + 1; i <= xTown + k; i++)
+                {
+                    if (m.CheckIndex(i, yTown + k))
+                    {
+                        Unit.CreateUnit(m.UnitPrefabArray[prefabNumber], uType, i, yTown + k, m.UnitList,2);
+                        Gold -= Value; 
+                        return;
+
+                    }
+                }
+                for (int j = yTown + k - 1; j >= yTown - k; j--)
+                {
+                    if (m.CheckIndex(xTown + k, j))
+                    {
+                        Unit.CreateUnit(m.UnitPrefabArray[prefabNumber], uType, xTown + k, j, m.UnitList, 2);
+                       Gold -= Value; 
+                        return;
+                    }
+                }
+                for (int i = xTown + k - 1; i >= xTown - k; i--)
+                {
+                    if (m.CheckIndex(i, yTown - k))
+                    {
+                    Unit.CreateUnit(m.UnitPrefabArray[prefabNumber], uType, i, yTown - k, m.UnitList, 2);
+                    Gold -= Value; 
+                        return;
+                    }
+                }
+                for (int j = yTown - k + 1; j <= yTown + k; j++)
+                {
+                    if (m.CheckIndex(xTown - k, j))
+                    {
+                    Unit.CreateUnit(m.UnitPrefabArray[prefabNumber], uType, xTown - k, j, m.UnitList, 2);
+                    Gold -= Value;
+                        return;
+                    }
+                }
+            }
+
+       
+
+>>>>>>> 8593971f645290b69287c573c1f99d66934134a8
     }
 
     public bool FindEnemyAroundImportantBuildings()
