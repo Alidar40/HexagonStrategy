@@ -17,7 +17,11 @@ public class Menu : MonoBehaviour
 
     public void Singleplayer()
     {
+<<<<<<< HEAD
         Application.LoadLevel("SelectMap");
+=======
+        Application.LoadLevel("TestScen");
+>>>>>>> 5dab9b106bca04a0f9dfc063084d01c3532e43a4
         _State = State.NewGame;
     }
 

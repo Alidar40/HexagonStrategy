@@ -25,8 +25,6 @@ public class BattleArtificialIntelligence : MonoBehaviour
         battleArtificialIntelligence = GetComponent<BattleArtificialIntelligence>();
         xTown = GameObject.Find("Map").GetComponent<ArtificialIntelligence>().xTown;
         yTown = GameObject.Find("Map").GetComponent<ArtificialIntelligence>().yTown;
-
-      
     }
 
    
@@ -55,8 +53,7 @@ public class BattleArtificialIntelligence : MonoBehaviour
                         {
                             return (m.GetCell(i, yTown + k).LocatedHereUnit);
                         }
-                    
-                }
+                 }
             }
             for (int j = yTown + k; j >= yTown - k; j--)
             {
@@ -102,15 +99,11 @@ public class BattleArtificialIntelligence : MonoBehaviour
 
     public void GoToEnemy()
     {
-      
-   
         foreach (Unit u in UnitList)
         {
             if (((u.tag == "Swordsman") || (u.tag == "Archer") || (u.tag == "Mage") || (u.tag == "Killer")) && (u.Fraction == 2))
             {
-
-
-                u.DestinationCell = FindEnemy().CurrentCell;
+                 u.DestinationCell = FindEnemy().CurrentCell;
                 if (m.DistanceToCell(u.CurrentCell, u.DestinationCell, u.AttackRadius) <= u.AttackRadius)
                 {
                     u.AttackAnotherUnit(u.DestinationCell.LocatedHereUnit);

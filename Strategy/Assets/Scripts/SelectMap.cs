@@ -12,6 +12,9 @@ public class SelectMap : MonoBehaviour {
 	public void LoadMap(int index)
     {
         PlayerPrefs.SetInt("SelectMap", index);
+<<<<<<< HEAD
         Application.LoadLevel("TestScen");
+=======
+>>>>>>> 5dab9b106bca04a0f9dfc063084d01c3532e43a4
     }
 }
