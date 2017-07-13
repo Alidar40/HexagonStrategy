@@ -26,4 +26,19 @@ public class Menu : MonoBehaviour
         Application.LoadLevel("TestScen");
         _State = State.Load;
     }
+
+    public void OpenMenu()
+    {
+        Application.LoadLevel("MainMenu");
+        _State = State.Load;
+    }
+    public void OpenCreators()
+    {
+        Application.LoadLevel("Creators");
+        _State = State.Load;
+    }
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
