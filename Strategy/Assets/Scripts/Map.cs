@@ -26,6 +26,8 @@ public class Map : MonoBehaviour {
     public int PlayerFraction;//фракция игрока
 
 
+    public int TurnCounter;
+
     void Awake()
     {
         GenerateNewTable();
@@ -36,6 +38,7 @@ public class Map : MonoBehaviour {
 
     void Start()
     {
+        TurnCounter = 1;
         PlayerFraction = 1;//тут назначим ему фракцию
         ActivePlayer = true;//и пусть он делает первый ход
         cam.COSevent += callMenu;  //Теперь при использовании функции PointClick()

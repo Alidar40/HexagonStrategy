@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 using System.IO;
-using System.Text;
-using System;
+using UnityEngine;
 
 
 public class MapLoader : MonoBehaviour
 {
     Map MapToSave;
+    Menu menu;
     Unit UnitBufer;
     Construction ConstructionUnit;
     Cell CellBufer;
@@ -20,6 +18,16 @@ public class MapLoader : MonoBehaviour
         MapToSave = GameObject.Find("Map").GetComponent<Map>();
         mapPrefab = GameObject.Find("Map");
         CameraToSave = GameObject.Find("Main Camera").GetComponent<Camera>();
+        menu = GameObject.Find("Menu").GetComponent<Menu>();
+        if (menu._State == Menu.State.Load)
+        {
+            Load("QuickSave");
+            Destroy(menu.gameObject);
+        }
+        else if (menu._State == Menu.State.NewGame)
+        {
+            Destroy(menu.gameObject);
+        }
     }
 
     public void Save(string saveName)
@@ -32,6 +40,9 @@ public class MapLoader : MonoBehaviour
 #if UNITY_ANDROID
         StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/" + saveName + ".txt");
 #endif
+
+        sw.WriteLine("TurnCounter");
+        sw.WriteLine(MapToSave.TurnCounter);
 
         sw.WriteLine("CameraSettings");
         sw.WriteLine(CameraToSave.transform.position.x);
@@ -109,6 +120,8 @@ public class MapLoader : MonoBehaviour
            StreamReader sr = new StreamReader(Application.persistentDataPath + "/" + saveName + ".txt");
 #endif
             string buf;
+            buf = sr.ReadLine();
+            MapToSave.TurnCounter = Convert.ToInt32(sr.ReadLine(), 10);
             buf = sr.ReadLine();
             Vector3 newCamPos = new Vector3(Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()), Convert.ToSingle(sr.ReadLine()));
             CameraToSave.transform.position = newCamPos;
@@ -220,6 +233,13 @@ public class MapLoader : MonoBehaviour
         {
             Debug.Log("File doesn't exist");
         }
+    }
+
+    public void ClickOnMenu()
+    {
+        Save("QuickSave");
+        Destroy(menu);
+        Application.LoadLevel("MainMenu");
     }
 }
 

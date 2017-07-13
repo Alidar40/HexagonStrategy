@@ -43,10 +43,7 @@ public class Construction : Unit
                 break;
         }
     }
-    void Update()
-    {
 
-    }
 
     public static bool CreateConstruction(GameObject UnitType, ConstructionType type, int _x, int _y, List<Unit> UnitList, int Fraction)
     {

@@ -63,7 +63,17 @@ public class Unit : MonoBehaviour {
         }
         CurrentNumberActionPoints = StandardNumberActionPoints;*/
     }
-    
+
+    public void Update()
+    {
+        if (Hitpoints <= 0)
+        {
+            Destroy(gameObject);
+            GameObject.Find("Main Camera").GetComponent<ActionButtons>().HideAll();
+            _Map.UnitList.Remove(this);
+            
+        }
+    }
 
     public void SetArrayRoute()
     {

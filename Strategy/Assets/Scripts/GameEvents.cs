@@ -27,6 +27,7 @@ public class GameEvents : MonoBehaviour {
 
     public void NextTurn()
     {
+        m.TurnCounter++;
         acb.HideAll();
         if (m.ActivePlayer) //проверяем активность плейера
         {
