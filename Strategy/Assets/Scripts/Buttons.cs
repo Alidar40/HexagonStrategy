@@ -432,7 +432,7 @@ public class Buttons : MonoBehaviour {
     }
     private static void KillerResourcesDecrease()
     {
-        map.Gold -= 10;
+        map.Gold -= 30;
         RDevent -= KillerResourcesDecrease;
     }
 
