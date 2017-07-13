@@ -57,6 +57,10 @@ public class Construction : Unit
         NewUnit.name = "Construction" + _x + "_" + _y;
         NewUnit._ConstructionType = type;
         NewUnit.Fraction = Fraction;
+        if (type == ConstructionType.TownHall && Fraction == map.PlayerFraction)
+        {
+            map.PlayerTownHall = NewUnit;
+        }
         return true;
     }
 
@@ -74,6 +78,10 @@ public class Construction : Unit
         NewUnit.name = UnitName;
         NewUnit._ConstructionType = type;
         NewUnit.Fraction = Fraction;
+        if (type == ConstructionType.TownHall && Fraction == map.PlayerFraction)
+        {
+            map.PlayerTownHall = NewUnit;
+        }
         return true;
     }
 

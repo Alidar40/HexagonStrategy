@@ -13,6 +13,11 @@ public class MapLoader : MonoBehaviour
     Camera CameraToSave;
     GameObject mapPrefab;
 
+    private void Awake()
+    {
+        //DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         MapToSave = GameObject.Find("Map").GetComponent<Map>();
@@ -238,7 +243,7 @@ public class MapLoader : MonoBehaviour
     public void ClickOnMenu()
     {
         Save("QuickSave");
-        Destroy(menu);
+        //Destroy(menu);
         Application.LoadLevel("MainMenu");
     }
 }

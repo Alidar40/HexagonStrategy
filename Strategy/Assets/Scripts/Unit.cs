@@ -71,6 +71,15 @@ public class Unit : MonoBehaviour {
             Destroy(gameObject);
             GameObject.Find("Main Camera").GetComponent<ActionButtons>().HideAll();
             _Map.UnitList.Remove(this);
+
+            if (this.Type == UnitType.Construction && this.GetComponentInChildren<Construction>()._ConstructionType == Construction.ConstructionType.TownHall)
+            {
+                if (this.GetComponentInChildren<Construction>() == _Map.PlayerTownHall)
+                {
+                    _Map.PlayerTownHall = null;
+                }
+                _Map.EndGame();
+            }
             
         }
     }

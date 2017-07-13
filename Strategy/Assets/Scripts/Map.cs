@@ -19,7 +19,7 @@ public class Map : MonoBehaviour {
     public Unit ActiveUnit;
     public int Gold=0, Stone=0, Wood=0;
 
-
+    public Construction PlayerTownHall;
 
 
     public bool ActivePlayer;//активен ли игрок
@@ -342,5 +342,12 @@ public class Map : MonoBehaviour {
             return true;
         else
             return false;
+    }
+
+    public void EndGame()
+    {
+        GameObject.Find("Main Camera").GetComponent<ActionButtons>().HideAll();
+        GameObject.Find("Main Camera/GameUICamera/Canvas/EndInfo").active = true;
+
     }
 }
