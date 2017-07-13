@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArtificialIntelligence : MonoBehaviour {
+public class ArtificialIntelligence : MonoBehaviour
+{
 
     public static ArtificialIntelligence artificialIntelligence;
 
@@ -14,28 +15,29 @@ public class ArtificialIntelligence : MonoBehaviour {
 
     public int Gold = 0, Stone = 0, Wood = 0;
 
-    
+
     List<Unit> UnitList;
     Map m;
     Unit u;
     Construction c;
-
+    int TownHallMaxHitpoints = 200;
+    int BarracksMaxHitpoints = 50;
+    int PitMaxHitpoints = 30;
+    int SawmillMaxHitpoints = 30;
     public Unit Town;
-   public int xTown = 0;
-   public int yTown = 0;
+    public int xTown = 0;
+    public int yTown = 0;
     int xBarracks;
     int yBarracks;
 
 
 
-    public void Start ()
+    public void Start()
     {
-      
+
         m = GameObject.Find("Map").GetComponent<Map>();
         UnitList = m.UnitList;
         Gold = 50; Stone = 50; Wood = 50;
-
-
 
     }
     void Update()
@@ -45,8 +47,8 @@ public class ArtificialIntelligence : MonoBehaviour {
             {
                 if ((c.tag == "TownHall") && (c.Fraction == 2))
                 {
-                    xTown = c.CurrentCell.indexX;
-                    yTown = c.CurrentCell.indexY;
+                   GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().xTown= xTown = c.CurrentCell.indexX;
+                   GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().yTown=  yTown = c.CurrentCell.indexY;
                     Town = c;
                 }
             }
@@ -54,60 +56,86 @@ public class ArtificialIntelligence : MonoBehaviour {
 
     public void BasicAlgorithm()
     {
-     if (FindEfficientBuild("Sawmill") < 2)
+        if (!GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack)
+            foreach (Unit c in UnitList)
+            {
+                if ((c.tag == "TownHall") && (c.Fraction == 2) && (c.Hitpoints < TownHallMaxHitpoints))
+                {
+                    GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack = true;
+                    break;
+                }
+                if ((c.tag == "Barracks") && (c.Fraction == 2) && (c.Hitpoints < BarracksMaxHitpoints))
+                {
+                    GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack = true;
+                    break;
+                }
+                if ((c.tag == "Pit") && (c.Fraction == 2) && (c.Hitpoints < PitMaxHitpoints))
+                {
+                    GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack = true;
+                    break;
+                }
+                if ((c.tag == "Sawmill") && (c.Fraction == 2) && (c.Hitpoints < SawmillMaxHitpoints))
+                {
+                    GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack = true;
+                    break;
+                }
+
+            }
+
+
+        if (FindEfficientBuild("Sawmill") < 2)
         {
             BuildSawmill();
         }
 
-        if (FindEfficientBuild("Pit") <3)
+        if (FindEfficientBuild("Pit") < 3)
         {
             BuildPit();
         }
 
-        if (FindEfficientBuild("Barracks")==0)
+        if (FindEfficientBuild("Barracks") == 0)
         {
             BuildBarracks();
         }
-        else if (FindOutHowManySoldiers() <20)
+        else if (FindOutHowManySoldiers() < 20)
         {//заказываем юнитов
             if (FindOutHowManyUnit("Swordsman") < 5)
             {
-                if (Gold >= 10)
+                if (Gold >= 7)
                     OrderUnit("Swordsman", 0, Unit.UnitType.Swordsman, 10);
             }
             else
             if (FindOutHowManyUnit("Archer") < 3)
             {
-                if (Gold >= 20)
+                if (Gold >= 15)
                     OrderUnit("Archer", 1, Unit.UnitType.Archer, 20);
             }
             else if (FindOutHowManyUnit("Killer") < 1)
             {
-                if ((Gold >= 50))
+                if ((Gold >= 40))
                     OrderUnit("Killer", 3, Unit.UnitType.Killer, 50);
             }
             else
             {
-                
-                if ((Gold >= 50))
+                if ((Gold >= 40))
                     OrderUnit("Killer", 3, Unit.UnitType.Killer, 50);
                 else
-            if (Gold >= 20)
+                if (Gold >= 15)
                     OrderUnit("Archer", 1, Unit.UnitType.Archer, 20);
                 else
-            if (Gold >= 10)
+                if (Gold >= 7)
                     OrderUnit("Swordsman", 0, Unit.UnitType.Swordsman, 10);
             }
 
         }
-            
-        if (FindOutHowManySoldiers()>=5)
-           {
-            AttackOn();
-           }
-            
 
-         foreach (Unit c in UnitList)
+        if (FindOutHowManySoldiers() >= 5)
+        {
+            AttackOn();
+        }
+
+
+        foreach (Unit c in UnitList)
         {
             if ((c.tag == "Sawmill") && (c.Fraction == 2))
             {
@@ -136,12 +164,12 @@ public class ArtificialIntelligence : MonoBehaviour {
 
     public int FindEfficientBuild(string tag)//поиск здания
     {
-    
+
         int number = 0;
         //здесь пробегаем по списку строений и по их статусам
         foreach (Unit c in UnitList)
         {
-            if ((c.tag == tag) && (c.Fraction ==2))
+            if ((c.tag == tag) && (c.Fraction == 2))
             {
                 number++;
             }
@@ -154,12 +182,12 @@ public class ArtificialIntelligence : MonoBehaviour {
 
     public int FindOutHowManySoldiers()
     {
-    
+
         int number = 0;
         foreach (Unit u in UnitList)
         {
-            
-            if (((u.tag == "Swordsman")|| (u.tag == "Archer") || (u.tag == "Mage") || (u.tag == "Killer")) && (u.Fraction == 2))
+
+            if (((u.tag == "Swordsman") || (u.tag == "Archer") || (u.tag == "Mage") || (u.tag == "Killer")) && (u.Fraction == 2))
             {
                 number++;
             }
@@ -174,17 +202,17 @@ public class ArtificialIntelligence : MonoBehaviour {
         foreach (Unit u in UnitList)
         {
 
-            if ((u.tag == tag )&&(u.Fraction == 2))
-                {
+            if ((u.tag == tag) && (u.Fraction == 2))
+            {
                 number++;
-                }
+            }
         }
         return number;
     }
 
 
     //----------------так можно чекнуть тип ячейки--------------------------------------------------
-    public bool CheckIndexForType(int X, int Y,Cell.CellType type)
+    public bool CheckIndexForType(int X, int Y, Cell.CellType type)
     {
         if (m.GetCell(X, Y) && m.GetCell(X, Y).Type == type)
             return true;
@@ -216,7 +244,7 @@ public class ArtificialIntelligence : MonoBehaviour {
             w++;
         }
 
-       
+
     }
 
     public void BuildPit()//внутри должна быть функция,которая ищет ячейку рядом с рудой и ближе всего к базе
@@ -241,7 +269,7 @@ public class ArtificialIntelligence : MonoBehaviour {
                     }
             w++;
         }
-       
+
 
 
 
@@ -315,11 +343,11 @@ public class ArtificialIntelligence : MonoBehaviour {
         //        }
         //    }
         //}
-       
-       
+
+
     }
 
-   
+
     public void OrderUnit(string tag, int prefabNumber, Unit.UnitType uType, int Value) //заказ юнита
     {
         int w = 1;
@@ -341,7 +369,7 @@ public class ArtificialIntelligence : MonoBehaviour {
     public bool FindEnemyAroundImportantBuildings()
     {
         bool Assault = false;
-       // Debug.Log("проверяем тревогу");
+        // Debug.Log("проверяем тревогу");
 
 
         //проверяет есть ли противники в зоне видимости важных зданий
@@ -353,11 +381,11 @@ public class ArtificialIntelligence : MonoBehaviour {
 
     public GameObject FindAttackedBuilding()
     {
-        GameObject obj=gameObject;//это чтобы не ругался
-        //бежит по списку строений ии и проверяет статусы
-        //если находит атакованный, то возвращает его
-        //иначе возвращает ратушу
-       return obj;
+        GameObject obj = gameObject;//это чтобы не ругался
+                                    //бежит по списку строений ии и проверяет статусы
+                                    //если находит атакованный, то возвращает его
+                                    //иначе возвращает ратушу
+        return obj;
     }
 
     public void ProtectBuilding(GameObject obj)
@@ -371,9 +399,9 @@ public class ArtificialIntelligence : MonoBehaviour {
     {
         Debug.Log("Выступает на врага");
         GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack = true;
-        
+
     }
-    
+
     public bool ThereAreResourcesForBuilding()
     {
         //Debug.Log("проверяем ресурсы для строительства");
