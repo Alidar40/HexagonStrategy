@@ -220,7 +220,7 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                if ((map.ActiveUnit.CurrentNumberActionPoints > 0)&&(map.Gold>=30) && (map.Wood >= 20) && (map.Stone>= 20))
                 {
 
                     gameCamera.COSevent -= map.callMenu;
@@ -231,7 +231,7 @@ public class Buttons : MonoBehaviour {
                 }
                 break;
             case "Action3":
-                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                if ((map.ActiveUnit.CurrentNumberActionPoints > 0) && (map.Gold >= 20) && (map.Wood >= 30))
                 {
 
                     gameCamera.COSevent -= map.callMenu;
@@ -242,7 +242,7 @@ public class Buttons : MonoBehaviour {
                 }
                 break;
             case "Action4":
-                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                if ((map.ActiveUnit.CurrentNumberActionPoints > 0) && (map.Gold >= 10) && (map.Wood >= 15))
                 {
 
                     gameCamera.COSevent -= map.callMenu;
@@ -264,7 +264,7 @@ public class Buttons : MonoBehaviour {
                 acb.HideAll();
                 break;
             case "Action2":
-                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                if ((map.ActiveUnit.CurrentNumberActionPoints > 0) && (map.Gold >= 5))
                 {
                     gameCamera.COSevent -= map.callMenu;
                     gameCamera.COSevent += SwordsmanSpawn_COSevent;
@@ -274,8 +274,8 @@ public class Buttons : MonoBehaviour {
                 }
                 break;
             case "Action3":
-                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
-                {
+                if ((map.ActiveUnit.CurrentNumberActionPoints > 0) && (map.Gold >= 7))
+                    {
                     gameCamera.COSevent -= map.callMenu;
                     gameCamera.COSevent += ArcherSpawn_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
@@ -284,7 +284,7 @@ public class Buttons : MonoBehaviour {
                 }
                 break;
             case "Action4":
-                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                if ((map.ActiveUnit.CurrentNumberActionPoints > 0) && (map.Gold >= 10))
                 {
                     gameCamera.COSevent -= map.callMenu;
                     gameCamera.COSevent += MageSpawn_COSevent;
@@ -294,7 +294,7 @@ public class Buttons : MonoBehaviour {
                 }
                 break;
             case "Action5":
-                if (map.ActiveUnit.CurrentNumberActionPoints > 0)
+                if ((map.ActiveUnit.CurrentNumberActionPoints > 0) && (map.Gold >= 30))
                 {
                     gameCamera.COSevent -= map.callMenu;
                     gameCamera.COSevent += KillerSpawn_COSevent;

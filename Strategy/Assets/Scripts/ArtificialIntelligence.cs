@@ -72,30 +72,30 @@ public class ArtificialIntelligence : MonoBehaviour {
         {//заказываем юнитов
             if (FindOutHowManyUnit("Swordsman") < 5)
             {
-                if (Gold >= 10)
+                if (Gold >= 7)
                     OrderUnit("Swordsman", 0, Unit.UnitType.Swordsman, 10);
             }
             else
             if (FindOutHowManyUnit("Archer") < 3)
             {
-                if (Gold >= 20)
+                if (Gold >= 15)
                     OrderUnit("Archer", 1, Unit.UnitType.Archer, 20);
             }
             else if (FindOutHowManyUnit("Killer") < 1)
             {
-                if ((Gold >= 50))
+                if ((Gold >= 40))
                     OrderUnit("Killer", 3, Unit.UnitType.Killer, 50);
             }
             else
             {
                 
-                if ((Gold >= 50))
+                if ((Gold >= 40))
                     OrderUnit("Killer", 3, Unit.UnitType.Killer, 50);
                 else
-            if (Gold >= 20)
+            if (Gold >= 15)
                     OrderUnit("Archer", 1, Unit.UnitType.Archer, 20);
                 else
-            if (Gold >= 10)
+            if (Gold >= 7)
                     OrderUnit("Swordsman", 0, Unit.UnitType.Swordsman, 10);
             }
 
