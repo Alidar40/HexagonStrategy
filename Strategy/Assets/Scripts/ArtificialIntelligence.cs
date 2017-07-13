@@ -19,13 +19,10 @@ public class ArtificialIntelligence : MonoBehaviour {
     Map m;
     Unit u;
     Construction c;
-    int TownHallMaxHitpoints = 200;
-    int BarracksMaxHitpoints = 50;
-    int PitMaxHitpoints = 30;
-    int SawmillMaxHitpoints = 30;
+
     public Unit Town;
-    public int xTown = 0;
-    public int yTown = 0;
+   public int xTown = 0;
+   public int yTown = 0;
     int xBarracks;
     int yBarracks;
 
@@ -37,6 +34,8 @@ public class ArtificialIntelligence : MonoBehaviour {
         m = GameObject.Find("Map").GetComponent<Map>();
         UnitList = m.UnitList;
         Gold = 50; Stone = 50; Wood = 50;
+
+
 
     }
     void Update()
@@ -55,34 +54,7 @@ public class ArtificialIntelligence : MonoBehaviour {
 
     public void BasicAlgorithm()
     {
-        if(!GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack)
-        foreach (Unit c in UnitList)
-        {
-                if ((c.tag == "TownHall") && (c.Fraction == 2) && (c.Hitpoints < TownHallMaxHitpoints))
-                {
-                    GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack = true;
-                    break;
-                }
-                if ((c.tag == "Barracks") && (c.Fraction == 2) && (c.Hitpoints < BarracksMaxHitpoints))
-                {
-                    GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack = true;
-                    break;
-                }
-                if ((c.tag == "Pit") && (c.Fraction == 2) && (c.Hitpoints < PitMaxHitpoints))
-                {
-                    GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack = true;
-                    break;
-                }
-                if ((c.tag == "Sawmill") && (c.Fraction == 2) && (c.Hitpoints < SawmillMaxHitpoints))
-                {
-                    GameObject.Find("Map").GetComponent<BattleArtificialIntelligence>().Attack = true;
-                    break;
-                }
-
-        }
-
-
-        if (FindEfficientBuild("Sawmill") < 2)
+     if (FindEfficientBuild("Sawmill") < 2)
         {
             BuildSawmill();
         }
@@ -100,7 +72,6 @@ public class ArtificialIntelligence : MonoBehaviour {
         {//заказываем юнитов
             if (FindOutHowManyUnit("Swordsman") < 5)
             {
-<<<<<<< HEAD
                 if (Gold >= 10)
                     OrderUnit("Swordsman", 0, Unit.UnitType.Swordsman, 10);
             }
@@ -125,31 +96,6 @@ public class ArtificialIntelligence : MonoBehaviour {
                     OrderUnit("Archer", 1, Unit.UnitType.Archer, 20);
                 else
             if (Gold >= 10)
-=======
-                if (Gold >= 7)
-                    OrderUnit("Swordsman", 0, Unit.UnitType.Swordsman, 10);
-            }
-            else
-            if (FindOutHowManyUnit("Archer") < 3)
-            {
-                if (Gold >= 15)
-                    OrderUnit("Archer", 1, Unit.UnitType.Archer, 20);
-            }
-            else if (FindOutHowManyUnit("Killer") < 1)
-            {
-                if ((Gold >= 40))
-                    OrderUnit("Killer", 3, Unit.UnitType.Killer, 50);
-            }
-            else
-            {
-                 if ((Gold >= 40))
-                    OrderUnit("Killer", 3, Unit.UnitType.Killer, 50);
-                else
-                 if (Gold >= 15)
-                    OrderUnit("Archer", 1, Unit.UnitType.Archer, 20);
-                else
-                 if (Gold >= 7)
->>>>>>> 5dab9b106bca04a0f9dfc063084d01c3532e43a4
                     OrderUnit("Swordsman", 0, Unit.UnitType.Swordsman, 10);
             }
 
