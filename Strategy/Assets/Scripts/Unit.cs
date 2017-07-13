@@ -63,7 +63,26 @@ public class Unit : MonoBehaviour {
         }
         CurrentNumberActionPoints = StandardNumberActionPoints;*/
     }
-    
+
+    public void Update()
+    {
+        if (Hitpoints <= 0)
+        {
+            Destroy(gameObject);
+            GameObject.Find("Main Camera").GetComponent<ActionButtons>().HideAll();
+            _Map.UnitList.Remove(this);
+
+            if (this.Type == UnitType.Construction && this.GetComponentInChildren<Construction>()._ConstructionType == Construction.ConstructionType.TownHall)
+            {
+                if (this.GetComponentInChildren<Construction>() == _Map.PlayerTownHall)
+                {
+                    _Map.PlayerTownHall = null;
+                }
+                _Map.EndGame();
+            }
+            
+        }
+    }
 
     public void SetArrayRoute()
     {
@@ -223,7 +242,7 @@ public class Unit : MonoBehaviour {
     }
     public void AttackAnotherUnit(Unit AttackedUnit)
     {
-        AttackedUnit.ToDamage(Damage-AttackedUnit.Armor);
+        AttackedUnit.ToDamage(Damage);
         CurrentNumberActionPoints = 0;
     }
 

@@ -69,16 +69,36 @@ public class ArtificialIntelligence : MonoBehaviour {
             BuildBarracks();
         }
         else if (FindOutHowManySoldiers() <20)
-        {
-            //заказываем юнитов
-            if ((Gold >= 50))
-                    OrderUnit("Killer", 3, Unit.UnitType.Killer, 50);
+        {//заказываем юнитов
+            if (FindOutHowManyUnit("Swordsman") < 5)
+            {
+                if (Gold >= 10)
+                    OrderUnit("Swordsman", 0, Unit.UnitType.Swordsman, 10);
+            }
             else
+            if (FindOutHowManyUnit("Archer") < 3)
+            {
+                if (Gold >= 20)
+                    OrderUnit("Archer", 1, Unit.UnitType.Archer, 20);
+            }
+            else if (FindOutHowManyUnit("Killer") < 1)
+            {
+                if ((Gold >= 50))
+                    OrderUnit("Killer", 3, Unit.UnitType.Killer, 50);
+            }
+            else
+            {
+                
+                if ((Gold >= 50))
+                    OrderUnit("Killer", 3, Unit.UnitType.Killer, 50);
+                else
             if (Gold >= 20)
                     OrderUnit("Archer", 1, Unit.UnitType.Archer, 20);
-            else
+                else
             if (Gold >= 10)
-                    OrderUnit("Sawmill", 0, Unit.UnitType.Swordsman, 10);
+                    OrderUnit("Swordsman", 0, Unit.UnitType.Swordsman, 10);
+            }
+
         }
             
         if (FindOutHowManySoldiers()>=5)
@@ -146,7 +166,23 @@ public class ArtificialIntelligence : MonoBehaviour {
         }
         return number;
     }
-   
+
+    public int FindOutHowManyUnit(string tag)
+    {
+
+        int number = 0;
+        foreach (Unit u in UnitList)
+        {
+
+            if ((u.tag == tag )&&(u.Fraction == 2))
+                {
+                number++;
+                }
+        }
+        return number;
+    }
+
+
     //----------------так можно чекнуть тип ячейки--------------------------------------------------
     public bool CheckIndexForType(int X, int Y,Cell.CellType type)
     {

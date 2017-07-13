@@ -300,7 +300,7 @@ public class Buttons : MonoBehaviour {
                     gameCamera.COSevent += KillerSpawn_COSevent;
                     ActionButtons.actionButtons.ActivateCancelActionButton();
                     map.ActiveUnit.GenerateFieldOpportunities(gameCamera.FieldOpportunitiesAttack, map.ActiveUnit.BuildingRadius);
-                    RDevent += BarracksResourcesDecrease;
+                    RDevent += KillerResourcesDecrease;
                 }
                 break;
         }

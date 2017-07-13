@@ -19,12 +19,14 @@ public class Map : MonoBehaviour {
     public Unit ActiveUnit;
     public int Gold=0, Stone=0, Wood=0;
 
-
+    public Construction PlayerTownHall;
 
 
     public bool ActivePlayer;//активен ли игрок
     public int PlayerFraction;//фракция игрока
 
+
+    public int TurnCounter;
 
     void Awake()
     {
@@ -36,6 +38,7 @@ public class Map : MonoBehaviour {
 
     void Start()
     {
+        TurnCounter = 1;
         PlayerFraction = 1;//тут назначим ему фракцию
         ActivePlayer = true;//и пусть он делает первый ход
         cam.COSevent += callMenu;  //Теперь при использовании функции PointClick()
@@ -127,7 +130,6 @@ public class Map : MonoBehaviour {
         RaycastHit hitInfo = new RaycastHit();
 
 #if UNITY_STANDALONE_WIN
-        
         Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo); 
 #endif
 
@@ -340,5 +342,12 @@ public class Map : MonoBehaviour {
             return true;
         else
             return false;
+    }
+
+    public void EndGame()
+    {
+        GameObject.Find("Main Camera").GetComponent<ActionButtons>().HideAll();
+        GameObject.Find("Main Camera/GameUICamera/Canvas/EndInfo").active = true;
+
     }
 }

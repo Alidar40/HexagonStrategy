@@ -43,10 +43,7 @@ public class Construction : Unit
                 break;
         }
     }
-    void Update()
-    {
 
-    }
 
     public static bool CreateConstruction(GameObject UnitType, ConstructionType type, int _x, int _y, List<Unit> UnitList, int Fraction)
     {
@@ -60,6 +57,10 @@ public class Construction : Unit
         NewUnit.name = "Construction" + _x + "_" + _y;
         NewUnit._ConstructionType = type;
         NewUnit.Fraction = Fraction;
+        if (type == ConstructionType.TownHall && Fraction == map.PlayerFraction)
+        {
+            map.PlayerTownHall = NewUnit;
+        }
         return true;
     }
 
@@ -77,6 +78,10 @@ public class Construction : Unit
         NewUnit.name = UnitName;
         NewUnit._ConstructionType = type;
         NewUnit.Fraction = Fraction;
+        if (type == ConstructionType.TownHall && Fraction == map.PlayerFraction)
+        {
+            map.PlayerTownHall = NewUnit;
+        }
         return true;
     }
 

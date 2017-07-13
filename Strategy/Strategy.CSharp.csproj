@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Buttons.cs" />
     <Compile Include="Assets\Scripts\Cell.cs" />
     <Compile Include="Assets\Scripts\Construction.cs" />
+    <Compile Include="Assets\Scripts\EndInfo.cs" />
     <Compile Include="Assets\Scripts\GameCamera.cs" />
     <Compile Include="Assets\Scripts\GameEvents.cs" />
     <Compile Include="Assets\Scripts\InfoPanel.cs" />
@@ -97,12 +98,15 @@
     <Compile Include="Assets\Scripts\MapLoader.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Resources.cs" />
+    <Compile Include="Assets\Scripts\SelectMap.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\TurnCount.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\Scripts\audio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Roboto\LICENSE.txt" />
+    <None Include="Assets\StreamingAssets\Map\Map_1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
