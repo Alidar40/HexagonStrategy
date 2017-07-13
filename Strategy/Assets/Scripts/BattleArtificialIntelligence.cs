@@ -13,37 +13,34 @@ public class BattleArtificialIntelligence : MonoBehaviour
 
     public bool Attack = false;
     public bool Deff = false;
-    int xTown;
-    int yTown;
+    public int xTown;
+    public int yTown;
     int xBarracks;
     int yBarracks;
-    
+
     void Start()
     {
         m = GameObject.Find("Map").GetComponent<Map>();
         UnitList = m.UnitList;
         battleArtificialIntelligence = GetComponent<BattleArtificialIntelligence>();
-        xTown = GameObject.Find("Map").GetComponent<ArtificialIntelligence>().xTown;
-        yTown = GameObject.Find("Map").GetComponent<ArtificialIntelligence>().yTown;
 
-      
     }
 
-   
+
     void Update()
     {
-
+       
     }
 
     public void BasicAlgorithm()
     {
         if (Attack)
-        GoToEnemy();
+            GoToEnemy();
     }
 
     public Unit FindEnemy()
     {
-  
+
         for (int k = 1; k < m.NumberOfCellsOnAxisX; k++)
         {
             for (int i = xTown - k + 1; i <= xTown + k; i++)
@@ -51,11 +48,10 @@ public class BattleArtificialIntelligence : MonoBehaviour
                 if (m.GetCell(i, yTown + k))
                 {
                     if (m.GetCell(i, yTown + k).LocatedHereUnit)
-                       if (m.GetCell(i, yTown + k).LocatedHereUnit.Fraction == 1)
+                        if (m.GetCell(i, yTown + k).LocatedHereUnit.Fraction == 1)
                         {
                             return (m.GetCell(i, yTown + k).LocatedHereUnit);
                         }
-                    
                 }
             }
             for (int j = yTown + k; j >= yTown - k; j--)
@@ -64,10 +60,10 @@ public class BattleArtificialIntelligence : MonoBehaviour
                 {
 
                     if (m.GetCell(xTown + k, j).LocatedHereUnit)
-                       if (m.GetCell(xTown + k, j).LocatedHereUnit.Fraction == 1)
-                    {
-                        return (m.GetCell(xTown + k, j).LocatedHereUnit);
-                    }
+                        if (m.GetCell(xTown + k, j).LocatedHereUnit.Fraction == 1)
+                        {
+                            return (m.GetCell(xTown + k, j).LocatedHereUnit);
+                        }
                 }
             }
             for (int i = xTown + k - 1; i >= xTown - k; i--)
@@ -76,10 +72,10 @@ public class BattleArtificialIntelligence : MonoBehaviour
                 {
 
                     if (m.GetCell(i, yTown - k).LocatedHereUnit)
-                    if (m.GetCell(i, yTown - k).LocatedHereUnit.Fraction == 1)
-                    {
-                        return (m.GetCell(i, yTown - k).LocatedHereUnit);
-                    }
+                        if (m.GetCell(i, yTown - k).LocatedHereUnit.Fraction == 1)
+                        {
+                            return (m.GetCell(i, yTown - k).LocatedHereUnit);
+                        }
                 }
             }
             for (int j = yTown - k + 1; j <= yTown + k; j++)
@@ -88,28 +84,24 @@ public class BattleArtificialIntelligence : MonoBehaviour
                 {
 
                     if (m.GetCell(xTown - k, j).LocatedHereUnit)
-                    if (m.GetCell(xTown - k, j).LocatedHereUnit.Fraction == 1)
-                    {
-                        return (m.GetCell(xTown - k, j).LocatedHereUnit);
-                    }
+                        if (m.GetCell(xTown - k, j).LocatedHereUnit.Fraction == 1)
+                        {
+                            return (m.GetCell(xTown - k, j).LocatedHereUnit);
+                        }
                 }
             }
         }
-        
-        return (m.GetCell(xTown , yTown).LocatedHereUnit);
+
+        return (m.GetCell(xTown, yTown).LocatedHereUnit);
 
     }
 
     public void GoToEnemy()
     {
-      
-   
         foreach (Unit u in UnitList)
         {
             if (((u.tag == "Swordsman") || (u.tag == "Archer") || (u.tag == "Mage") || (u.tag == "Killer")) && (u.Fraction == 2))
             {
-
-
                 u.DestinationCell = FindEnemy().CurrentCell;
                 if (m.DistanceToCell(u.CurrentCell, u.DestinationCell, u.AttackRadius) <= u.AttackRadius)
                 {
@@ -120,8 +112,8 @@ public class BattleArtificialIntelligence : MonoBehaviour
                     u.SetArrayRoute();
                     u.GetDerections(u.DestinationCell);
                     u.StartTransform();
-                 }
-                
+                }
+
             }
         }
     }
