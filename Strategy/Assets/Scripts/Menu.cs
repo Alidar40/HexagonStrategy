@@ -20,6 +20,12 @@ public class Menu : MonoBehaviour
         Application.LoadLevel("SelectMap");
         _State = State.NewGame;
     }
+    public void Fast()
+    {
+        PlayerPrefs.SetInt("SelectMap", 2);
+        Application.LoadLevel("TestScen");
+        _State = State.NewGame;
+    }
 
     public void LoadGame()
     {
