@@ -19,7 +19,7 @@ public class ArtificialIntelligence : MonoBehaviour {
     Map m;
     Unit u;
     Construction c;
-
+   int TownHallMaxHitpoints = 200;
     public Unit Town;
    public int xTown = 0;
    public int yTown = 0;
@@ -50,6 +50,8 @@ public class ArtificialIntelligence : MonoBehaviour {
                     Town = c;
                 }
             }
+        else if (Town.Hitpoints < 200)
+            AttackOn();
     }
 
     public void BasicAlgorithm()
