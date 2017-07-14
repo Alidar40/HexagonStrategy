@@ -175,13 +175,15 @@ public class Unit : MonoBehaviour {
             wave++;
         }
     }
+
     bool CheckIndex(int X, int Y)
     {
-        if (X >= 0 && Y >= 0 && Route.Length > X && Route[X].Length > Y && !_Map.GetCell(X, Y).LocatedHereUnit)
+        if (X >= 0 && Y >= 0 && Route.Length > X && Route[X].Length > Y && !_Map.GetCell(X, Y).LocatedHereUnit && _Map.GetCell(X, Y).Type == Cell.CellType.Grass)
             return true;
         else
             return false;
     }
+
     bool CheckWavePropagation(int wave)
     {
         bool flag = false;
