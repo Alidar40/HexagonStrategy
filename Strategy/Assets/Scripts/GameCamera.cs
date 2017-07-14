@@ -67,7 +67,7 @@ public class GameCamera : MonoBehaviour {
             if (Input.GetTouch(0).phase == TouchPhase.Moved)
             {
                 newPosition = (Input.GetTouch(0).position);
-                touchDeltaPosition = (lastPosition - newPosition) * cameraSpeed;
+                touchDeltaPosition = (lastPosition - newPosition) * cameraSpeed * 0.2f;
 
                 if ((c.transform.position.x + touchDeltaPosition.x <= URCell.x || touchDeltaPosition.x < 0) &&
                     (c.transform.position.x + touchDeltaPosition.x >= LLCell.x || touchDeltaPosition.x > 0))
