@@ -455,7 +455,7 @@ public class Unit : MonoBehaviour {
             CellInfoArray = _Map.GetMatrixOfFreeCells(CurrentCell.indexX, CurrentCell.indexY, 3);
 
             if (CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 9999 && CellInfoArray[newUnitCell.indexX][newUnitCell.indexY] != 0 
-                && !newUnitCell.LocatedHereUnit)
+                && !newUnitCell.LocatedHereUnit && CheckPossibilityOfSpawningUnit(newUnitCell.Type))
             {
                 CreateUnit(UnitPrefab, type, newUnitCell.indexX, newUnitCell.indexY, UnitList, GameObject.Find("Map").GetComponent<Map>().ActiveUnit.Fraction);
                 CurrentCell.LocatedHereUnit.CurrentNumberActionPoints = 0;
@@ -478,6 +478,12 @@ public class Unit : MonoBehaviour {
         if (TypeConstruction.ToString() == "Pit" && TypeCell.ToString() != "Mountain")
             return false;
         if (TypeConstruction.ToString() == "Barracks" && TypeCell.ToString() != "Grass")
+            return false;
+        return true;
+    }
+    public static bool CheckPossibilityOfSpawningUnit(Cell.CellType TypeCell)
+    {
+        if (TypeCell == Cell.CellType.Forest || TypeCell == Cell.CellType.Mountain || TypeCell == Cell.CellType.Water)
             return false;
         return true;
     }
